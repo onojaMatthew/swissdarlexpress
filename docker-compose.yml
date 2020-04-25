@@ -1,0 +1,44 @@
+version: '2'
+services:
+  database:
+    image: "mongo"
+    container_name: "database"
+    env_file: 
+      - ./webapi/.mongo.env
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - /private/var:/data/db
+    ports:
+      - "27017-27019:27017-27019"
+  nginx:
+      restart: always
+      build:
+        dockerfile: Dockerfile.dev
+        context: ./nginx
+      ports:
+        - "3020:80"
+  webclient:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./webclient
+    env_file:
+      - ./webclient/.env
+    volumes:
+      - /app/node_modules
+      - ./webclient:/app
+  webapi:
+    build:
+      context: ./webapi
+      dockerfile: Dockerfile.dev
+    env_file:
+      - ./webapi/.env
+    volumes:
+      - /app/node_modules
+      - ./webapi:/app
+    command: ["npm", "run", "dev"]
+
+# export DOCKER_CLIENT_TIMEOUT=120
+# export COMPOSE_HTTP_TIMEOUT=120    
+# node node_modules/madge/bin/cli.js --warning --circular --extensions js ./      for circular dependencies
+# SKIP_PREFLIGHT_CHECK=true
+# https://dev.to/itswadesh/steps-to-configure-vultr-for-nodejs-deployment-4fo7 vultr hosting
