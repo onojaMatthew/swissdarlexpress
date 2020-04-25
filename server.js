@@ -14,7 +14,8 @@ const {
   PORT,
 } = process.env;
 
-const port = PORT || 4200
+const port = PORT || 4200;
+const hostname = "140.82.13.10";
 //===========================================================================
 // Instantiating the express application
 const app = express();
@@ -104,8 +105,8 @@ io.on("connection", socket => {
 
 //=============================================================================
 // Starting the server and listening on a port address
-server.listen(port, () => {
-  winston.info(`🚀 Server ready at http://localhost:${ port }`);
+server.listen(port, hostname, () => {
+  winston.info(`🚀 Server ready at http://${hostname}:${ port }`);
 });
 
 // https://github.com/pramodramdas/heroku_multi_dockers for travis ci/cd deployment using nginx and docker
