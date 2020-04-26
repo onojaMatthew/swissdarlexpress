@@ -101,7 +101,7 @@ exports.create = (req, res, next) => {
         <p><strong>Amount:</strong> ${quote.amount}</p>
         <p><strong>Tracking Number:</strong> ${quote.trackingNumber}</p>
       `
-      mailer(name, quote.email, subject, message);
+      mailer(name, "ecommerce@swissdarl.com", subject, message);
     })
     .catch(err => {
       res.status(400).json({ error: err.message });

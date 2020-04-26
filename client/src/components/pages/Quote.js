@@ -74,8 +74,6 @@ const Quote = () => {
     setCount(count + 1);
   }
   
-  console.log(unit, " this is the unit");
-
   const decreaseCount = () => {
     setCount(count - 1);
     setCardOption(false);
@@ -220,7 +218,14 @@ const Quote = () => {
         </svg>
       </section>
       {/* {} */}
-      <Row className="justify-content-center">
+      <Row className="justify-content-center" style={{
+        display: navigator.userAgent.match(/Android/i) ? "none" : 
+        navigator.userAgent.match(/webOS/i) ? "none" : 
+        navigator.userAgent.match(/iPhone/i) ? "none" : 
+        navigator.userAgent.match(/iPad/i) ? "none" : 
+        navigator.userAgent.match(/BlackBerry/i) ? "none" :
+        navigator.userAgent.match(/Windows Phone/i) ? "none" : "block"
+      }}>
         <Col xs="10" xl="9">
           <Steps current={count} size="small">
             <Step title={count === 0 ? "In Progess" : "Finished"} description="Company Information" />

@@ -7,7 +7,6 @@ const {
   deleteQuote,
   updateQuote
 } = require("../controllers/quote");
-const { quoteValidationRules, validate} = require("../middlware/validator");
 
 const router = express.Router();
 

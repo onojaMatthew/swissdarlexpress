@@ -7,4 +7,3 @@ module.exports = (app) => {
   app.use("/v1", userRoutes);
   app.use(error);
 }
-

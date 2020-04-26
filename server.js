@@ -15,7 +15,7 @@ const {
 } = process.env;
 
 const port = PORT || 4200;
-const hostname = "140.82.13.10";
+const hostname = NODE_ENV === "development" ? "localhost" : "140.82.13.10";
 //===========================================================================
 // Instantiating the express application
 const app = express();
@@ -46,15 +46,15 @@ app.use( ( req, res, next ) => {
   next();
 } );
 require("./middlware/prod")(app);
+
+//=============================================================================
+// Custom route configuration
+require("./middlware/routes")(app);
 //=============================================================================
 // Serving client files during production
 app.get( '/*', ( req, res ) => {
   res.sendFile( path.join( __dirname + '/client/build/index.html' ) );
 } );
-
-//=============================================================================
-// Custom route configuration
-require("./middlware/routes")(app);
 
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {

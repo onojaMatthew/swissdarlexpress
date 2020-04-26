@@ -72,6 +72,7 @@ exports.getUser = (req, res) => {
 exports.getAllUsers = (req, res) => {
   User.find({})
     .then(users => {
+      console.log(users, " users")
       if (!users) return res.status(400).json({ error: "No records found." });
       res.json(users);
     })

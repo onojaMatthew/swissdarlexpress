@@ -26,8 +26,6 @@ export const ASSIGN_ROLE_START = "ASSIGN_ROLE_START";
 export const ASSIGN_ROLE_SUCCESS = "ASSIGN_ROLE_SUCCESS";
 export const ASSIGN_ROLE_FAILED = "ASSIGN_ROLE_FAILED";
 
-const BASE_URL = process.env.REACT_APP_API_URL;
- 
 /**
  * Handles account logout
  */
@@ -61,9 +59,9 @@ export const logout = () => {
         "Content-Type": "application/json"
       }
     } )
-      .then( response => response.json() )
+      .then( response => response.text() )
       .then( resp => {
-        dispatch( logoutSuccess( resp ) );
+        dispatch( logoutSuccess( JSON.parse(resp) ) );
       } )
       .catch( err => {
         dispatch( logoutFailed( err.message ) );

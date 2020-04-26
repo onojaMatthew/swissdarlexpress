@@ -16,8 +16,6 @@ export const SHIPMENT_DELETE_START = "SHIPMENT_DELETE-START";
 export const SHIPMENT_DELETE_SUCCESS = "SHIPMENT_DELETE_SUCCESS";
 export const SHIPMENT_DELETE_FAILED = "SHIPMENT_DELETE_FAILED";
 
-const BASE_URL = process.env.REACT_APP_API_URL;
-
 export const createStart = () => {
   return {
     type: CREATE_QUOTE_START
@@ -49,7 +47,7 @@ export const requestShipment = (data) => {
       },
       body: JSON.stringify(data)
     })
-      .then(Response => Response.json())
+      .then(response => response.json())
       .then(resp => {
         if (resp.error) return dispatch(createFailed(resp.error));
         dispatch(createSuccess(resp));
