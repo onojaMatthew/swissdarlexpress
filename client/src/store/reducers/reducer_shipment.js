@@ -14,6 +14,9 @@ import {
   SHIPMENT_DELETE_START,
   SHIPMENT_DELETE_SUCCESS,
   SHIPMENT_DELETE_FAILED,
+  VIEW_START,
+  VIEW_SUCCESS,
+  VIEW_FAILED
 } from "../actions/action_shipment";
 
 const initialState = {
@@ -27,6 +30,8 @@ const initialState = {
   deliverSuccess: false,
   deleteLoading: false,
   deleteSuccess: false,
+  viewLoading: false,
+  viewSuccess: false,
   error: ""
 }
 
@@ -126,6 +131,25 @@ export const shipment = (state=initialState, action) => {
         ...state,
         deleteLoading: false,
         deleteSuccess: false,
+        error: action.error
+      }
+    case VIEW_START:
+      return {
+        ...state,
+        viewLoading: true,
+      }
+    case VIEW_SUCCESS:
+      return {
+        ...state,
+        viewLoading: false,
+        viewSuccess: true,
+        shipment: action.data,
+      }
+    case VIEW_FAILED:
+      return {
+        ...state,
+        viewLoading: true,
+        viewSuccess: false,
         error: action.error
       }
     default:

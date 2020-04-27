@@ -121,6 +121,20 @@ exports.getQuote = (req, res) => {
     });
 }
 
+exports.hasView = (req, res) => {
+  const { shippingId } = req.params;
+
+  if (!shippingId) return res.status(400).json({ error: "Invalid parameter values" });
+  Quote.findByIdAndUpdate({ _id: shippingId }, { $set: { isView: true }}, { new: true })
+    .then(result => {
+      if (!result) return res.status(400).json({ error: "No shipment found" });
+      res.json(result);
+    })
+    .catch(err => {
+      res.status(400).json({ error: err.message });
+    });
+}
+
 exports.getAllQuotes = (req, res) => {
   Quote.find({})
     .then(quotes => {

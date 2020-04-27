@@ -15,6 +15,9 @@ export const SHIPMENT_DELIVERED_FAILED = "SHIPMENT_DELIVERED_FAILED";
 export const SHIPMENT_DELETE_START = "SHIPMENT_DELETE-START";
 export const SHIPMENT_DELETE_SUCCESS = "SHIPMENT_DELETE_SUCCESS";
 export const SHIPMENT_DELETE_FAILED = "SHIPMENT_DELETE_FAILED";
+export const VIEW_START = "VIEW_START";
+export const VIEW_SUCCESS = "VIEW_SUCCESS";
+export const VIEW_FAILED = "VIEW_FAILED";
 
 export const createStart = () => {
   return {
@@ -100,6 +103,47 @@ export const getShipment = (quoteId) => {
   }
 }
 
+export const viewStart = () => {
+  return {
+    type: VIEW_START
+  }
+}
+
+export const viewSuccess = (data) => {
+  return {
+    type: VIEW_SUCCESS,
+    data
+  }
+}
+
+export const viewFailed = (error) => {
+  return {
+    type: VIEW_FAILED,
+    error
+  }
+}
+
+export const view = (shippingId) => {
+  return dispatch => {
+    dispatch(viewStart());
+    fetch(`/v1/quote/${shippingId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        ACCEPT: "application/json",
+        "x-auth-token": localAuth().token
+      }
+    })
+      .then(response => response.json())
+      .then(resp => {
+        if (resp.error) return dispatch(viewFailed(resp.error));
+        dispatch(viewSuccess(resp));
+      })
+      .catch(err => {
+        dispatch(viewFailed(`${err.message}`));
+      });
+  }
+}
 export const getShipmentsStart = () => {
   return {
     type: GET_SHIPMENTS_START

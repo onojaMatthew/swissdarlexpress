@@ -18,6 +18,7 @@ const quoteSchema = new Schema({
   destinationZip: { type: String, require: true },
   packageInfo: { type: String, required: true },
   weight: { type: String, required: true },
+  isView: { type: Boolean, default: false },
   dimension: { type: String, required: true },
   specialInstruction: { type: String, required: true },
   numOfPieces: { type: String, required: true },
