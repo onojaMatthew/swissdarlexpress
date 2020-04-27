@@ -218,7 +218,8 @@ const Quote = () => {
         </svg>
       </section>
       {/* {} */}
-      <Row className="justify-content-center" style={{
+      <Row className="justify-content-center">
+        <Col xs="10" xl="9" style={{
         display: navigator.userAgent.match(/Android/i) ? "none" : 
         navigator.userAgent.match(/webOS/i) ? "none" : 
         navigator.userAgent.match(/iPhone/i) ? "none" : 
@@ -226,7 +227,6 @@ const Quote = () => {
         navigator.userAgent.match(/BlackBerry/i) ? "none" :
         navigator.userAgent.match(/Windows Phone/i) ? "none" : "block"
       }}>
-        <Col xs="10" xl="9">
           <Steps current={count} size="small">
             <Step title={count === 0 ? "In Progess" : "Finished"} description="Company Information" />
             <Step title={count < 1 ? "Waiting" : count === 1 ? "In Progress" : "Finished"}  description="Pick-up and Delivery Information." />
