@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getShipment, shipmentDelivered } from "../../store/actions/action_shipment";
+import { getShipment, shipmentDelivered, view } from "../../store/actions/action_shipment";
 import { Row, Col, Card, CardBody } from "reactstrap";
 import { Spin, Input, Divider, Button } from "antd"
 
@@ -14,6 +14,10 @@ const ShipmentDetails = () => {
   useEffect(() => {
     dispatch(getShipment(shipmentId));
   }, [ dispatch, shipmentId ]);
+
+  useEffect(() => {
+    dispatch(view(shipmentId));
+  }, [ dispatch ]);
 
   const completeDelivery = (e) => {
     e.preventDefault();

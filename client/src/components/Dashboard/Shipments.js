@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getShipments, shipmentDelete } from "../../store/actions/action_shipment";
-import { Table, Row, Col, Card, CardBody } from 'reactstrap';
-import { message, Spin, Badge } from "antd";
+import { Table, Row, Col, Card, CardBody, Badge } from 'reactstrap';
+import { message, Spin,  } from "antd";
 import { Link } from "react-router-dom";
 import Paginations from "../pages/Pagination";
 import { DeleteOutlined } from "@ant-design/icons";
@@ -89,7 +89,7 @@ const Shipments = (props) => {
                       <td style={{ fontSize: 10 }}>{data.trackingNumber}</td>
                       <td style={{ fontSize: 10 }}>{data.delivered === false ? "Pending" : "Delivered"}</td>
                       <td style={{ fontSize: 10 }}>
-                        <span>{data.isView === false ? <Badge color="green">New</Badge> : null}</span> <Link to={`${props.match.url}/${data._id}`}>View</Link> 
+                        <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <Link to={`${props.match.url}/${data._id}`}>View</Link> 
                       </td>
                       <td>
                         {userRole === "super_admin" ? (

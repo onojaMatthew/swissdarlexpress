@@ -126,7 +126,7 @@ export const viewFailed = (error) => {
 export const view = (shippingId) => {
   return dispatch => {
     dispatch(viewStart());
-    fetch(`/v1/quote/${shippingId}`, {
+    fetch(`/v1/quote/view/${shippingId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -138,6 +138,9 @@ export const view = (shippingId) => {
       .then(resp => {
         if (resp.error) return dispatch(viewFailed(resp.error));
         dispatch(viewSuccess(resp));
+      })
+      .then(() => {
+        dispatch(getShipment(shippingId));
       })
       .catch(err => {
         dispatch(viewFailed(`${err.message}`));
