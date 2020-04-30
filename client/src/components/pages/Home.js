@@ -77,19 +77,7 @@ const Home = (props) => {
                 </p>
               </Col>
               
-              {/* <Col xs="12" xl="6" className="home-sideimg">
-              <img 
-                  src={Graphic5} 
-                  alt=""
-                  style={navigator.userAgent.match(/Android/i) ? styles.img : 
-                    navigator.userAgent.match(/webOS/i) ? styles.img : 
-                    navigator.userAgent.match(/iPhone/i) ? styles.img : 
-                    navigator.userAgent.match(/iPad/i) ? styles.img : 
-                    navigator.userAgent.match(/BlackBerry/i) ? styles.img :
-                    navigator.userAgent.match(/Windows Phone/i) ? styles.img :
-                    { maxWidth: "100%" }}
-                />
-              </Col> */}
+             
             </Row>
           </div>
           
