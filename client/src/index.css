@@ -68,6 +68,17 @@ section p {
   left: 300px;
 }
 
+.quote-btn {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  background: rgb(9, 7, 36);
+  padding: 10px;
+  font-size: 19px;
+  color: #fff;
+  width: 100%;
+  border-radius: 25px;
+}
+
 @media only screen and (max-width: 480px) {
   .wave-container {
     position: relative;
@@ -83,6 +94,9 @@ section p {
     display: none !important;
   }
 
+  .steps {
+    display: none;
+  }
   .home-text h1 {
     font-size: 34px !important;
     margin-top: 140px !important;
@@ -130,6 +144,17 @@ section p {
     padding-top: 200px !important;
     background-attachment: fixed;
     background-size: cover;
+  }
+
+  .quote-btn {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background: rgb(9, 7, 36);
+    padding: 5px;
+    font-size: 13px;
+    color: #fff;
+    width: 100%;
+    border-radius: 25px;
   }
 }
 

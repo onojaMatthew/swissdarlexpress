@@ -51,6 +51,7 @@ const Quote = () => {
   const [ message, setMessage ] = useState("");
   const [modal, setModal] = useState(false);
   const [ modal1, setModal1 ] = useState(false);
+  const [ successMsg, setSuccessMsg ] = useState("");
   const units = [ "Kg", "Ton" ];
   const toggle = () => setModal(!modal);
   const toggle1 = () => setModal1(!modal1);
@@ -80,6 +81,18 @@ const Quote = () => {
     setDeliveryOption(false);
   }
 
+  useEffect(() => {
+    if (shipment.createSuccess === true) {
+      setSuccessMsg("");
+      console.log(shipment, " shipment result after success");
+    }
+  }, [ shipment ]);
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      setErrorMsg(errors);
+    }
+  }, [ errors ]);
 
   useEffect(() => {
     setAmount(shipmentTotal(numOfPieces, weight, unit));
@@ -219,14 +232,7 @@ const Quote = () => {
       </section>
       {/* {} */}
       <Row className="justify-content-center">
-        <Col xs="10" xl="9" style={{
-        display: navigator.userAgent.match(/Android/i) ? "none" : 
-        navigator.userAgent.match(/webOS/i) ? "none" : 
-        navigator.userAgent.match(/iPhone/i) ? "none" : 
-        navigator.userAgent.match(/iPad/i) ? "none" : 
-        navigator.userAgent.match(/BlackBerry/i) ? "none" :
-        navigator.userAgent.match(/Windows Phone/i) ? "none" : "block"
-      }}>
+        <Col xs="10" xl="9" className="steps">
           <Steps current={count} size="small">
             <Step title={count === 0 ? "In Progess" : "Finished"} description="Company Information" />
             <Step title={count < 1 ? "Waiting" : count === 1 ? "In Progress" : "Finished"}  description="Pick-up and Delivery Information." />
@@ -343,7 +349,7 @@ const Quote = () => {
                     <Modal isOpen={modal1} toggle1={toggle1}>
                       <ModalHeader toggle={toggle}>Modal title</ModalHeader>
                       <ModalBody>
-                        <p>You will be charged <strong>&#8358;{amount}</strong> from your card as your shipping cost. Click OK to continue or CANCEL to abort request. </p>
+                        {errorMsg.length ? <p>{errorMsg}</p> : <p>You will be charged <strong>&#8358;{amount}</strong> from your card as your shipping cost. Click OK to continue or CANCEL to abort request. </p>}
                       </ModalBody>
                       <ModalFooter>
                         <Ravepay 
@@ -362,9 +368,7 @@ const Quote = () => {
                     <Modal isOpen={modal} toggle={toggle}>
                       <ModalHeader toggle={toggle}>Modal title</ModalHeader>
                       <ModalBody>
-                        <p>
-                          You will be charged <strong>&#8358;{amount}</strong> from your card as your shipping cost. Click OK to continue or CANCEL to abort request.
-                        </p>
+                      {errorMsg.length ? <p>{errorMsg}</p> : <p>You will be charged <strong>&#8358;{amount}</strong> at the point of delivery as shipping cost.</p>}
                       </ModalBody>
                       <ModalFooter>
                         <Button color="primary" onClick={() => handleSubmit(false)}>Send Request</Button>{' '}

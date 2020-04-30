@@ -2,44 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Col, Row, Container } from "reactstrap"
 import HomeCarousel from "./Carousel";
-// import Graphic5 from ""
 import Header from "./Header";
 import Footer from "./Footer";
 
-const styles = {
-  mobile: {
-    marginTop: 40,
-    marginBottom: 40,
-    background: "rgb(9, 7, 36)",
-    padding: 5,
-    fontSize: 13,
-    color: "#fff",
-    width: "100%",
-    borderRadius: 25
-  },
-  desktop: {
-    marginTop: 40,
-    marginBottom: 40,
-    background: "rgb(9, 7, 36)",
-    padding: 10,
-    fontSize: 19,
-    color: "#fff",
-    width: "100%",
-    borderRadius: 25
-  },
-  img: {
-    marginTop: -170,
-    maxWidth: "100%"
-  },
-  hww: {
-    color: "#000",
-    fontSize: 20,
-    textAlign: "justify",
-    lineHeight: 2,
-    marginTop: -50
-  }
-}
-const Home = (props) => {
+const Home = () => {
   return(
     <div className="home">
       <Header />
@@ -76,27 +42,16 @@ const Home = (props) => {
                   At Darlstone Logistics, we are committed to providing smart and effective Logistics Solutions for every business. With timed deliveries that offer complete flexibility.
                 </p>
               </Col>
-              
-             
             </Row>
           </div>
           
           <Row className="justify-content-center btn-cont">
             <Col xs="5" xl="3" style={{ minHeight: 250 }}>
-              <Button className="quote-btn" style={
-                navigator.userAgent.match(/Android/i) ? styles.mobile : 
-                navigator.userAgent.match(/webOS/i) ? styles.mobile : 
-                navigator.userAgent.match(/iPhone/i) ? styles.mobile : 
-                navigator.userAgent.match(/iPad/i) ? styles.mobile : 
-                navigator.userAgent.match(/BlackBerry/i) ? styles.mobile :
-                navigator.userAgent.match(/Windows Phone/i) ? styles.mobile :
-                styles.desktop}
-              >
+              <Button className="quote-btn">
                 <Link style={{ color: "#fff" }} to="/request">Request a Quote</Link>  
               </Button>
             </Col>
           </Row>
-        {/* </Container> */}
       </section>
       <Footer />
     </div>
