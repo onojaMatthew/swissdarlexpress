@@ -252,10 +252,10 @@ const Quote = () => {
           </svg>
         </section>
       </div>
-      <Row className="justify-content-center mb-5">
+      <Row className="justify-content-center mb-2">
         <Col xs="11" xl="8">
           <h3 className="text-center">REQUEST A QUOTE HERE</h3>
-          <p>Enjoy affordable shipping rates on all your deliveries when you choose Swissdarl Express Logistics. We offer exceptional service at unbeatable prices. To request a quote, please fill out the form below and a team member will contact you. Please note that quotes requested after 5:00 p.m. GMT will be responded to the next business day. If you need immediate assistance please call +234-906-2011-107 (8:00 am - 5:00 pm) and we’ll be happy to help you.</p>
+          <p className="text-center">Enjoy affordable shipping rates on all your deliveries when you choose Swissdarl Express Logistics. We offer exceptional service at unbeatable prices. To request a quote, please fill out the form below and a team member will contact you. Please note that quotes requested after 5:00 p.m. GMT will be responded to the next business day. If you need immediate assistance please call +234-906-2011-107 (8:00 am - 5:00 pm) and we’ll be happy to help you.</p>
         </Col>
       </Row>
       <Row className="justify-content-center">

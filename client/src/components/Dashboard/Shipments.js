@@ -48,7 +48,6 @@ const Shipments = (props) => {
   return (
     <div>
       <Row className="justify-content-center">
-        
         <Col xs="10" xl="11">
           <Card style={{ minHeight: 450 }}>
             <CardBody>

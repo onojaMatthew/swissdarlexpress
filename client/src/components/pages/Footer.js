@@ -36,13 +36,7 @@ const Footer = () => {
       <Container>
         <Row>
           <Col xs="5" xl="10"></Col>
-          <Col xs="7" xl="2">
-            <FacebookOutlined style={styles.icon} /> 
-            <InstagramOutlined style={styles.icon} />
-            <TwitterOutlined style={styles.icon} /> 
-            <LinkedinOutlined style={styles.icon} /> 
-            
-          </Col>
+          <Col xs="7" xl="2"></Col>
         </Row>
         <Divider />
         <Row>

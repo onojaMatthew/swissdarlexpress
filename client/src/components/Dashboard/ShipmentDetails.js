@@ -28,7 +28,7 @@ const ShipmentDetails = () => {
   return (
     <div>
       <Row className="justify-content-center">
-        <Col xl="11">
+        <Col xs="11" xl="11">
         <Card style={{ minHeight: 450 }}>
         <CardBody>
           {shipment.getLoading === true ? (

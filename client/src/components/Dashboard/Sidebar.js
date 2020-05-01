@@ -19,10 +19,6 @@ const SideBar =({ collapsed, onCollapse }) => {
             <span><Link to="/dashboard" style={{ color: "#fff"}}>Dashboard</Link></span>
           </Menu.Item>
           <Menu.Item key="2">
-            <CarOutlined />
-            <span><Link style={{ color: "#fff" }} to="/dashboard">Shipments</Link></span>
-          </Menu.Item>
-          <Menu.Item key="3">
             <UserOutlined />
             <span><Link style={{ color: "#fff" }} to="/dashboard/users">Users</Link></span>
           </Menu.Item>
