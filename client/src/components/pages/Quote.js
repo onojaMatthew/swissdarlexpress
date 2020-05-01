@@ -88,9 +88,9 @@ const Quote = () => {
       }, 1000);
       return timeleft;
     }
-    
+
     if (shipment.createSuccess === true) {
-      setMessage(`Request success!! Your shipping tracking number is: ${shipment.shipments[0].trackingNumber}. You have ${timer()} time left to copy it. Keep it safe`);
+      setMessage(`Request success!! Your shipping tracking number is: ${shipment.shipments[0].trackingNumber}. You have ${timer()} time left to copy it. Keep it safe the Tracking number safe. Thank you for choosing Swissdarl Express.`);
     }
   }, [ shipment ]);
 
@@ -344,8 +344,6 @@ const Quote = () => {
             </Row>
           ) : deliveryOption === true ? (
             <>
-              {errorMsg.length > 0  ? <p style={{ color: "#ff0000", textAlign: "center" }}>{errorMsg}</p> : null}
-              {message.length > 0  ? <p style={{ color: "#00ff00", textAlign: "center" }}>{message}</p> : null}
               <Row className="justify-content-center">
                 <Col xs="3" xl="3">
                 <Button 
@@ -374,7 +372,8 @@ const Quote = () => {
                           color: "#ff0000"
                         }}>{errorMsg}</p> : shipment.createSuccess === true ? 
                         <p style={{
-                          marginTop: 20
+                          marginTop: 20,
+                          color: "#00ff00"
                         }}>{message}</p> :
                         <p style={{
                           marginTop: 20
@@ -385,17 +384,14 @@ const Quote = () => {
                         
                       </ModalBody>
                       <ModalFooter>
-                        {shipment.createLoading === true ? 
-                          <Spin tip="Processing..." /> : (
-                            <Ravepay 
-                              amount={amount} 
-                              disabled={errorMsg.length > 0}
-                              email={email} 
-                              name={companyName}
-                              handleSubmit={handleSubmit}
-                              phone={phone}
-                            /> 
-                          )}
+                        <Ravepay 
+                          amount={amount} 
+                          disabled={errorMsg.length > 0}
+                          email={email} 
+                          name={companyName}
+                          handleSubmit={handleSubmit}
+                          phone={phone}
+                        />
                         <Button color="secondary" onClick={toggle1}>Cancel</Button>
                       </ModalFooter>
                     </Modal>
@@ -409,7 +405,8 @@ const Quote = () => {
                           marginTop: 20,
                           color: "#ff0000"
                         }}>{errorMsg}</p> : shipment.createSuccess === true ?  <p style={{
-                          marginTop: 20
+                          marginTop: 20,
+                          color: "#00ff00"
                         }}>{message}</p> : <p style={{
                           marginTop: 20
                         }}>You will be charged <span style={{ 

@@ -137,6 +137,7 @@ exports.hasView = (req, res) => {
 
 exports.getAllQuotes = (req, res) => {
   Quote.find({})
+    .sort({ createdAt: -1 })
     .then(quotes => {
       if (!quotes) return res.status(400).json({ error: "No records found" });
       res.json(quotes);
