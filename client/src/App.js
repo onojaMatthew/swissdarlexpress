@@ -14,9 +14,6 @@ const styles = {
     marginTop: 300,
     fontSize: 32,
     fontWeight: "bold"
-  },
-  container: {
-    // minHeight: 400
   }
 }
 
@@ -44,11 +41,7 @@ class App extends Component{
     if(loading) {
       return (
         <div className="page-loader">
-          <div style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%"
-          }}>
+          <div className="spin-loader">
             <Spin size="large" />
           </div>
         </div>

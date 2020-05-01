@@ -71,10 +71,6 @@ const Footer = () => {
               </Col>
             </Row>
           </Col>
-          <Col xs="12" xl="6">
-            <h6 style={{ color: "#fff" }}>Subscribe</h6>
-            <p>Don’t miss Swissdarl Freight & Logistics latest news and events. Subscribe to our newsletter channel and be informed</p>
-          </Col>
         </Row>
       </Container>
     </div>

@@ -27,7 +27,7 @@ class Ravepay extends Component {
     return (
       <div className="App" >
         <Rave
-          pay_button_text="Pay With Card"
+          pay_button_text="Continue"
           className="button"
           payment_method="card"
           customer_email={email}

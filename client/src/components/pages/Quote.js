@@ -9,7 +9,7 @@ import {
   ModalFooter, 
 } from "reactstrap";
 import Header from "./Header";
-import { Steps, Button } from "antd";
+import { Steps, Button, Spin } from "antd";
 import CompanyInfo from "./Forms/CompanyInfo";
 import PickupInformation from "./Forms/PickupInformation";
 import PackageInfo from "./Forms/PackageInfo";
@@ -22,7 +22,7 @@ import Footer from "./Footer";
 const { Step } = Steps;
 const Quote = () => {
   const dispatch = useDispatch();
-  const shipment = useSelector((state) => state.shipment)
+  const shipment = useSelector((state) => state.shipment);
   const [ amount, setAmount ] = useState(0);
   const [ count, setCount ] = useState(0);
   const [ companyName, setCompanyName ] = useState("");
@@ -51,20 +51,20 @@ const Quote = () => {
   const [ message, setMessage ] = useState("");
   const [modal, setModal] = useState(false);
   const [ modal1, setModal1 ] = useState(false);
-  const [ successMsg, setSuccessMsg ] = useState("");
   const units = [ "Kg", "Ton" ];
   const toggle = () => setModal(!modal);
   const toggle1 = () => setModal1(!modal1);
 
+  let timeleft = 120;
+
   useEffect(() => {
     if (shipment.createSuccess === true) {
-      setMessage("Your request has been successfully processed. You'll be contacted soon by one of our representatives. Thank you for choosing us");
       setErrorMsg("");
       onClearFields();
       
       setTimeout(() => {
         setCount(0);
-      }, 4000);
+      }, 60000);
     } else if (shipment.error && shipment.error.length > 0) {
       setErrorMsg(shipment.error);
       setMessage("");
@@ -82,17 +82,17 @@ const Quote = () => {
   }
 
   useEffect(() => {
+    const timer = () => {
+      setInterval(() => {
+        timeleft -= 1;
+      }, 1000);
+      return timeleft;
+    }
+    
     if (shipment.createSuccess === true) {
-      setSuccessMsg("");
-      console.log(shipment, " shipment result after success");
+      setMessage(`Request success!! Your shipping tracking number is: ${shipment.shipments[0].trackingNumber}. You have ${timer()} time left to copy it. Keep it safe`);
     }
   }, [ shipment ]);
-
-  useEffect(() => {
-    if (errors.length > 0) {
-      setErrorMsg(errors);
-    }
-  }, [ errors ]);
 
   useEffect(() => {
     setAmount(shipmentTotal(numOfPieces, weight, unit));
@@ -105,63 +105,83 @@ const Quote = () => {
     if (companyName === "") {
       formValid = false;
       errors["companyName"] = "Company name is required";
+      setErrorMsg("Company name is required");
     } else if (typeof companyName === "number") {
       formValid = false;
       errors["companyName"] = "Invalid entry. Company name must be alphabets";
+      setErrorMsg("Invalid entry. Company name must be alphabets");
     } else if (!contactFName || typeof contactFName === "number") {
       formValid = false;
       errors["contactFName"] = "Contact first name is required";
+      setErrorMsg("Contact first name is required");
     } else if (contactLName === "" || typeof contactLName === "number") {
       formValid = false;
       errors["contactLName"] = "Contact last name is required";
+      setErrorMsg("Contact last name is required");
     } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       formValid = false;
       errors["email"] = "You have entered an invalid email";
+      setErrorMsg("You have entered an invalid email");
     } else if (!phone) {
       formValid = false;
       errors["phone"] = "Phone number is required";
+      setErrorMsg("Phone number is required");
     } else if (!pickupAddress) {
       formValid = false;
       errors["pickupAddress"] = "Pick-up address is required";
+      setErrorMsg("Pick-up address is required");
     } else if (!destinationAddress) {
       formValid = false;
       errors["destinationAddress"] = "Destination address is required";
+      setErrorMsg("Destination address is required");
     } else if (!pickupZip) {
       formValid = false;
       errors["pickupZip"] = "Pick-up zip code is required";
+      setErrorMsg("Pick-up zip code is required");
     } else if (!destinationZip) {
       formValid = false;
       errors["destinationZip"] = "Destination zip code is required";
+      setErrorMsg("Destination zip code is required");
     } else if (!pickupState) {
       formValid = false;
       errors["pickupState"] = "Pick-up state is required";
+      setErrorMsg("Pick-up state is required");
     } else if (!pickupCity) {
       formValid = false;
       errors["pickupCity"] = "Pick-up city is required";
+      setErrorMsg("Pick-up city is required");
     } else if (!destinationState) {
       formValid = false;
       errors["destinationState"] = "Destination state is required";
+      setErrorMsg("Destination state is required");
     } else if (!destinationCity) {
       formValid = false;
       errors["destinationCity"] = "Destination city is required";
+      setErrorMsg("Destination city is required");
     } else if (!packageInfo) {
       formValid = false;
       errors["packageInfo"] = "Package description is required";
+      setErrorMsg("Package description is required");
     } else if (!numOfPieces) {
       formValid = false;
       errors["numOfPieces"] = "Number of pieces is required";
+      setErrorMsg("Number of pieces is required");
     } else if (!weight) {
       formValid = false;
       errors["weight"] = "The weight of the shipment in kg or tons is required";
+      setErrorMsg("The weight of the shipment in kg or tons is required");
     } else if (!dimension) {
       formValid = false;
       errors["dimension"] = "The shipment dimension is required";
+      setErrorMsg("The shipment dimension is required");
     } else if (!specialInstruction) {
       formValid = false;
       errors["specialInstruction"] = "Leave a special instruction for the shipment";
+      setErrorMsg("Leave a special instruction for the shipment")
     } else if (!unit) {
       formValid = false;
       errors["unit"] = "The unit of the weight is required";
+      setErrorMsg("The unit of the weight is required");
     }
 
     setErrors(errors);
@@ -349,16 +369,33 @@ const Quote = () => {
                     <Modal isOpen={modal1} toggle1={toggle1}>
                       <ModalHeader toggle={toggle}>Modal title</ModalHeader>
                       <ModalBody>
-                        {errorMsg.length ? <p>{errorMsg}</p> : <p>You will be charged <strong>&#8358;{amount}</strong> from your card as your shipping cost. Click OK to continue or CANCEL to abort request. </p>}
+                        {errorMsg.length ? <p style={{
+                          marginTop: 20,
+                          color: "#ff0000"
+                        }}>{errorMsg}</p> : shipment.createSuccess === true ? 
+                        <p style={{
+                          marginTop: 20
+                        }}>{message}</p> :
+                        <p style={{
+                          marginTop: 20
+                        }}>Your credit card will be charged <span style={{
+                          fontWeight: "bold",
+                          color: "#ff0000"
+                        }}>NGN{amount}</span> for shipping cost. To continue click CONTINUE else click CANCEL</p> }
+                        
                       </ModalBody>
                       <ModalFooter>
-                        <Ravepay 
-                          amount={amount} 
-                          email={email} 
-                          name={companyName}
-                          handleSubmit={handleSubmit}
-                          phone={phone}
-                        /> {' '}
+                        {shipment.createLoading === true ? 
+                          <Spin tip="Processing..." /> : (
+                            <Ravepay 
+                              amount={amount} 
+                              disabled={errorMsg.length > 0}
+                              email={email} 
+                              name={companyName}
+                              handleSubmit={handleSubmit}
+                              phone={phone}
+                            /> 
+                          )}
                         <Button color="secondary" onClick={toggle1}>Cancel</Button>
                       </ModalFooter>
                     </Modal>
@@ -368,10 +405,30 @@ const Quote = () => {
                     <Modal isOpen={modal} toggle={toggle}>
                       <ModalHeader toggle={toggle}>Modal title</ModalHeader>
                       <ModalBody>
-                      {errorMsg.length ? <p>{errorMsg}</p> : <p>You will be charged <strong>&#8358;{amount}</strong> at the point of delivery as shipping cost.</p>}
+                      {errorMsg.length ? <p style={{
+                          marginTop: 20,
+                          color: "#ff0000"
+                        }}>{errorMsg}</p> : shipment.createSuccess === true ?  <p style={{
+                          marginTop: 20
+                        }}>{message}</p> : <p style={{
+                          marginTop: 20
+                        }}>You will be charged <span style={{ 
+                          color: "#ff0000",
+                          fontWeight: "bold"
+                        }}>NGN{amount}</span> at the point of delivery as shipping cost. Click CONTINUE to proceed or CANCEL to abort request.</p>}
+                        
                       </ModalBody>
                       <ModalFooter>
-                        <Button color="primary" onClick={() => handleSubmit(false)}>Send Request</Button>{' '}
+                        {shipment.createLoading === true ? 
+                          <Spin tip="Processing..." /> : (
+                          <Button 
+                            color="primary" 
+                            disabled={errorMsg.length > 0}
+                            onClick={() => handleSubmit(false)}>
+                              Continue
+                          </Button>
+                          )
+                        }
                         <Button color="secondary" onClick={toggle}>Cancel</Button>
                       </ModalFooter>
                     </Modal>

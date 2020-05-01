@@ -41,7 +41,7 @@ export const createFailed = (error) => {
 
 export const requestShipment = (data) => {
   return dispatch => {
-    createStart();
+    dispatch(createStart());
     fetch(`/v1/post`, {
       method: "POST",
       headers: {
