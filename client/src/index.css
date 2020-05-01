@@ -17,11 +17,23 @@ code {
   position: relative;
   margin: 0;
   padding: 0;
-  background: rgb(9, 7, 36) url("./assets/rider4.jpg") no-repeat;
+  background: url("./assets/rider1.webp") no-repeat;
   background-size: cover;
-  opacity: 0.9;
+  /* opacity: 0.9; */
   width: 100%;
   min-height: 700px;
+}
+
+.background-cover {
+  content:"";
+  /* display:block; */
+  width:100%;
+  /* height:100%; */
+  background-color:rgba(0,0,0,0.5);
+  position:relative;
+  top:0;
+  left:0;
+  z-index:1;
 }
 
 .fix-img {
@@ -66,7 +78,7 @@ section p {
 .spin-loader {
   position: absolute;
   top: 50%;
-  left: 45%;
+  left: 48%;
 }
 
 .sec-cont {

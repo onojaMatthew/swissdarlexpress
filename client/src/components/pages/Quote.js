@@ -240,17 +240,24 @@ const Quote = () => {
   return (
     <div className="quote">
       <Header />
-      <section className="wave-container">
-        <Row className="justify-content-center">
-          <Col xs="8" xl="6" className="home-text">
-            <h1>Request a Shipping Quote Here</h1>
-          </Col>
-        </Row>
-        <svg id="curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path fill="#0099ff" fillOpacity="1" d="M0,192L80,176C160,160,320,128,480,149.3C640,171,800,245,960,256C1120,267,1280,213,1360,186.7L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
-        </svg>
-      </section>
-      {/* {} */}
+      <div className="background-cover">
+        <section className="wave-container">
+          <Row className="justify-content-center">
+            <Col xs="8" xl="6" className="home-text">
+              <h1>Request a Shipping Quote Here</h1>
+            </Col>
+          </Row>
+          <svg id="curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#0099ff" fillOpacity="1" d="M0,192L80,176C160,160,320,128,480,149.3C640,171,800,245,960,256C1120,267,1280,213,1360,186.7L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+          </svg>
+        </section>
+      </div>
+      <Row className="justify-content-center mb-5">
+        <Col xs="11" xl="8">
+          <h3 className="text-center">REQUEST A QUOTE HERE</h3>
+          <p>Enjoy affordable shipping rates on all your deliveries when you choose Swissdarl Express Logistics. We offer exceptional service at unbeatable prices. To request a quote, please fill out the form below and a team member will contact you. Please note that quotes requested after 5:00 p.m. GMT will be responded to the next business day. If you need immediate assistance please call +234-906-2011-107 (8:00 am - 5:00 pm) and we’ll be happy to help you.</p>
+        </Col>
+      </Row>
       <Row className="justify-content-center">
         <Col xs="10" xl="9" className="steps">
           <Steps current={count} size="small">
@@ -262,6 +269,7 @@ const Quote = () => {
           </Steps>
         </Col>
       </Row>
+      
       <Row className="justify-content-center mt-4">
         <Col xs="9" xl="8">
           {count === 0 ? 

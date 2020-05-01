@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "398ef5ac97dacab02593efa3de6b4153",
+    "revision": "e49ddfa68decf80ab435d40b693c1eaf",
     "url": "/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/2.7a762d8d.chunk.css"
   },
   {
-    "revision": "bae1c0e99bfc18113f22",
-    "url": "/static/css/main.b1b6d0bf.chunk.css"
+    "revision": "21b35d4e3f1250cc3dda",
+    "url": "/static/css/main.33e65583.chunk.css"
   },
   {
     "revision": "98262293ed1daaea4af8",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.8df996eb.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "bae1c0e99bfc18113f22",
-    "url": "/static/js/main.87216162.chunk.js"
+    "revision": "21b35d4e3f1250cc3dda",
+    "url": "/static/js/main.b28f6fae.chunk.js"
   },
   {
     "revision": "e8807207f91b8ffa3524",
@@ -38,6 +38,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "1472b8ed91edbc14587927eb6bb97cc3",
     "url": "/static/media/pallet-in-warehouse.1472b8ed.jpg"
+  },
+  {
+    "revision": "b54f43111197a840965231dca5250c67",
+    "url": "/static/media/rider1.b54f4311.webp"
   },
   {
     "revision": "8895c1f44eaf1cc223afed6c15a25b49",
