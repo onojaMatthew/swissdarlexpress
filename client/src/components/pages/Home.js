@@ -37,7 +37,7 @@ const Home = () => {
               <Col xs="12" xl="6" 
                 className="how-we-work"
               >
-                <h4>How We Work</h4>
+                {/* <h4>How We Work</h4> */}
                 <p>
                   At Darlstone Logistics, we are committed to providing smart and effective Logistics Solutions for every business. With timed deliveries that offer complete flexibility.
                 </p>
