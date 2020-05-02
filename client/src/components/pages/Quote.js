@@ -32,8 +32,6 @@ const Quote = () => {
   const [ phone, setPhone ] = useState("");
   const [ pickupAddress, setPickupAddress ] = useState("");
   const [ destinationAddress, setDestination ] = useState("");
-  const [ pickupZip, setPickupZip ] = useState("");
-  const [ destinationZip, setDestinationZip ] = useState("");
   const [ pickupState, setPickupState ] = useState("");
   const [ pickupCity, setPickupCity ] = useState("");
   const [ destinationState, setDestinationState ] = useState("");
@@ -49,13 +47,28 @@ const Quote = () => {
   const [ errors, setErrors] = useState({});
   const [ errorMsg, setErrorMsg ] = useState("");
   const [ message, setMessage ] = useState("");
-  const [modal, setModal] = useState(false);
+  const [ modal, setModal] = useState(false);
   const [ modal1, setModal1 ] = useState(false);
   const units = [ "Kg", "Ton" ];
-  const toggle = () => setModal(!modal);
-  const toggle1 = () => setModal1(!modal1);
 
-  let timeleft = 120;
+  const toggle = () => {
+    if (formValidation()) {
+      setModal(true);
+    }
+  };
+  const toggle1 = () => {
+    if (formValidation()) {
+      setModal1(!modal1);
+    }
+  };
+
+  const closeModal = () => {
+    setModal(false);
+  }
+
+  const closeModal1 = () => {
+    setModal1(false);
+  }
 
   useEffect(() => {
     if (shipment.createSuccess === true) {
@@ -82,6 +95,29 @@ const Quote = () => {
   }
 
   useEffect(() => {
+    setErrorMsg("");
+  }, [
+    companyName,
+    contactFName,
+    contactLName,
+    email,
+    phone,
+    dimension,
+    weight,
+    pickupAddress,
+    destinationAddress,
+    pickupState,
+    pickupCity,
+    destinationState,
+    destinationCity,
+    packageInfo,
+    numOfPieces,
+    specialInstruction,
+    deliveryOption
+  ]);
+
+  useEffect(() => {
+    let timeleft = 120;
     const timer = () => {
       setInterval(() => {
         timeleft -= 1;
@@ -134,14 +170,6 @@ const Quote = () => {
       formValid = false;
       errors["destinationAddress"] = "Destination address is required";
       setErrorMsg("Destination address is required");
-    } else if (!pickupZip) {
-      formValid = false;
-      errors["pickupZip"] = "Pick-up zip code is required";
-      setErrorMsg("Pick-up zip code is required");
-    } else if (!destinationZip) {
-      formValid = false;
-      errors["destinationZip"] = "Destination zip code is required";
-      setErrorMsg("Destination zip code is required");
     } else if (!pickupState) {
       formValid = false;
       errors["pickupState"] = "Pick-up state is required";
@@ -199,9 +227,7 @@ const Quote = () => {
         pickupAddress,
         pickupState,
         pickupCity,
-        pickupZip,
         destinationState,
-        destinationZip,
         weight,
         dimension,
         packageInfo,
@@ -226,11 +252,9 @@ const Quote = () => {
     setPickupAddress("");
     setPickupCity("");
     setPickupState("");
-    setPickupZip("");
     setDestination("");
     setDestinationState("");
     setDestinationCity("");
-    setDestinationZip("");
     setSpecialInstruction("");
     setNumOfPieces("");
     setWeight("");
@@ -255,7 +279,7 @@ const Quote = () => {
       <Row className="justify-content-center mb-2">
         <Col xs="11" xl="8">
           <h3 className="text-center">REQUEST A QUOTE HERE</h3>
-          <p className="text-center">Enjoy affordable shipping rates on all your deliveries when you choose Swissdarl Express Logistics. We offer exceptional service at unbeatable prices. To request a quote, please fill out the form below and a team member will contact you. Please note that quotes requested after 5:00 p.m. GMT will be responded to the next business day. If you need immediate assistance please call +234-906-2011-107 (8:00 am - 5:00 pm) and we’ll be happy to help you.</p>
+          <p className="text-center mb-3">Enjoy affordable shipping rates on all your deliveries when you choose Swissdarl Express Logistics. We offer exceptional service at unbeatable prices. To request a quote, please fill out the form below and a team member will contact you. Please note that quotes requested after 5:00 p.m. GMT will be responded to the next business day. If you need immediate assistance please call +234-906-2011-107 (8:00 am - 5:00 pm) and we’ll be happy to help you.</p>
           <p className="text-center">Our services cover the following states: Lagos, Port Harcourt, Abuja, Kano, Delta, Enugu and Jos </p>
         </Col>
       </Row>
@@ -292,19 +316,15 @@ const Quote = () => {
               pickupAddress={pickupAddress}
               pickupCity={pickupCity}
               pickupState={pickupState}
-              pickupZip={pickupZip}
               destinationAddress={destinationAddress}
               destinationCity={destinationCity}
               destinationState={destinationState}
-              destinationZip={destinationZip}
               setPickupAddress={setPickupAddress}
               setPickupCity={setPickupCity}
               setPickupState={setPickupState}
-              setPickupZip={setPickupZip}
               setDestination={setDestination}
               setDestinationCity={setDestinationCity}
               setDestinationState={setDestinationState}
-              setDestinationZip={setDestinationZip}
               errors={errors}
             /> : 
             count === 2 ? 
@@ -335,11 +355,9 @@ const Quote = () => {
               pickupAddress={pickupAddress}
               pickupCity={pickupCity}
               pickupState={pickupState}
-              pickupZip={pickupZip}
               destinationAddress={destinationAddress}
               destinationCity={destinationCity}
               destinationState={destinationState}
-              destinationZip={destinationZip}
               packageInfo={packageInfo}
               weight={weight}
               dimension={dimension}
@@ -365,6 +383,7 @@ const Quote = () => {
           ) : (
             <Row className="justify-content-center">
               <Col xs="10" xl="5">
+                {errorMsg.length ? <h4 style={{ color: "#ff0000"}}>{errorMsg}</h4> : null}
                 <h3>Select a Payment Option</h3>
                 <p>Your total shipping cost is: <span style={{ 
                     color: "#ff0000",
@@ -374,7 +393,7 @@ const Quote = () => {
                   <Col xs="6" xl="6">
                     <Button color="danger" onClick={toggle1}>Pay with card</Button>
                     <Modal isOpen={modal1} toggle1={toggle1}>
-                      <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                      <ModalHeader toggle={closeModal1}>Modal title</ModalHeader>
                       <ModalBody>
                         {errorMsg.length ? <p style={{
                           marginTop: 20,
@@ -401,14 +420,14 @@ const Quote = () => {
                           handleSubmit={handleSubmit}
                           phone={phone}
                         />
-                        <Button color="secondary" onClick={toggle1}>Cancel</Button>
+                        <Button color="secondary" onClick={closeModal1}>Cancel</Button>
                       </ModalFooter>
                     </Modal>
                   </Col>
                   <Col xs="6" xl="6">
                     <Button color="danger" onClick={toggle}>Pay on Delivery</Button>
                     <Modal isOpen={modal} toggle={toggle}>
-                      <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                      <ModalHeader toggle={closeModal}>Modal title</ModalHeader>
                       <ModalBody>
                       {errorMsg.length ? <p style={{
                           marginTop: 20,
@@ -435,7 +454,7 @@ const Quote = () => {
                           </Button>
                           )
                         }
-                        <Button color="secondary" onClick={toggle}>Cancel</Button>
+                        <Button color="secondary" onClick={closeModal}>Cancel</Button>
                       </ModalFooter>
                     </Modal>
                   </Col>

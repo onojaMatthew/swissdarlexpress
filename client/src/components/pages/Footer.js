@@ -1,12 +1,6 @@
 import React from "react";
 import { Row, Container, Col, Button } from "reactstrap";
 import { Divider } from "antd";
-import {
-  TwitterOutlined,
-  FacebookOutlined,
-  LinkedinOutlined,
-  InstagramOutlined
-} from "@ant-design/icons";
 
 const styles = {
   icon: {

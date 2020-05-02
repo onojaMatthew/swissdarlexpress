@@ -11,11 +11,9 @@ const RequestSummary = ({
   pickupAddress,
   pickupCity,
   pickupState,
-  pickupZip,
   destinationAddress,
   destinationCity,
   destinationState,
-  destinationZip,
   packageInfo,
   weight,
   dimension,
@@ -122,20 +120,6 @@ const RequestSummary = ({
         </Col>
         <Col xs="12" xl="4">
           <div className="mb-3">
-            <label htmlFor="pickzip">Pick-up Zip</label>
-            <Input
-              id="pickzip"
-              type="email"
-              value={pickupZip}
-              readOnly
-            />
-          </div>
-        </Col>
-      </Row>
-     
-      <Row>
-        <Col xs="12" xl="4">
-          <div className="mb-3">
             <label htmlFor="desa">Destination Address</label>
             <Input 
               value={destinationAddress}
@@ -144,6 +128,10 @@ const RequestSummary = ({
             />
           </div>
         </Col>
+      </Row>
+     
+      <Row>
+        
         <Col xs="12" xl="4">
           <div className="mb-3">
             <label htmlFor="desc">Destination City</label>
@@ -164,19 +152,6 @@ const RequestSummary = ({
             />
           </div>
         </Col>
-      </Row>
-      
-      <Row>
-        <Col xs="12" xl="4">
-          <div className="mb-3">
-            <label htmlFor="dessz">Destination Zip</label>
-            <Input 
-              value={destinationZip}
-              id="dessz"
-              readOnly
-            />
-          </div>
-        </Col>
         <Col xs="12" xl="4">
           <div className="mb-3">
             <label htmlFor="packInf">Package Information</label>
@@ -187,7 +162,10 @@ const RequestSummary = ({
             />
           </div>
         </Col>
-        <Col xs="12" xl="4">
+      </Row>
+      
+      <Row>
+        <Col xs="12" xl="3">
           <div className="mb-3">
             <label htmlFor="num">Number of Pieces</label>
             <Input 
@@ -197,9 +175,7 @@ const RequestSummary = ({
             />
           </div>
         </Col>
-      </Row>
-      <Row>
-        <Col xs="12" xl="4">
+        <Col xs="12" xl="3">
         <div className="mb-3">
           <label htmlFor="weight">Weight</label>
           <Input 
@@ -209,7 +185,7 @@ const RequestSummary = ({
           />
         </div>
         </Col>
-        <Col xs="12" xl="4">
+        <Col xs="12" xl="3">
         <div className="mb-3">
           <label htmlFor="dimension">Dimension</label>
           <Input
@@ -220,7 +196,7 @@ const RequestSummary = ({
           />
         </div>
         </Col>
-        <Col xs="12" xl="4">
+        <Col xs="12" xl="3">
           <div className="mb-3">
             <label htmlFor="instruction">Special Instruction</label>
             <Input 

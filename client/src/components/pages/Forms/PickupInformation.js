@@ -7,19 +7,15 @@ const PickupInformation = ({
   pickupAddress,
   pickupCity,
   pickupState,
-  pickupZip,
   destinationAddress,
   destinationCity,
   destinationState,
-  destinationZip,
   setPickupAddress,
   setPickupCity,
   setPickupState,
-  setPickupZip,
   setDestination,
   setDestinationCity,
   setDestinationState,
-  setDestinationZip,
   errors
 }) => {
   return(
@@ -59,23 +55,11 @@ const PickupInformation = ({
       </Row>
       
       <Row>
-        <Col xs="12" xl="4">
-          <div className="mb-3">
-            <label htmlFor="pickzip">Pick-up Zip</label>
-            <Input
-              id="pickzip"
-              type="text"
-              placeholder="Pick-up zip"
-              value={pickupZip}
-              onChange={(e) => setPickupZip(e.target.value)}
-            />
-            <span style={{ color: "#ff0000" }}>{errors["pickupZip"]}</span>
-          </div>
-        </Col>
+        
         <Col xs="12" xl="4">
           <div className="mb-3">
             <label htmlFor="desa">Destination Address</label>
-            <Input 
+            <Input
               placeholder="Destination address"
               value={destinationAddress}
               id="desa"
@@ -96,30 +80,14 @@ const PickupInformation = ({
             <span style={{ color: "#ff0000" }}>{errors["destinationCity"]}</span>
           </div>
         </Col>
-      </Row>
-      
-      <Row>
-        <Col xs="12" xl="6">
+        <Col xs="12" xl="4">
           <div className="mb-3">
             <label htmlFor="desst">Destination State</label>
             <StateList stateName={destinationState} setState={setDestinationState} />
             <span style={{ color: "#ff0000" }}>{errors["destinationState"]}</span>
           </div>
         </Col>
-        <Col xs="12" xl="6">
-          <div className="mb-3">
-            <label htmlFor="dessz">Destination Zip</label>
-            <Input 
-              placeholder="Destination zip"
-              value={destinationZip}
-              id="dessz"
-              onChange={(e) => setDestinationZip(e.target.value)}
-            />
-            <span style={{ color: "#ff0000" }}>{errors["destinationZip"]}</span>
-          </div>
-        </Col>
       </Row>
-     
      
     </div>
   )

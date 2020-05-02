@@ -8,13 +8,11 @@ exports.create = (req, res, next) => {
     pickupAddress,
     pickupCity,
     pickupState,
-    pickupZip,
     email,
     phone,
     destinationAddress,
     destinationCity,
     destinationState,
-    destinationZip,
     packageInfo,
     weight,
     dimension,
@@ -55,14 +53,12 @@ exports.create = (req, res, next) => {
     pickupAddress,
     pickupCity,
     pickupState,
-    pickupZip,
     email,
     phone,
     amount,
     destinationAddress,
     destinationCity,
     destinationState,
-    destinationZip,
     packageInfo,
     weight,
     dimension,
@@ -90,15 +86,13 @@ exports.create = (req, res, next) => {
         <p><strong>Pick-up Address:</strong> ${quote.pickupAddress}</p>
         <p><strong>Pick-up City:</strong> ${quote.pickupCity}</p>
         <p><strong>Pick-up State:</strong> ${quote.pickupState}</p>
-        <p><strong>Pick-up zip:</strong> ${quote.pickupZip}</p>
         <p><strong>Destination Address:</strong> ${quote.destinationAddress}</p>
         <p><strong>Destination State:</strong> ${quote.destinationState}</p>
         <p><strong>Destination City:</strong> ${quote.destinationCity}</p>
-        <p><strong>Destination Zip:</strong> ${quote.destinationZip}</p>
         <p><strong>Weight:</strong> ${quote.weight}</p>
         <p><strong>Dimension:</strong> ${quote.dimension}</p>
         <p><strong>Amount:</strong> ${quote.amount}</p>
-        <p><strong>Amount:</strong> ${quote.amount}</p>
+        <p><strong>Paid:</strong> ${quote.paid}</p>
         <p><strong>Tracking Number:</strong> ${quote.trackingNumber}</p>
       `
       mailer(name, "ecommerce@swissdarl.com", subject, message);

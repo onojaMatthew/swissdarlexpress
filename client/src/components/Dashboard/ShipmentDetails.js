@@ -140,11 +140,10 @@ const ShipmentDetails = () => {
               </Col>
               <Col xs="12" xl="4">
                 <div className="mb-3">
-                  <label htmlFor="pickzip">Pick-up Zip</label>
+                  <label htmlFor="pickzip">Payment status</label>
                   <Input
                     id="pickzip"
-                    type="email"
-                    value={shipmentDetails.pickupZip}
+                    value={shipmentDetails.paid === false ? "Pay on delivery" : "Paid"}
                     readOnly
                   />
                 </div>
@@ -184,16 +183,7 @@ const ShipmentDetails = () => {
                   />
                 </div>
               </Col>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="dessz">Destination Zip</label>
-                  <Input 
-                    value={shipmentDetails.destinationZip}
-                    id="dessz"
-                    readOnly
-                  />
-                </div>
-              </Col>
+              
             </Row>
             
             <Divider orientation="left">Package Description</Divider>
