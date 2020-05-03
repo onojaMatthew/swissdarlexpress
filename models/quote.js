@@ -22,6 +22,7 @@ const quoteSchema = new Schema({
   numOfPieces: { type: String, required: true },
   trackingNumber: { type: String, required: true },
   delivered: { type: Boolean, default: false },
+  paid: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now() }
 });
 

@@ -12,7 +12,7 @@ const Home = () => {
       <section className="wave-container">
         <Row className="justify-content-center">
           <Col xs="11" xl="6" className="home-text">
-            <h1>Welcome to Swissdarl Express</h1>
+            <h1>Welcome to Swissdarl Frieght and Logistics Ltd</h1>
           </Col>
         </Row>
         <svg id="curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -39,7 +39,7 @@ const Home = () => {
               >
                 {/* <h4>How We Work</h4> */}
                 <p>
-                  At Darlstone Logistics, we are committed to providing smart and effective Logistics Solutions for every business. With timed deliveries that offer complete flexibility.
+                  At Swissdarl Frieght and Logistics Ltd, we are committed to providing smart and effective Logistics Solutions for every business. With timed deliveries that offer complete flexibility.
                 </p>
               </Col>
             </Row>

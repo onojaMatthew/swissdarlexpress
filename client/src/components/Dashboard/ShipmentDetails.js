@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getShipment, shipmentDelivered, view } from "../../store/actions/action_shipment";
-import { Row, Col, Card, CardBody } from "reactstrap";
+import { Row, Col, Card, CardBody, Table } from "reactstrap";
 import { Spin, Input, Divider, Button } from "antd"
 
 const { TextArea } = Input;
@@ -45,227 +45,85 @@ const ShipmentDetails = () => {
             <>
             <Divider orientation="left">Company Information</Divider>
             <Row>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="company">Company Name</label>
-                  <Input 
-                    value={shipmentDetails.companyName}
-                    id="company"
-                    readOnly
-                  />
-                </div>
-              </Col>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="firstName">Contact first name</label>
-                  <Input 
-                    value={shipmentDetails.contactFName}
-                    id="firstName"
-                    readOnly
-                  />
-                </div>
-              </Col>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="lastName">Contact last name</label>
-                  <Input 
-                    value={shipmentDetails.contactLName}
-                    id="lastName"
-                    readOnly
-                  />
-                </div>
-              </Col>
-            </Row>
-            
-            
-            <Row>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="email">Email</label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={shipmentDetails.email}
-                    readOnly
-                  />
-                </div>
-              </Col>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="phone">Phone Number</label>
-                  <Input 
-                    value={shipmentDetails.phone}
-                    id="phone"
-                    readOnly
-                  />
-                </div>
-              </Col>
+              <Table className="hovered" style={{ fontSize: 12 }}>
+                <thead>
+                  <tr>
+                    <th>Company Name</th>
+                    <th>Contact first name</th>
+                    <th>Contact last name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{shipmentDetails.companyName}</td>
+                    <td>{shipmentDetails.contactFName}</td>
+                    <td>{shipmentDetails.contactLName}</td>
+                    <td>{shipmentDetails.email}</td>
+                    <td>{shipmentDetails.phone}</td>
+                  </tr>
+                </tbody>
+              </Table>
               
             </Row>
+            
             <Divider orientation="left">Pick-up Information</Divider>
             <Row>
-              <Col xs="12" xl="12">
-                <div className="mb-3">
-                  <label htmlFor="pickadd">Pick-up Address</label>
-                  <Input 
-                    value={shipmentDetails.pickupAddress}
-                    id="pickadd"
-                    // autoSize={{ minRows: 3, maxRows: 5 }}
-                    readOnly
-                  />
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="pickcity">Pick-up City</label>
-                  <Input 
-                    value={shipmentDetails.pickupCity}
-                    id="pickcity"
-                    readOnly
-                  />
-                </div>
-              </Col>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="pickstate">Pick-up State</label>
-                  <Input 
-                    value={shipmentDetails.pickupState}
-                    id="pickstate"
-                    readOnly
-                  />
-                </div>
-              </Col>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="pickzip">Payment status</label>
-                  <Input
-                    id="pickzip"
-                    value={shipmentDetails.paid === false ? "Pay on delivery" : "Paid"}
-                    readOnly
-                  />
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs="12" xl="12">
-                <div className="mb-3">
-                  <label htmlFor="desa">Destination Address</label>
-                  <Input 
-                    value={shipmentDetails.destinationAddress}
-                    id="desa"
-                    // autoSize={{ minRows: 3, maxRows: 5 }}
-                    readOnly
-                  />
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="desc">Destination City</label>
-                  <Input 
-                    value={shipmentDetails.destinationCity}
-                    id="desc"
-                    readOnly
-                  />
-                </div>
-              </Col>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="desst">Destination State</label>
-                  <Input 
-                    value={shipmentDetails.destinationState}
-                    id="desst"
-                    readOnly
-                  />
-                </div>
-              </Col>
-              
+              <Table className="hovered" style={{ fontSize: 12 }}>
+                <thead>
+                  <tr>
+                    <th>Pick-up Address</th>
+                    <th>Pick-up City</th>
+                    <th>Pick-up State</th>
+                    <th>Destination Address</th>
+                    <th>Destination City</th>
+                    <th>Destination State</th>
+                    <th>Payment Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{shipmentDetails.pickupAddress}</td>
+                    <td>{shipmentDetails.pickupCity}</td>
+                    <td>{shipmentDetails.pickupState}</td>
+                    <td>{shipmentDetails.destinationAddress}</td>
+                    <td>{shipmentDetails.destinationCity}</td>
+                    <td>{shipmentDetails.destinationState}</td>
+                    <td>{shipmentDetails.paid === false ? "Pay on delivery" : "Debit Card"}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            
             </Row>
             
             <Divider orientation="left">Package Description</Divider>
             <Row>
-            <Col xs="12" xl="3">
-                <div className="mb-3">
-                  <label htmlFor="packInf">Package Information</label>
-                  <TextArea 
-                    value={shipmentDetails.packageInfo}
-                    id="packInf"
-                    readOnly
-                    autoSize={{ minRows: 3, maxRows: 5 }}
-                  />
-                </div>
-              </Col>
-              <Col xs="12" xl="3">
-                <div className="mb-3">
-                  <label htmlFor="num">Number of Pieces</label>
-                  <Input 
-                    value={shipmentDetails.numOfPieces}
-                    id="num"
-                    readOnly
-                  />
-                </div>
-              </Col>
-              <Col xs="12" xl="3">
-              <div className="mb-3">
-                <label htmlFor="weight">Weight</label>
-                <Input 
-                  value={shipmentDetails.weight}
-                  id="weight"
-                  readOnly
-                />
-              </div>
-              </Col>
-              <Col xs="12" xl="3">
-              <div className="mb-3">
-                <label htmlFor="amount">Amount</label>
-                <Input
-                  id="amount"
-                  type="text"
-                  value={`${shipmentDetails.amount} naira`}
-                  readOnly
-                />
-              </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs="12" xl="3">
-                <div className="mb-3">
-                  <label htmlFor="dimension">Dimension</label>
-                  <Input
-                    id="dimension"
-                    type="text"
-                    value={shipmentDetails.dimension}
-                    readOnly
-                  />
-                </div>
-              </Col>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  <label htmlFor="instruction">Special Instruction</label>
-                  <TextArea 
-                    value={shipmentDetails.specialInstruction}
-                    id="instruction"
-                    readOnly
-                    autoSize={{ minRows: 3, maxRows: 5 }}
-                  />
-                </div>
-              </Col>
-              <Col xs="12" xl="4">
-                <div className="mb-3">
-                  
-                <label htmlFor="dimension">Shipment status</label>
-                <Input
-                  id="dimension"
-                  type="text"
-                  value={shipmentDetails.delivered === false ? "Pending": "Delivered"}
-                  readOnly
-                />
-                </div>
-              </Col>
+              <Table className="hovered" style={{ fontSize: 12 }}>
+                <thead>
+                  <tr>
+                    <th>Package Information</th>
+                    <th>No. of Pieces</th>
+                    <th>Weight</th>
+                    <th>Dimension</th>
+                    <th>Shipping Cost</th>
+                    <th>Instruction</th>
+                    <th>Delivery Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{shipmentDetails.packageInfo}</td>
+                    <td>{shipmentDetails.numOfPieces}</td>
+                    <td>{shipmentDetails.weight}</td>
+                    <td>{shipmentDetails.dimension}</td>
+                    <td>NGN{shipmentDetails.amount}</td>
+                    <td>{shipmentDetails.specialInstruction}</td>
+                    <td>{shipmentDetails.delivered === false ? "Pending" : "Delivered"}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            
             </Row>
             <Row>
               <Col xl="12">

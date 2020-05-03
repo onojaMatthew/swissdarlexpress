@@ -46,9 +46,9 @@ const Quote = () => {
   const [ deliveryOption, setDeliveryOption ] = useState(false);
   const [ errors, setErrors] = useState({});
   const [ errorMsg, setErrorMsg ] = useState("");
-  const [ message, setMessage ] = useState("");
   const [ modal, setModal] = useState(false);
   const [ modal1, setModal1 ] = useState(false);
+  const [ timeLeft, setTimeLeft ] = useState(172);
   const units = [ "Kg", "Ton" ];
 
   const toggle = () => {
@@ -76,11 +76,10 @@ const Quote = () => {
       onClearFields();
       
       setTimeout(() => {
-        setCount(0);
-      }, 60000);
+        window.location.href = "/request";
+      }, 120000);
     } else if (shipment.error && shipment.error.length > 0) {
       setErrorMsg(shipment.error);
-      setMessage("");
     }
   }, [ shipment ]);
 
@@ -117,18 +116,10 @@ const Quote = () => {
   ]);
 
   useEffect(() => {
-    let timeleft = 120;
-    const timer = () => {
-      setInterval(() => {
-        timeleft -= 1;
-      }, 1000);
-      return timeleft;
-    }
-
-    if (shipment.createSuccess === true) {
-      setMessage(`Request success!! Your shipping tracking number is: ${shipment.shipments[0].trackingNumber}. You have ${timer()} time left to copy it. Keep it safe the Tracking number safe. Thank you for choosing Swissdarl Express.`);
-    }
-  }, [ shipment ]);
+    const timer =
+      timeLeft > 0 && setInterval(() => setTimeLeft(timeLeft - 1), 1000);
+    return () => clearInterval(timer);
+  }, [ timeLeft ]);
 
   useEffect(() => {
     setAmount(shipmentTotal(numOfPieces, weight, unit));
@@ -228,6 +219,8 @@ const Quote = () => {
         pickupState,
         pickupCity,
         destinationState,
+        destinationAddress,
+        destinationCity,
         weight,
         dimension,
         packageInfo,
@@ -242,6 +235,7 @@ const Quote = () => {
     
   }
 
+  console.log(destinationAddress, destinationCity, destinationState)
   const onClearFields = () => {
     setCompanyName("");
     setContactFName("");
@@ -331,7 +325,6 @@ const Quote = () => {
             <PackageInfo
               packageInfo={packageInfo}
               weight={weight}
-              // selectAfter={selectAfter}
               dimension={dimension}
               specialInstruction={specialInstruction}
               numOfPieces={numOfPieces}
@@ -402,7 +395,13 @@ const Quote = () => {
                         <p style={{
                           marginTop: 20,
                           color: "#00ff00"
-                        }}>{message}</p> :
+                        }}>Request success!! Your shipping tracking number is: <span style={{
+                          fontWeight: "bolder",
+                          color: "#ff0000"
+                        }}>{shipment.shipments[0].trackingNumber}</span>. You have <span style={{
+                          fontWeight: "bolder",
+                          color: "#ff0000"
+                        }}>{timeLeft} </span> seconds left to copy it. Please keep it safe. Thank you for choosing Swissdarl Frieght and Logistics Ltd.</p> :
                         <p style={{
                           marginTop: 20
                         }}>Your credit card will be charged <span style={{
@@ -434,8 +433,13 @@ const Quote = () => {
                           color: "#ff0000"
                         }}>{errorMsg}</p> : shipment.createSuccess === true ?  <p style={{
                           marginTop: 20,
-                          color: "#00ff00"
-                        }}>{message}</p> : <p style={{
+                        }}>Request success!! Your shipping tracking number is: <span style={{
+                          fontWeight: "bolder",
+                          color: "#ff0000"
+                        }}>{shipment.shipments[0].trackingNumber}</span>. You have <span style={{
+                          fontWeight: "bolder",
+                          color: "#ff0000"
+                        }}>{timeLeft} </span> seconds left to copy it. Please keep it safe. Thank you for choosing Swissdarl Frieght and Logistics Ltd.</p> : <p style={{
                           marginTop: 20
                         }}>You will be charged <span style={{ 
                           color: "#ff0000",

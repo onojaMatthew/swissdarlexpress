@@ -25,6 +25,8 @@ exports.create = (req, res, next) => {
     paid,
   } = req.body;
 
+  console.log(req.body)
+
   // call the create api from the front-end then after saving to database, call the method
   // that sends realtime message to the client and pass to it the returned values from the 
   // database. Emit the message from the server while the client listen to the emit call
