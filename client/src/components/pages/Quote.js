@@ -48,7 +48,6 @@ const Quote = () => {
   const [ errorMsg, setErrorMsg ] = useState("");
   const [ modal, setModal] = useState(false);
   const [ modal1, setModal1 ] = useState(false);
-  const [ timeLeft, setTimeLeft ] = useState(172);
   const units = [ "Kg", "Ton" ];
 
   const toggle = () => {
@@ -114,12 +113,6 @@ const Quote = () => {
     specialInstruction,
     deliveryOption
   ]);
-
-  useEffect(() => {
-    const timer =
-      timeLeft > 0 && setInterval(() => setTimeLeft(timeLeft - 1), 1000);
-    return () => clearInterval(timer);
-  }, [ timeLeft ]);
 
   useEffect(() => {
     setAmount(shipmentTotal(numOfPieces, weight, unit));
@@ -227,6 +220,7 @@ const Quote = () => {
         specialInstruction,
         amount,
         numOfPieces,
+        unit,
         paid: paid ? paid : false
       }
 
@@ -235,7 +229,6 @@ const Quote = () => {
     
   }
 
-  console.log(destinationAddress, destinationCity, destinationState)
   const onClearFields = () => {
     setCompanyName("");
     setContactFName("");
@@ -398,10 +391,7 @@ const Quote = () => {
                         }}>Request success!! Your shipping tracking number is: <span style={{
                           fontWeight: "bolder",
                           color: "#ff0000"
-                        }}>{shipment.shipments[0].trackingNumber}</span>. You have <span style={{
-                          fontWeight: "bolder",
-                          color: "#ff0000"
-                        }}>{timeLeft} </span> seconds left to copy it. Please keep it safe. Thank you for choosing Swissdarl Frieght and Logistics Ltd.</p> :
+                        }}>{shipment.shipments[0].trackingNumber}</span>. Please keep it safe. Thank you for choosing Swissdarl Frieght and Logistics Ltd.</p> :
                         <p style={{
                           marginTop: 20
                         }}>Your credit card will be charged <span style={{
@@ -436,10 +426,7 @@ const Quote = () => {
                         }}>Request success!! Your shipping tracking number is: <span style={{
                           fontWeight: "bolder",
                           color: "#ff0000"
-                        }}>{shipment.shipments[0].trackingNumber}</span>. You have <span style={{
-                          fontWeight: "bolder",
-                          color: "#ff0000"
-                        }}>{timeLeft} </span> seconds left to copy it. Please keep it safe. Thank you for choosing Swissdarl Frieght and Logistics Ltd.</p> : <p style={{
+                        }}>{shipment.shipments[0].trackingNumber}</span>. Please keep it safe. Thank you for choosing Swissdarl Frieght and Logistics Ltd.</p> : <p style={{
                           marginTop: 20
                         }}>You will be charged <span style={{ 
                           color: "#ff0000",

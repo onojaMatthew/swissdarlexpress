@@ -1,68 +1,116 @@
 const nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
 require("dotenv").config();
 
-const transport = {
-  
+function doc(quote) {
+  return `
+    <body>
+    <div data-role="module-unsubscribe" class="module" role="module" data-type="unsubscribe" style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5">
+      <div style="width: 80%; margin: 0 auto">
+        <p style="font-size:16px; line-height:20px; background: #333; padding: 12px; color: #fff;">
+          Swissdarl Freight and Logistics Ltd
+        </p>
+        <table>
+          <thead></thead>
+          <tbody>
+              <tr style="text-align: left;">
+                  <th>Company Name</th>
+                  <td>${quote.companyName}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Contact Name</th>
+                  <td>${quote.contactFName} ${quote.contactLName}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Email</th>
+                  <td>${quote.email}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Phone</th>
+                  <td>${quote.phone}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Pickup Address</th>
+                  <td>${quote.pickupAddress}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Pickup City</th>
+                  <td>${quote.pickupCity}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Pickup State</th>
+                  <td>${quote.pickupState}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Destination Address</th>
+                  <td>${quote.destinationAddress}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Destination City</th>
+                  <td>${quote.destinationCity}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Destination State</th>
+                  <td>${quote.destinationState}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Weight</th>
+                  <td>${quote.weight}${quote.unit}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Dimension</th>
+                  <td>${quote.dimension}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Amount</th>
+                  <td>NGN${quote.amount}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Paid</th>
+                  <td>${quote.paid}</td>
+              </tr>
+              <tr style="text-align: left;">
+                  <th>Tracking Number</th>
+                  <td>${quote.trackingNumber}</td>
+              </tr>
+          </tbody>
+      </table>
+      
+        <p style="font-size:12px; line-height:20px; background: #333; padding: 12px; color: #fff;">
+          &copy; Swissdarl Freight and Logistics Ltd.
+        </p>
+      </div>
+    </div>
+  </body>
+`;
 }
 
-// let transporter = nodemailer.createTransport(transport);
-
-module.exports = (name, to, subject, content) => {
-  let transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: 465,
-    secure: true, // use TLS
+function sendEmail(data, quote) {
+  var options = {
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    },
-  });
-
-  transporter.verify((error, success) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(success + 'Server ready to receive message');
+      api_user: process.env.EMAIL_USER,
+      api_key: process.env.EMAIL_PASS
     }
-  });
-  
-  const mail = {
-    from: name,
-    to,
-    subject,
-    text: content
   }
   
-  return transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      console.log({ message: err.message });
-    } else {
-      console.log({ message: data});
-    }
+  var client = nodemailer.createTransport(sgTransport(options));
+  
+  var email = {
+    from: 'Swissdarl Freight and Logistics Ltd @ <ecommerce@swissdarl.com>',
+    to: 'ecommerce@swissdarl.com',
+    subject: 'New Shipping Quote',
+    text: 'Hello world',
+    html: doc(quote)
+  };
+  
+  client.sendMail(email, function(err, info){
+      if (err ){
+        console.log(error);
+      }
+      else {
+        console.log('Message sent: ' + info);
+      }
   });
-
-  
-    // Generate test SMTP service account from ethereal.email
-    // Only needed if you don't have a real mail account for testing
-    // let testAccount = await nodemailer.createTestAccount();
-  
-    // create reusable transporter object using the default SMTP transport
-    
-  
-    // send mail with defined transport object
-    // let info = await transporter.sendMail({
-    //   from: name, // sender address
-    //   to: to, // list of receivers
-    //   subject: subject, // Subject line
-    //   text: content, // plain text body
-    //   // html: content // html body
-    // });
-  
-    // console.log("Message sent: %s", info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-  
-    // Preview only available when sending through an Ethereal account
-    // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-  
 }
+
+exports.sendEmail = sendEmail;

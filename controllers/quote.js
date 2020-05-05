@@ -1,7 +1,6 @@
 const { Quote } = require("../models/quote");
-const mailer = require("../services/mailer");
+const { sendEmail } = require("../services/mailer");
 const Mailgun = require("mailgun").Mailgun;
-const msg = new Mailgun("fa1334232ec6dfa6d3b303c4d273adba-ed4dc7c4-26421b6e");
 
 exports.create = (req, res, next) => {
   const {
@@ -23,9 +22,8 @@ exports.create = (req, res, next) => {
     contactFName,
     amount,
     paid,
+    unit
   } = req.body;
-
-  console.log(req.body)
 
   // call the create api from the front-end then after saving to database, call the method
   // that sends realtime message to the client and pass to it the returned values from the 
@@ -70,36 +68,31 @@ exports.create = (req, res, next) => {
     contactLName,
     contactFName,
     paid,
+    unit,
     trackingNumber: shipmentTrackingNumber
   });
 
 
-  return newQuote.save()
+  newQuote.save()
     .then(quote => {
       if (!quote) return res.status(400).json({ error: "Failed to process request" });
-      res.json(quote);
-      const subject = "New Quote Request";
-      const name = "Swissdarl Express";
-      const message = 
-      `
-        <p><strong>Company Name:</strong> ${quote.companyName}</p>
-        <p><strong>Contact First Name:</strong> ${quote.contactFName}</p>
-        <p><strong>Contact Last Name:</strong> ${quote.contactLName}</p>
-        <p><strong>Pick-up Address:</strong> ${quote.pickupAddress}</p>
-        <p><strong>Pick-up City:</strong> ${quote.pickupCity}</p>
-        <p><strong>Pick-up State:</strong> ${quote.pickupState}</p>
-        <p><strong>Destination Address:</strong> ${quote.destinationAddress}</p>
-        <p><strong>Destination State:</strong> ${quote.destinationState}</p>
-        <p><strong>Destination City:</strong> ${quote.destinationCity}</p>
-        <p><strong>Weight:</strong> ${quote.weight}</p>
-        <p><strong>Dimension:</strong> ${quote.dimension}</p>
-        <p><strong>Amount:</strong> ${quote.amount}</p>
-        <p><strong>Paid:</strong> ${quote.paid}</p>
-        <p><strong>Tracking Number:</strong> ${quote.trackingNumber}</p>
-      `
-      mailer(name, "ecommerce@swissdarl.com", subject, message);
+      const templateName = "swissdarltemplate";
+      const sender = "noreply@swissdarl.com";
+      const reciever = "ecommerce@swissdarl.com";
+      const subject = "New Shipping Quote";
+      const data = {
+        templateName,
+        sender,
+        subject,
+        reciever
+      }
+      
+      sendEmail(data, quote);
+      return res.json(quote);
+      
     })
     .catch(err => {
+      console.log(err)
       res.status(400).json({ error: err.message });
     });
 }
