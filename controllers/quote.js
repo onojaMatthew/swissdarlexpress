@@ -76,12 +76,10 @@ exports.create = (req, res, next) => {
   newQuote.save()
     .then(quote => {
       if (!quote) return res.status(400).json({ error: "Failed to process request" });
-      const templateName = "swissdarltemplate";
-      const sender = "noreply@swissdarl.com";
+      const sender = "no-reply@swissdarl.com";
       const reciever = "ecommerce@swissdarl.com";
       const subject = "New Shipping Quote";
       const data = {
-        templateName,
         sender,
         subject,
         reciever
