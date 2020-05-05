@@ -96,8 +96,8 @@ function sendEmail(data, quote) {
   var client = nodemailer.createTransport(sgTransport(options));
   
   var email = {
-    from: 'Swissdarl Freight and Logistics Ltd @ <ecommerce@swissdarl.com>',
-    to: 'ecommerce@swissdarl.com',
+    from: `Swissdarl Freight and Logistics Ltd @ ${data.sender}`,
+    to: data.reciever,
     subject: 'New Shipping Quote',
     text: 'Hello world',
     html: doc(quote)
