@@ -14,8 +14,8 @@ const {
   PORT,
 } = process.env;
 
-const port = PORT || 4200;
-const hostname = NODE_ENV === "development" ? "localhost" : "140.82.13.10";
+const port = PORT || 4300;
+const hostname = "";
 //===========================================================================
 // Instantiating the express application
 const app = express();
