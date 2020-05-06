@@ -7,10 +7,10 @@ function doc(quote) {
     <body>
     <div data-role="module-unsubscribe" class="module" role="module" data-type="unsubscribe" style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5">
       <div style="width: 80%; margin: 0 auto">
-        <p style="font-size:16px; line-height:20px; background: #333; padding: 12px; color: #fff;">
+        <p style="font-size:16px; line-height:20px; background: #20a6fb; padding: 12px; color: #fff;">
           Swissdarl Freight and Logistics Ltd
         </p>
-        <table>
+        <table border="1">
           <thead></thead>
           <tbody>
               <tr style="text-align: left;">
