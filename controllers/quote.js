@@ -1,6 +1,5 @@
 const { Quote } = require("../models/quote");
 const { sendEmail } = require("../services/mailer");
-const Mailgun = require("mailgun").Mailgun;
 
 exports.create = (req, res, next) => {
   const {
