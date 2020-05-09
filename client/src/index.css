@@ -284,3 +284,12 @@ section p {
   min-width: 50px;
   padding-right: 5px;
 }
+
+.sy-background {
+  height: 70px;
+  width: 70px;
+  padding: 25px;
+  background-color: #1890ff;
+  color: #fff;
+  border-radius: 10px;
+}

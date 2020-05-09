@@ -7,6 +7,7 @@ import Shipments from "./Shipments";
 import ShipmentDetails from "./ShipmentDetails";
 import DashboardHeader from "./Header";
 import Users from "./Users";
+import DashboardHome from "./DashboardHome";
 
 const { Content, Footer } = Layout;
 
@@ -35,9 +36,10 @@ export default class Dashboard extends Component{
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 4, minHeight: 360 }}>
               <Switch>
-                <Route exact path={`${match.url}`} render={(props) => <Shipments {...props} />} />
+                <Route exact path={`${match.url}`} render={(props) => <DashboardHome {...props} />} />
+                <Route  path={`/dashboard/shipments`} render={(props) => <Shipments {...props} />} />
                 <Route  path={`/dashboard/users`} render={(props) => <Users {...props} />} />
-                <Route  path={`/dashboard/:shipmentId`} render={(props) => <ShipmentDetails {...props} />} />
+                <Route  path={`/dashboard/shipments/:shipmentId`} render={(props) => <ShipmentDetails {...props} />} />
               </Switch>
             </div>
           </Content>

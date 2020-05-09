@@ -20,7 +20,11 @@ const SideBar =({ collapsed, onCollapse }) => {
           </Menu.Item>
           <Menu.Item key="2">
             <UserOutlined />
-            <span><Link style={{ color: "#fff" }} to="/dashboard/users">Users</Link></span>
+            <span><Link style={{ color: "#fff" }} to="/dashboard/shipments">Shipment List</Link></span>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <UserOutlined />
+            <span><Link style={{ color: "#fff" }} to="/dashboard/users">Employee List</Link></span>
           </Menu.Item>
         </Menu>
       </Sider>
