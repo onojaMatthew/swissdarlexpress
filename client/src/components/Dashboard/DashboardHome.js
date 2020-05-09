@@ -1,10 +1,32 @@
-import React from "react";
-import { Card, CardBody, Col, Row, CardHeader } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Card, CardBody, Col, Row } from "reactstrap";
 import { Divider } from "antd";
-import { MailOutlined, UserOutlined, HeatMapOutlined, TableOutlined, PhoneOutlined, LikeOutlined, ExclamationCircleOutlined, SnippetsOutlined, CheckSquareOutlined, CheckCircleOutlined, CarOutlined, StockOutlined } from "@ant-design/icons";
+import { MailOutlined, UserOutlined, TableOutlined, PhoneOutlined, LikeOutlined, ExclamationCircleOutlined, SnippetsOutlined, CheckSquareOutlined, CheckCircleOutlined, CarOutlined, StockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { getShipments } from "../../store/actions/action_shipment";
+import { localAuth } from "../../helper/authentcate";
 
 const DashboardHome = () => {
+    const shipments = useSelector(state => state.shipment);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getShipments());
+    }, [ dispatch ]);
+    const shipmentList = shipments.shipments && shipments.shipments.length;
+    const allShipment = shipments.shipments;
+    const deliveredList = allShipment.filter(shipment => shipment.delivered === true);
+    const pendingView = allShipment.filter(shipment => shipment.isView === false);
+    const unpaidDeliveryList = allShipment.filter(shipment => shipment.paid === false);
+    const pendingPaymentList = [];
+    for (let i = 0; i < unpaidDeliveryList.length; i++) {
+        pendingPaymentList.push(unpaidDeliveryList[i].amount);
+    }
+
+    const userRole = localAuth().user && localAuth().user.role;
+    const userEmail = localAuth().user && localAuth().user.email;
+    const pendingPayment = pendingPaymentList.reduce((a, b) => a + b, 0);
+    
     return (
         <div>
             <Card className="mb-3">
@@ -20,10 +42,10 @@ const DashboardHome = () => {
                             <Row>
                                 <Col xs="6" xl="3"><MailOutlined style={{
                                     marginRight: "3px"
-                                }} />email@gmail.com</Col>
+                                }} />{userEmail && userEmail}</Col>
                                 <Col xs="6" xl="3"><UserOutlined style={{
                                     marginRight: "3px"
-                                }}/>General manager</Col>
+                                }}/>{userRole && userRole.charAt(0).toUpperCase() + userRole.slice(1)}</Col>
                             </Row>
                         </Col>
                     </Row>
@@ -57,7 +79,7 @@ const DashboardHome = () => {
                                     fontSize: 40
                                 }} /></Col>
                                 <Col xs="3" xl="9">
-                                    <span style={{ fontSize: 12, color: "#333" }}>0 Shippment</span><br />
+                                    <span style={{ fontSize: 12, color: "#333" }}>{deliveredList && deliveredList.length} Shippment</span><br />
                                     <span style={{ fontSize: 12, color: "#333" }}>Delivered List</span>
                                 </Col>
                             </Row>
@@ -68,8 +90,8 @@ const DashboardHome = () => {
                                     fontSize: 40
                                 }} /></Col>
                                 <Col xs="3" xl="9">
-                                    <span style={{ fontSize: 12, color: "#333" }}>0 New Shipping Requests</span><br />
-                                    <span style={{ fontSize: 12, color: "#333" }}><Link to="/">View</Link></span>
+                                    <span style={{ fontSize: 12, color: "#333" }}>{pendingView && pendingView.length} New Shipping Requests</span><br />
+                                    <span style={{ fontSize: 12, color: "#333" }}><Link to="/dashboard/shipments">View</Link></span>
                                 </Col>
                             </Row>
                         </Col>
@@ -91,7 +113,7 @@ const DashboardHome = () => {
                                     marginRight: "15px",
                                     color: "#1890ff"
                                 }} />All Shipments</Col>
-                                <Col xs="3" xl="3">12</Col>
+                                <Col xs="3" xl="3">{shipmentList}</Col>
                             </Row>
                             <Row className="mb-5">
                                 <Col xs="9" xl="9"><ExclamationCircleOutlined style={{
@@ -125,7 +147,7 @@ const DashboardHome = () => {
                                 }} /><span style={{
                                     color: "green"
                                 }}>Delivered</span></Col>
-                                <Col xs="3" xl="3">34</Col>
+                                <Col xs="3" xl="3">{deliveredList && deliveredList.length}</Col>
                             </Row>
                         </CardBody>
                     </Card>
@@ -134,7 +156,7 @@ const DashboardHome = () => {
                     <Card style={{ minHeight: 416 }}>
                         <CardBody>
                             <Row>
-                                <Col xs="12" xl="12"><h5>NGN100.00</h5></Col>
+                                <Col xs="12" xl="12"><h5>NGN{pendingPayment && pendingPayment.toFixed(2)}</h5></Col>
                             </Row>
                             <Row>
                                 <Col xs="12" xl="12">Pending Payment</Col>

@@ -9,8 +9,9 @@ const { TextArea } = Input;
 const ShipmentDetails = () => {
   const shipment = useSelector(state => state.shipment);
   const dispatch = useDispatch();
-  const shipmentId = window.location.pathname.slice(11, 35);
+  const shipmentId = window.location.pathname.slice(21, 45);
 
+  console.log(shipmentId, " the id")
   useEffect(() => {
     dispatch(getShipment(shipmentId));
   }, [ dispatch, shipmentId ]);
