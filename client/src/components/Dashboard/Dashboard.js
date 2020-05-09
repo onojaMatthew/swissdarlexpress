@@ -37,9 +37,10 @@ export default class Dashboard extends Component{
             <div className="site-layout-background" style={{ padding: 4, minHeight: 360 }}>
               <Switch>
                 <Route exact path={`${match.url}`} render={(props) => <DashboardHome {...props} />} />
+                <Route  path={`/dashboard/shipments/:shipmentId`} render={(props) => <ShipmentDetails {...props} />} />
                 <Route  path={`/dashboard/shipments`} render={(props) => <Shipments {...props} />} />
                 <Route  path={`/dashboard/users`} render={(props) => <Users {...props} />} />
-                <Route  path={`/dashboard/shipments/:shipmentId`} render={(props) => <ShipmentDetails {...props} />} />
+                
               </Switch>
             </div>
           </Content>
