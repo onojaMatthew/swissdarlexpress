@@ -16,7 +16,13 @@ import {
   SHIPMENT_DELETE_FAILED,
   VIEW_START,
   VIEW_SUCCESS,
-  VIEW_FAILED
+  VIEW_FAILED,
+  APPROVE_START,
+  APPROVE_SUCCESS,
+  APPROVE_FAILED,
+  CHANGE_STATUS_START,
+  CHANGE_STATUS_SUCCESS,
+  CHANGE_STATUS_FAILED
 } from "../actions/action_shipment";
 
 const initialState = {
@@ -32,6 +38,10 @@ const initialState = {
   deleteSuccess: false,
   viewLoading: false,
   viewSuccess: false,
+  approveLoading: false,
+  approveSuccess: false,
+  statusLoading: false,
+  statusSuccess: false,
   error: ""
 }
 
@@ -150,6 +160,44 @@ export const shipment = (state=initialState, action) => {
         ...state,
         viewLoading: true,
         viewSuccess: false,
+        error: action.error
+      }
+    case APPROVE_START:
+      return {
+        ...state,
+        approveLoading: true
+      }
+    case APPROVE_SUCCESS:
+      return {
+        ...state,
+        approveLoading: false,
+        approveSuccess: true,
+        shipment: action.data,
+      }
+    case APPROVE_FAILED:
+      return {
+        ...state,
+        approveLoading: false,
+        approveSuccess: false,
+        error: action.error
+      }
+    case CHANGE_STATUS_START:
+      return {
+        ...state,
+        statusLoading: true
+      }
+    case CHANGE_STATUS_SUCCESS:
+      return {
+        ...state,
+        statusLoading: false,
+        statusSuccess: true,
+        shipment: action.data,
+      }
+    case CHANGE_STATUS_FAILED:
+      return {
+        ...state,
+        statusLoading: false,
+        statusSuccess: false,
         error: action.error
       }
     default:

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getShipment, shipmentDelivered, view } from "../../store/actions/action_shipment";
+import { getShipment, shipmentDelivered, view, approve } from "../../store/actions/action_shipment";
 import { Row, Col, Card, CardBody, Table } from "reactstrap";
 import { Spin, Input, Divider, Button } from "antd"
 
@@ -23,6 +23,11 @@ const ShipmentDetails = () => {
   const completeDelivery = (e) => {
     e.preventDefault();
     dispatch(shipmentDelivered(shipmentId));
+  }
+
+  const approveRequest = (e) => {
+    e.preventDefault();
+    dispatch(approve(shipmentId));
   }
 
   const shipmentDetails = shipment.shipment
@@ -127,7 +132,7 @@ const ShipmentDetails = () => {
             
             </Row>
             <Row>
-              <Col xl="12">
+              <Col xl="6">
                 {shipmentDetails.deliverLoading === true ? (
                   <div className="text-center">
                     <Spin tip="Processing..." />
@@ -138,6 +143,19 @@ const ShipmentDetails = () => {
                     style={{ color: "#fff", width: "100%", background: "rgb(9, 7, 36)" }}
                     onClick={(e) => completeDelivery(e)}
                   >Click to Complete Delivery</Button>
+                )}
+              </Col>
+              <Col xl="6">
+                {shipment.approveLoading === true ? (
+                  <div className="text-center">
+                    <Spin tip="Processing..." />
+                  </div>
+                ) : (
+                  <Button 
+                    type="primary" 
+                    style={{ color: "#fff", width: "100%", background: "rgb(9, 7, 36)" }}
+                    onClick={(e) => approveRequest(e)}
+                  >Approve</Button>
                 )}
               </Col>
             </Row>

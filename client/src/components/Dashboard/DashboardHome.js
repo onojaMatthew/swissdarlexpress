@@ -18,6 +18,7 @@ const DashboardHome = () => {
     const deliveredList = allShipment.filter(shipment => shipment.delivered === true);
     const pendingView = allShipment.filter(shipment => shipment.isView === false);
     const unpaidDeliveryList = allShipment.filter(shipment => shipment.paid === false);
+    const approvedList = allShipment.filter(shipment => shipment.approve === true);
     const pendingPaymentList = [];
     for (let i = 0; i < unpaidDeliveryList.length; i++) {
         pendingPaymentList.push(unpaidDeliveryList[i].amount);
@@ -26,7 +27,6 @@ const DashboardHome = () => {
     const userRole = localAuth().user && localAuth().user.role;
     const userEmail = localAuth().user && localAuth().user.email;
     const pendingPayment = pendingPaymentList.reduce((a, b) => a + b, 0);
-    
     return (
         <div>
             <Card className="mb-3">
@@ -57,7 +57,7 @@ const DashboardHome = () => {
                                     fontSize: 40
                                 }} /></Col>
                                 <Col xs="3" xl="9">
-                                    <span style={{ fontSize: 12, color: "#333" }}>0 Shippment</span><br />
+                                    <span style={{ fontSize: 12, color: "#333" }}>{approvedList && approvedList.length} Shippment</span><br />
                                     <span style={{ fontSize: 12, color: "#333" }}>Approved List</span>
                                 </Col>
                             </Row>
@@ -68,7 +68,7 @@ const DashboardHome = () => {
                                     fontSize: 40
                                 }} /></Col>
                                 <Col xs="3" xl="9">
-                                    <span style={{ fontSize: 12, color: "#333" }}>0 Shippment</span><br />
+                                    <span style={{ fontSize: 12, color: "#333" }}>{pendingView && pendingView.length} Shippment</span><br />
                                     <span style={{ fontSize: 12, color: "#333" }}>In Stock List</span>
                                 </Col>
                             </Row>
@@ -100,7 +100,7 @@ const DashboardHome = () => {
                 </CardBody>
             </Card>
             <Row>
-                <Col xs="12" xl="4">
+                <Col xs="12" xl="3">
                     <Card style={{ minHeight: 400 }}>
                         
                         <CardBody>
@@ -108,14 +108,14 @@ const DashboardHome = () => {
                                 <Col xs="9" xl="12">Summary Statitics Summary</Col>
                             </Row>
                             <Divider />
-                            <Row className="mb-5">
+                            <Row className="mb-4">
                                 <Col xs="9" xl="9"><CarOutlined style={{
                                     marginRight: "15px",
                                     color: "#1890ff"
                                 }} />All Shipments</Col>
                                 <Col xs="3" xl="3">{shipmentList}</Col>
                             </Row>
-                            <Row className="mb-5">
+                            <Row className="mb-4">
                                 <Col xs="9" xl="9"><ExclamationCircleOutlined style={{
                                     marginRight: "15px",
                                     color: "#1890ff"
@@ -124,7 +124,7 @@ const DashboardHome = () => {
                                 }}>Delayed Shipments</span></Col>
                                 <Col xs="3" xl="3">9</Col>
                             </Row>
-                            <Row className="mb-5">
+                            <Row className="mb-4">
                                 <Col xs="9" xl="9"><PhoneOutlined style={{
                                     marginRight: "15px",
                                     color: "#1890ff"
@@ -133,12 +133,12 @@ const DashboardHome = () => {
                                 }}>Pre Alert to Approve</span></Col>
                                 <Col xs="3" xl="3">3</Col>
                             </Row>
-                            <Row className="mb-5">
+                            <Row className="mb-4">
                                 <Col xs="9" xl="9"><TableOutlined style={{
                                     marginRight: "15px",
                                     color: "#1890ff"
                                 }} /><span>Pickup Lists</span></Col>
-                                <Col xs="3" xl="3">5</Col>
+                                <Col xs="3" xl="3">{pendingView && pendingView.length}</Col>
                             </Row>
                             <Row>
                                 <Col xs="9" xl="9"><LikeOutlined style={{
@@ -153,7 +153,7 @@ const DashboardHome = () => {
                     </Card>
                 </Col>
                 <Col xs="12" xl="3">
-                    <Card style={{ minHeight: 416 }}>
+                    <Card style={{ minHeight: 400 }}>
                         <CardBody>
                             <Row>
                                 <Col xs="12" xl="12"><h5>NGN{pendingPayment && pendingPayment.toFixed(2)}</h5></Col>
@@ -165,7 +165,7 @@ const DashboardHome = () => {
                     </Card>
                 </Col>
                 <Col xs="12" xl="3">
-                    <Card style={{ minHeight: 416 }}>
+                    <Card style={{ minHeight: 400 }}>
                         <CardBody>
                             <Row>
                                 <Col xs="12" xl="12"><h5>NGN100.00</h5></Col>
@@ -176,8 +176,8 @@ const DashboardHome = () => {
                         </CardBody>
                     </Card>
                 </Col>
-                <Col xs="12" xl="2">
-                    <Card style={{ minHeight: 416 }}>
+                <Col xs="12" xl="3">
+                    <Card style={{ minHeight: 400 }}>
                         <CardBody>
                             <Row>
                                 <Col xs="12" xl="12"><h5 style={{ color: "red"}}>0%</h5></Col>

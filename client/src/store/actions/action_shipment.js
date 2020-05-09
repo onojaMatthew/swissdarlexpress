@@ -18,6 +18,12 @@ export const SHIPMENT_DELETE_FAILED = "SHIPMENT_DELETE_FAILED";
 export const VIEW_START = "VIEW_START";
 export const VIEW_SUCCESS = "VIEW_SUCCESS";
 export const VIEW_FAILED = "VIEW_FAILED";
+export const APPROVE_START = "APPROVE_START";
+export const APPROVE_SUCCESS = "APPROVE_SUCCESS";
+export const APPROVE_FAILED = "APPROVE_FAILED";
+export const CHANGE_STATUS_START = "CHANGE_STATUS_START";
+export const CHANGE_STATUS_SUCCESS = "CHANGE_STATUS_SUCCESS";
+export const CHANGE_STATUS_FAILED = "CHANGE_STATUS_FAILED";
 
 export const createStart = () => {
   return {
@@ -275,6 +281,95 @@ export const shipmentDelete = (shipmentId) => {
       })
       .catch(err => {
         dispatch(shipmentDeletedFailed(err.mesage));
+      });
+  }
+}
+
+export const approveStart = () => {
+  return {
+    type: APPROVE_START
+  }
+}
+
+export const approveSuccess = (data) => {
+  return {
+    type: APPROVE_SUCCESS,
+    data
+  }
+}
+
+export const approveFailed = (error) => {
+  return {
+    type: APPROVE_FAILED,
+    error
+  }
+}
+
+export const approve = (shipmentId) => {
+  const userId = localAuth().user && localAuth().user._id;
+  return dispatch => {
+    approveStart();
+    fetch(`/v1/quote/approve/${shipmentId}/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        ACCEPT: "application/json",
+        "x-auth-token": localAuth().token
+      }
+    })
+      .then(response => response.json())
+      .then(resp => {
+        if (resp.error) return dispatch(approveFailed(resp.error));
+        dispatch(approveSuccess(resp));
+      })
+      .then(() => {
+        dispatch(getShipment(shipmentId));
+      })
+      .catch(err => {
+        return dispatch(approveFailed(err.message));
+      });
+  }
+}
+
+export const statusStart = () => {
+  return {
+    type: CHANGE_STATUS_START
+  }
+}
+
+export const statusSuccess = (data) => {
+  return {
+    type: CHANGE_STATUS_SUCCESS,
+    data
+  }
+}
+
+export const statusFailed = (error) => {
+  return {
+    type: CHANGE_STATUS_FAILED,
+    error
+  }
+}
+
+export const changeStatus = (shipmentId, status) => {
+  const userId = localAuth().user && localAuth().user._id;
+  return dispatch => {
+    dispatch(statusStart());
+    fetch(`/v1/quote/status/${shipmentId}/${userId}/${status}`, {
+      method: "PUT",
+      headers: {
+        ACCEPT: "application/json",
+        "Content-Type": "application/json",
+        "x-auth-token": localAuth().token
+      }
+    })
+      .then(response => response.json())
+      .then(resp => {
+        if (resp.error) return dispatch(statusFailed(resp.error));
+        dispatch(statusSuccess(resp));
+      })
+      .then(() => {
+        return dispatch(getShipment(shipmentId));
       });
   }
 }
