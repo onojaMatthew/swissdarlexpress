@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { getShipments } from "../../store/actions/action_shipment";
 import { localAuth } from "../../helper/authentcate";
 
-const DashboardHome = () => {
+const DashboardHome = (props) => {
     const shipments = useSelector(state => state.shipment);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -20,10 +20,21 @@ const DashboardHome = () => {
     const unpaidDeliveryList = allShipment.filter(shipment => shipment.paid === false);
     const approvedList = allShipment.filter(shipment => shipment.approve === true);
     const pendingPaymentList = [];
+    
     for (let i = 0; i < unpaidDeliveryList.length; i++) {
         pendingPaymentList.push(unpaidDeliveryList[i].amount);
     }
-
+    let currentMonth = [];
+    const month = new Date().getMonth();
+    if (allShipment && allShipment.length > 0) {
+        for (let i = 0; allShipment.length; i++) {
+        
+            const ite = allShipment && allShipment[i] && allShipment[i][0] && allShipment[i][0].createdAt;
+            console.log(ite && ite.slice(6, 2), "created at console")
+            
+        }
+    }
+    
     const userRole = localAuth().user && localAuth().user.role;
     const userEmail = localAuth().user && localAuth().user.email;
     const pendingPayment = pendingPaymentList.reduce((a, b) => a + b, 0);
@@ -112,41 +123,60 @@ const DashboardHome = () => {
                                 <Col xs="9" xl="9"><CarOutlined style={{
                                     marginRight: "15px",
                                     color: "#1890ff"
-                                }} />All Shipments</Col>
+                                }} />
+                                <Link 
+                                    to={`${props.match.url}/shipments`}
+                                    style={{
+                                        textDecoration: "none"
+                                    }}
+                                >All Shipments</Link></Col>
                                 <Col xs="3" xl="3">{shipmentList}</Col>
                             </Row>
                             <Row className="mb-4">
                                 <Col xs="9" xl="9"><ExclamationCircleOutlined style={{
                                     marginRight: "15px",
                                     color: "#1890ff"
-                                }} /><span style={{
-                                    color: "red"
-                                }}>Delayed Shipments</span></Col>
+                                }} />
+                                <Link 
+                                    to={`${props.match.url}/shipments/delayed`}
+                                    style={{
+                                        color: "red",
+                                        textDecoration: "none"
+                                    }}
+                                >Delayed Shipments</Link></Col>
                                 <Col xs="3" xl="3">9</Col>
                             </Row>
                             <Row className="mb-4">
                                 <Col xs="9" xl="9"><PhoneOutlined style={{
                                     marginRight: "15px",
                                     color: "#1890ff"
-                                }} /><span style={{
-                                    color: "orange"
-                                }}>Pre Alert to Approve</span></Col>
+                                }} /><Link to={`${props.match.url}/shipments/prealert`} style={{
+                                    color: "orange",
+                                    textDecoration: "none"
+                                }}>Pre Alert to Approve</Link></Col>
                                 <Col xs="3" xl="3">3</Col>
                             </Row>
                             <Row className="mb-4">
                                 <Col xs="9" xl="9"><TableOutlined style={{
                                     marginRight: "15px",
                                     color: "#1890ff"
-                                }} /><span>Pickup Lists</span></Col>
+                                }} />
+                                <Link 
+                                    to={`${props.match.url}/shipments/new`}
+                                    style={{
+                                        color: "rgba(0, 0, 0, 0.65)",
+                                        textDecoration: "none"
+                                    }}
+                                >Pickup Lists</Link></Col>
                                 <Col xs="3" xl="3">{pendingView && pendingView.length}</Col>
                             </Row>
                             <Row>
                                 <Col xs="9" xl="9"><LikeOutlined style={{
                                     marginRight: "15px",
                                     color: "#1890ff"
-                                }} /><span style={{
+                                }} /><Link to={`${props.match.url}/shipments/delivered`} style={{
                                     color: "green"
-                                }}>Delivered</span></Col>
+                                }}>Delivered</Link></Col>
                                 <Col xs="3" xl="3">{deliveredList && deliveredList.length}</Col>
                             </Row>
                         </CardBody>

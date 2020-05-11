@@ -8,7 +8,10 @@ import ShipmentDetails from "./ShipmentDetails";
 import DashboardHeader from "./Header";
 import Users from "./Users";
 import DashboardHome from "./DashboardHome";
-
+import DelayedShipments from "./DelayedShipment";
+import PreAlertShipments from "./PreAlert";
+import DeliveredList from "./DeliveredList";
+import NewShipmentList from "./NewShipmentList";
 const { Content, Footer } = Layout;
 
 export default class Dashboard extends Component{
@@ -37,14 +40,20 @@ export default class Dashboard extends Component{
             <div className="site-layout-background" style={{ padding: 4, minHeight: 360 }}>
               <Switch>
                 <Route exact path={`${match.url}`} render={(props) => <DashboardHome {...props} />} />
-                <Route  path={`/dashboard/shipments/:shipmentId`} render={(props) => <ShipmentDetails {...props} />} />
-                <Route  path={`/dashboard/shipments`} render={(props) => <Shipments {...props} />} />
-                <Route  path={`/dashboard/users`} render={(props) => <Users {...props} />} />
-                
+                <Route exact path={`${match.url}/shipments`} render={(props) => <Shipments {...props} />} />
+                <Route exact path={`${match.url}/users`} render={(props) => <Users {...props} />} />
+                <Route path={`${match.url}/shipments/prealert`} render={(props) => 
+                <PreAlertShipments {...props} />} />
+                <Route exact path={`${match.url}/shipments/delayed`} render={(props) => 
+                <DelayedShipments {...props} />} />
+                <Route exact path={`${match.url}/shipments/new`} render={(props) => <NewShipmentList {...props} />} />
+                <Route exact path={`${match.url}/shipments/delivered`} render={(props) => 
+                <DeliveredList  {...props}/>} />
+                <Route  path={`${match.url}/shipments/:shipmentId`} render={(props) => <ShipmentDetails {...props} />} />
               </Switch>
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+          <Footer style={{ textAlign: 'center' }}></Footer>
         </Layout>
       </Layout>
     )

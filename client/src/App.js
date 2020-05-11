@@ -58,7 +58,6 @@ class App extends Component{
           {Auth.isUserAuthenticated() ? (
             <Route path="/dashboard" render={(props) => <Dashboard {...props} />} />
           ) : <Redirect to="/accountl" />}
-          
           <Route path="/*" render={() => <div style={styles.ntf}>404 Page Not Found!!</div>} />
         </Switch>
       </BrowserRouter>
