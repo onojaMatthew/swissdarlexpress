@@ -5,7 +5,6 @@ import { Table, Row, Col, Card, CardBody, Badge } from 'reactstrap';
 import { message, Spin,  } from "antd";
 import { Link } from "react-router-dom";
 import Paginations from "../pages/Pagination";
-import { DeleteOutlined } from "@ant-design/icons";
 import { localAuth } from "../../helper/authentcate";
 
 
@@ -91,7 +90,7 @@ const NewShipmentList = (props) => {
                       <td style={{ fontSize: 10 }}>{data.trackingNumber}</td>
                       <td style={{ fontSize: 10 }}>{data.delivered === false ? "Pending" : "Delivered"}</td>
                       <td style={{ fontSize: 10 }}>
-                        <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <Link to={`${props.match.url}/${data._id}`}>View</Link> 
+                        <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <Link to={`/dashboard/shipments/${data._id}`}>View</Link> 
                       </td>
                     </tr>
                   )) : "No records found"}

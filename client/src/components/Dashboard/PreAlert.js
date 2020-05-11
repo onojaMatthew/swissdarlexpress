@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getShipments, shipmentDelete } from "../../store/actions/action_shipment";
+import { getShipments } from "../../store/actions/action_shipment";
 import { Table, Row, Col, Card, CardBody, Badge } from 'reactstrap';
 import { message, Spin,  } from "antd";
-import { Link } from "react-router-dom";
 import Paginations from "../pages/Pagination";
-import { DeleteOutlined } from "@ant-design/icons";
 import { localAuth } from "../../helper/authentcate";
+import ModalTemplate from "../pages/Modal";
+import PrealertUpdate from "./PrealertUpdate";
 
 
 const PreAlertShipments = (props) => {
@@ -14,7 +14,9 @@ const PreAlertShipments = (props) => {
   const dispatch = useDispatch();
   const [ pageOfItems, setPageOfItems ] = useState([]);
   const [ data, setData ] = useState([]);
-  const userRole = localAuth().user && localAuth().user.role;
+  const [ view, setView ] = useState(false);
+  const [ single, setSingle ] = useState({});
+  const [ id, setId ] = useState("");
   const prealert = shipment.shipments && shipment.shipments.filter(shipment => shipment.status === "pending");
   const error = (msg) => {
     message.error(msg);
@@ -32,21 +34,24 @@ const PreAlertShipments = (props) => {
     setPageOfItems(pageOfItems);
   }
 
-  const onDelete = (id) => {
-    dispatch(shipmentDelete(id));
-  }
-
   useEffect(() => {
     if (shipment.error) {
       error(shipment.error);
     }
   }, [ shipment ]);
 
+  const toggleview = (id) => {
+    setId(id);
+    setView(true);
+  }
+
   const dataSource = prealert;
+  console.log(single, " the single shipment")
   
   return (
     <div>
-      <Row className="justify-content-center">
+      {view === true ? <PrealertUpdate id={id} single={single} /> : (
+        <Row className="justify-content-center">
         <Col xs="10" xl="12">
           <Card style={{ minHeight: 450 }}>
             <h5 style={{
@@ -90,7 +95,10 @@ const PreAlertShipments = (props) => {
                       <td style={{ fontSize: 10 }}>{data.trackingNumber}</td>
                       <td style={{ fontSize: 10 }}>{data.delivered === false ? "Pending" : "Delivered"}</td>
                       <td style={{ fontSize: 10 }}>
-                        <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <Link to={`/dashboard/shipments/${data._id}`}>View</Link> 
+                        <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <span style={{
+                          color: "",
+                          cursor: "pointer"
+                        }} onClick={() => toggleview(data._id)}>View</span>
                       </td>
                     </tr>
                   )) : "No records found"}
@@ -108,7 +116,7 @@ const PreAlertShipments = (props) => {
           </Card>
         </Col>
       </Row>
-      
+      )}
     </div>
   )
 }

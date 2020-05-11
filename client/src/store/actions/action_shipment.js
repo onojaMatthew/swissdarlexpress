@@ -351,7 +351,7 @@ export const statusFailed = (error) => {
   }
 }
 
-export const changeStatus = (shipmentId, status) => {
+export const changeStatus = (status, shipmentId) => {
   const userId = localAuth().user && localAuth().user._id;
   return dispatch => {
     dispatch(statusStart());

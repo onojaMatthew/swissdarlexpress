@@ -44,12 +44,15 @@ const Shipments = (props) => {
   }, [ shipment ]);
 
   const dataSource = shipment.shipments && shipment.shipments;
-  
   return (
     <div>
       <Row className="justify-content-center">
         <Col xs="10" xl="11">
           <Card style={{ minHeight: 450 }}>
+            <h5 style={{
+              color: "#1890ff",
+              padding: "15px"
+            }}>All Shipments</h5>
             <CardBody>
             {shipment.getLoading === true ? (
               <div className="text-center"

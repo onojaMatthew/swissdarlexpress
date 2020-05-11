@@ -13,13 +13,14 @@ const DashboardHome = (props) => {
     useEffect(() => {
         dispatch(getShipments());
     }, [ dispatch ]);
-    
+
     const shipmentList = shipments.shipments && shipments.shipments.length;
     const allShipment = shipments.shipments;
     const deliveredList = allShipment.filter(shipment => shipment.delivered === true);
     const pendingView = allShipment.filter(shipment => shipment.isView === false);
     const unpaidDeliveryList = allShipment.filter(shipment => shipment.paid === false);
     const approvedList = allShipment.filter(shipment => shipment.approve === true);
+    const pendingShipments = allShipment.filter(shipment => shipment.status === "pending");
     const pendingPaymentList = [];
     
     for (let i = 0; i < unpaidDeliveryList.length; i++) {
@@ -93,7 +94,7 @@ const DashboardHome = (props) => {
                                 }} /></Col>
                                 <Col xs="3" xl="9">
                                     <span style={{ fontSize: 12, color: "#333" }}>{pendingView && pendingView.length} New Shipping Requests</span><br />
-                                    <span style={{ fontSize: 12, color: "#333" }}><Link to="/dashboard/shipments">View</Link></span>
+                                    <span style={{ fontSize: 12, color: "#333" }}><Link to="/dashboard/shipments/new">View</Link></span>
                                 </Col>
                             </Row>
                         </Col>
@@ -112,7 +113,7 @@ const DashboardHome = (props) => {
                             <Divider />
                             <Row className="mb-4">
                                 <Col xs="9" xl="9"><CarOutlined style={{
-                                    marginRight: "15px",
+                                    marginRight: "6px",
                                     color: "#1890ff"
                                 }} />
                                 <Link 
@@ -125,7 +126,7 @@ const DashboardHome = (props) => {
                             </Row>
                             <Row className="mb-4">
                                 <Col xs="9" xl="9"><ExclamationCircleOutlined style={{
-                                    marginRight: "15px",
+                                    marginRight: "6px",
                                     color: "#1890ff"
                                 }} />
                                 <Link 
@@ -139,17 +140,17 @@ const DashboardHome = (props) => {
                             </Row>
                             <Row className="mb-4">
                                 <Col xs="9" xl="9"><PhoneOutlined style={{
-                                    marginRight: "15px",
+                                    marginRight: "6px",
                                     color: "#1890ff"
                                 }} /><Link to={`${props.match.url}/shipments/prealert`} style={{
                                     color: "orange",
                                     textDecoration: "none"
                                 }}>Pre Alert to Approve</Link></Col>
-                                <Col xs="3" xl="3">3</Col>
+                                <Col xs="3" xl="3">{pendingShipments && pendingShipments.length}</Col>
                             </Row>
                             <Row className="mb-4">
                                 <Col xs="9" xl="9"><TableOutlined style={{
-                                    marginRight: "15px",
+                                    marginRight: "6px",
                                     color: "#1890ff"
                                 }} />
                                 <Link 
@@ -163,7 +164,7 @@ const DashboardHome = (props) => {
                             </Row>
                             <Row>
                                 <Col xs="9" xl="9"><LikeOutlined style={{
-                                    marginRight: "15px",
+                                    marginRight: "6px",
                                     color: "#1890ff"
                                 }} /><Link to={`${props.match.url}/shipments/delivered`} style={{
                                     color: "green"

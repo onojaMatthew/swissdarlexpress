@@ -53,7 +53,7 @@ export default class Dashboard extends Component{
               </Switch>
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}></Footer>
+          <Footer style={{ textAlign: 'center' }}>&copy; {new Date().getFullYear()} Swissdarl Freight and Logistics Ltd </Footer>
         </Layout>
       </Layout>
     )

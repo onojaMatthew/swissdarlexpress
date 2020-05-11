@@ -1,33 +1,57 @@
 
-import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import React from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
 
-const ModalExample = (props) => {
+const ModalTemplate = (props) => {
   const {
-    buttonLabel,
-    className,
     setModal,
     modal,
-    title,
-    validationMsg,
-    closeModal
+    single,
   } = props;
 
   return (
     <div>
-      {/* <Button color="danger" onClick={() => closeModal()}>{buttonLabel}</Button> */}
-      <Modal isOpen={modal} toggle={() => setModal()} className={className}>
-        <ModalHeader toggle={() => closeModal()}>{title}</ModalHeader>
+      <Modal isOpen={modal} toggle={() => setModal()}>
+        <ModalHeader toggle={() => setModal(false)}>Pre Alert to Approve</ModalHeader>
         <ModalBody>
-          {validationMsg}
+          <Table className="hovered">
+            <thead>
+              <tr>
+                <th>Company name</th>
+                <th>Email</th>
+                <th>Tracking number</th>
+                <th>Status</th>
+                <th>Phone</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {single[0] && single[0].companyName}
+                </td>
+                <td>
+                  {single[0] && single[0].email}
+                </td>
+                <td>
+                  {single[0] && single[0].trackingNumber}
+                </td>
+                <td>
+                  {single[0] && single[0].status}
+                </td>
+                <td>
+                  {single[0] && single[0].phone}
+                </td>
+              </tr>
+            </tbody>
+          </Table>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => closeModal()}>Do Something</Button>{' '}
-          <Button color="secondary" onClick={() => closeModal()}>Cancel</Button>
+          <Button color="secondary" onClick={() => setModal(false)}>Close</Button>
         </ModalFooter>
       </Modal>
     </div>
   );
 }
 
-export default ModalExample;
+export default ModalTemplate;

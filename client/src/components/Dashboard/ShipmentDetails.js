@@ -36,6 +36,10 @@ const ShipmentDetails = () => {
       <Row className="justify-content-center">
         <Col xs="11" xl="11">
         <Card style={{ minHeight: 450 }}>
+        <h5 style={{
+              color: "#1890ff",
+              padding: "10px"
+            }}>Shipment details</h5>
         <CardBody>
           {shipment.getLoading === true ? (
             <div className="text-center"
@@ -49,7 +53,6 @@ const ShipmentDetails = () => {
             </div>
           ) : (
             <>
-            <Divider orientation="left">Company Information</Divider>
             <Row>
               <Table className="hovered" style={{ fontSize: 12 }}>
                 <thead>
@@ -59,6 +62,9 @@ const ShipmentDetails = () => {
                     <th>Contact last name</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Pick-up Address</th>
+                    <th>Pick-up City</th>
+                    <th>Pick-up State</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,62 +74,63 @@ const ShipmentDetails = () => {
                     <td>{shipmentDetails.contactLName}</td>
                     <td>{shipmentDetails.email}</td>
                     <td>{shipmentDetails.phone}</td>
+                    <td>{shipmentDetails.pickupAddress}</td>
+                    <td>{shipmentDetails.pickupCity}</td>
+                    <td>{shipmentDetails.pickupState}</td>
                   </tr>
                 </tbody>
               </Table>
               
             </Row>
             
-            <Divider orientation="left">Pick-up Information</Divider>
             <Row>
               <Table className="hovered" style={{ fontSize: 12 }}>
                 <thead>
                   <tr>
-                    <th>Pick-up Address</th>
-                    <th>Pick-up City</th>
-                    <th>Pick-up State</th>
                     <th>Destination Address</th>
                     <th>Destination City</th>
                     <th>Destination State</th>
                     <th>Payment Type</th>
+                    <th>Package Information</th>
+                    <th>No. of Pieces</th>
+                    <th>Weight</th>
+                    <th>Dimension</th>
+                    <th>Shipping Cost</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{shipmentDetails.pickupAddress}</td>
-                    <td>{shipmentDetails.pickupCity}</td>
-                    <td>{shipmentDetails.pickupState}</td>
                     <td>{shipmentDetails.destinationAddress}</td>
                     <td>{shipmentDetails.destinationCity}</td>
                     <td>{shipmentDetails.destinationState}</td>
                     <td>{shipmentDetails.paid === false ? "Pay on delivery" : "Debit Card"}</td>
+                    <td>{shipmentDetails.packageInfo}</td>
+                    <td>{shipmentDetails.numOfPieces}</td>
+                    <td>{shipmentDetails.weight}</td>
+                    <td>{shipmentDetails.dimension}</td>
+                    <td>NGN{shipmentDetails.amount}</td>
                   </tr>
                 </tbody>
               </Table>
             
             </Row>
             
-            <Divider orientation="left">Package Description</Divider>
             <Row>
               <Table className="hovered" style={{ fontSize: 12 }}>
                 <thead>
                   <tr>
-                    <th>Package Information</th>
-                    <th>No. of Pieces</th>
-                    <th>Weight</th>
-                    <th>Dimension</th>
-                    <th>Shipping Cost</th>
+                    <th>Shipment Status</th>
+                    <th>Delayed</th>
+                    <th>Approved</th>
                     <th>Instruction</th>
                     <th>Delivery Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{shipmentDetails.packageInfo}</td>
-                    <td>{shipmentDetails.numOfPieces}</td>
-                    <td>{shipmentDetails.weight}</td>
-                    <td>{shipmentDetails.dimension}</td>
-                    <td>NGN{shipmentDetails.amount}</td>
+                    <td>{shipmentDetails.status}</td>
+                    <td>{shipmentDetails.delayed}</td>
+                    <td>{shipmentDetails.approve}</td>
                     <td>{shipmentDetails.specialInstruction}</td>
                     <td>{shipmentDetails.delivered === false ? "Pending" : "Delivered"}</td>
                   </tr>
