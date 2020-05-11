@@ -13,6 +13,7 @@ const DashboardHome = (props) => {
     useEffect(() => {
         dispatch(getShipments());
     }, [ dispatch ]);
+    
     const shipmentList = shipments.shipments && shipments.shipments.length;
     const allShipment = shipments.shipments;
     const deliveredList = allShipment.filter(shipment => shipment.delivered === true);
@@ -23,16 +24,6 @@ const DashboardHome = (props) => {
     
     for (let i = 0; i < unpaidDeliveryList.length; i++) {
         pendingPaymentList.push(unpaidDeliveryList[i].amount);
-    }
-    let currentMonth = [];
-    const month = new Date().getMonth();
-    if (allShipment && allShipment.length > 0) {
-        for (let i = 0; allShipment.length; i++) {
-        
-            const ite = allShipment && allShipment[i] && allShipment[i][0] && allShipment[i][0].createdAt;
-            console.log(ite && ite.slice(6, 2), "created at console")
-            
-        }
     }
     
     const userRole = localAuth().user && localAuth().user.role;
