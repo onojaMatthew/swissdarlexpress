@@ -15,7 +15,6 @@ const PreAlertShipments = (props) => {
   const [ pageOfItems, setPageOfItems ] = useState([]);
   const [ data, setData ] = useState([]);
   const [ view, setView ] = useState(false);
-  const [ single, setSingle ] = useState({});
   const [ id, setId ] = useState("");
   const prealert = shipment.shipments && shipment.shipments.filter(shipment => shipment.status === "pending");
   const error = (msg) => {
@@ -28,7 +27,7 @@ const PreAlertShipments = (props) => {
 
   useEffect(() => {
     setData(prealert);
-  }, [shipment]);
+  }, [ shipment ]);
 
   const onChangePage = (pageOfItems) => {
     setPageOfItems(pageOfItems);
@@ -46,11 +45,10 @@ const PreAlertShipments = (props) => {
   }
 
   const dataSource = prealert;
-  console.log(single, " the single shipment")
   
   return (
     <div>
-      {view === true ? <PrealertUpdate id={id} single={single} /> : (
+      {view === true ? <PrealertUpdate id={id} /> : (
         <Row className="justify-content-center">
         <Col xs="10" xl="12">
           <Card style={{ minHeight: 450 }}>
@@ -80,12 +78,12 @@ const PreAlertShipments = (props) => {
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Tracking Number</th>
-                    <th>Status</th>
+                    <th>Delivery Status</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {pageOfItems ? pageOfItems.map((data, i) => (
+                  {pageOfItems && pageOfItems.length > 0 ? pageOfItems.map((data, i) => (
                     <tr key={data._id}>
                       <th scope="row">{i + 1}</th>
                       <td style={{ fontSize: 10 }}>{data.companyName}</td>
@@ -93,7 +91,9 @@ const PreAlertShipments = (props) => {
                       <td style={{ fontSize: 10 }}>{data.email}</td>
                       <td style={{ fontSize: 10 }}>{data.phone}</td>
                       <td style={{ fontSize: 10 }}>{data.trackingNumber}</td>
-                      <td style={{ fontSize: 10 }}>{data.delivered === false ? "Pending" : "Delivered"}</td>
+                      <td>
+                        {data.status === "delivered_to_driver" ? "Deliver to driver" : data.status === "delivered_to_receiver" ? "Delivered to receiver" : data.status === "returned" ? "Returned" : data.status.charAt(0).toUpperCase() + data.status.slice(1)}
+                      </td>
                       <td style={{ fontSize: 10 }}>
                         <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <span style={{
                           color: "",
@@ -101,7 +101,7 @@ const PreAlertShipments = (props) => {
                         }} onClick={() => toggleview(data._id)}>View</span>
                       </td>
                     </tr>
-                  )) : "No records found"}
+                  )) : <p className="text-center">No records found</p>}
                 </tbody>
               </Table>
               {dataSource && dataSource.length > 0 ? (

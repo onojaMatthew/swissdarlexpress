@@ -4,8 +4,9 @@ import { Card, CardBody, Col, Row } from "reactstrap";
 import { Divider } from "antd";
 import { MailOutlined, UserOutlined, TableOutlined, PhoneOutlined, LikeOutlined, ExclamationCircleOutlined, SnippetsOutlined, CheckSquareOutlined, CheckCircleOutlined, CarOutlined, StockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { getShipments } from "../../store/actions/action_shipment";
+import { getShipments, currentMonth } from "../../store/actions/action_shipment";
 import { localAuth } from "../../helper/authentcate";
+import Chart from "../pages/Chart";
 
 const DashboardHome = (props) => {
     const shipments = useSelector(state => state.shipment);
@@ -13,6 +14,7 @@ const DashboardHome = (props) => {
     useEffect(() => {
         dispatch(getShipments());
     }, [ dispatch ]);
+
 
     const shipmentList = shipments.shipments && shipments.shipments.length;
     const allShipment = shipments.shipments;
@@ -22,11 +24,28 @@ const DashboardHome = (props) => {
     const approvedList = allShipment.filter(shipment => shipment.approve === true);
     const pendingShipments = allShipment.filter(shipment => shipment.status === "pending");
     const pendingPaymentList = [];
-    
+    const currentMonth = new Date().getMonth();
+    const toTwoDigits = currentMonth.length === 2 ? 1 + currentMonth : "0" + (1 + currentMonth) ;
+    let currentMonthSale = [];
+    let monthSaleArr = [];
     for (let i = 0; i < unpaidDeliveryList.length; i++) {
         pendingPaymentList.push(unpaidDeliveryList[i].amount);
     }
-    
+
+    for (let i = 0; i < allShipment.length; i++) {
+        let eachShipment = allShipment[i];
+        if (eachShipment && eachShipment.createdAt && eachShipment.createdAt.slice(5, 7) == toTwoDigits) {
+            currentMonthSale.push(eachShipment);
+        }
+    }
+
+    for (let i = 0; i < currentMonthSale.length; i++) {
+        // monthSaleArr.push({amount: currentMonthSale[i].amount, name: "Current month sale"});
+        monthSaleArr.push(currentMonthSale[i].amount);
+    }
+
+    const amt = monthSaleArr.map(amount => amount.amount)
+    const currentMonthAmt = monthSaleArr.reduce((a, b) => a + b, 0);
     const userRole = localAuth().user && localAuth().user.role;
     const userEmail = localAuth().user && localAuth().user.email;
     const pendingPayment = pendingPaymentList.reduce((a, b) => a + b, 0);
@@ -184,18 +203,20 @@ const DashboardHome = (props) => {
                                 <Col xs="12" xl="12">Pending Payment</Col>
                             </Row>
                         </CardBody>
+                        <Chart monthSaleArr={pendingPaymentList} />
                     </Card>
                 </Col>
                 <Col xs="12" xl="3">
                     <Card style={{ minHeight: 400 }}>
                         <CardBody>
                             <Row>
-                                <Col xs="12" xl="12"><h5>NGN100.00</h5></Col>
+                            <Col xs="12" xl="12"><h5>NGN{currentMonthAmt && currentMonthAmt.toFixed(2)}</h5></Col>
                             </Row>
                             <Row>
                                 <Col xs="12" xl="12">Current Month Sales</Col>
                             </Row>
                         </CardBody>
+                        <Chart monthSaleArr={monthSaleArr} />
                     </Card>
                 </Col>
                 <Col xs="12" xl="3">

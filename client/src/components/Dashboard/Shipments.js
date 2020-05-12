@@ -81,7 +81,7 @@ const Shipments = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {pageOfItems ? pageOfItems.map((data, i) => (
+                  {pageOfItems && pageOfItems.length > 0 ? pageOfItems.map((data, i) => (
                     <tr key={data._id}>
                       <th scope="row">{i + 1}</th>
                       <td style={{ fontSize: 10 }}>{data.companyName}</td>
@@ -89,7 +89,9 @@ const Shipments = (props) => {
                       <td style={{ fontSize: 10 }}>{data.email}</td>
                       <td style={{ fontSize: 10 }}>{data.phone}</td>
                       <td style={{ fontSize: 10 }}>{data.trackingNumber}</td>
-                      <td style={{ fontSize: 10 }}>{data.delivered === false ? "Pending" : "Delivered"}</td>
+                      <td>
+                        {data.status === "delivered_to_driver" ? "Deliver to driver" : data.status === "delivered_to_receiver" ? "Delivered to receiver" : data.status === "returned" ? "Returned" : data.status.charAt(0).toUpperCase() + data.status.slice(1)}
+                      </td>
                       <td style={{ fontSize: 10 }}>
                         <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <Link to={`${props.match.url}/${data._id}`}>View</Link> 
                       </td>
@@ -107,7 +109,7 @@ const Shipments = (props) => {
                         
                       </td>
                     </tr>
-                  )) : "No records found"}
+                  )) : <p className="text-center">No records found</p>}
                 </tbody>
               </Table>
               {dataSource && dataSource.length > 0 ? (

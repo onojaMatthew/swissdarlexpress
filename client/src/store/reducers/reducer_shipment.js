@@ -22,7 +22,10 @@ import {
   APPROVE_FAILED,
   CHANGE_STATUS_START,
   CHANGE_STATUS_SUCCESS,
-  CHANGE_STATUS_FAILED
+  CHANGE_STATUS_FAILED,
+  CURRENT_MONTH_SALE_START,
+  CURRENT_MONTH_SALE_SUCCESS,
+  CURRENT_MONTH_SALE_FAILED
 } from "../actions/action_shipment";
 
 const initialState = {
@@ -198,6 +201,25 @@ export const shipment = (state=initialState, action) => {
         ...state,
         statusLoading: false,
         statusSuccess: false,
+        error: action.error
+      }
+    case CURRENT_MONTH_SALE_START:
+      return {
+        ...state,
+        getLodaing: true
+      }
+    case CURRENT_MONTH_SALE_SUCCESS:
+      return {
+        ...state,
+        getLodaing: false,
+        getSuccess: true,
+        shipment: action.data,
+      }
+    case CURRENT_MONTH_SALE_FAILED:
+      return {
+        ...state,
+        getLodaing: false,
+        getSuccess: false,
         error: action.error
       }
     default:

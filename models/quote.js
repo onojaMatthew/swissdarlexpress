@@ -20,7 +20,7 @@ const quoteSchema = new Schema({
   isView: { type: Boolean, default: false },
   dimension: { type: String, required: true },
   specialInstruction: { type: String, required: true },
-  status: { type: String, enum: [ "refused", "delivered_to_driver", "delivered_to_receiver", "returned" ], default: "pending" },
+  status: { type: String, enum: ["pending", "refused", "delivered_to_driver", "delivered_to_receiver", "returned" ], default: "pending" },
   numOfPieces: { type: String, required: true },
   trackingNumber: { type: String, required: true },
   delivered: { type: Boolean, default: false },

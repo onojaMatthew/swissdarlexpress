@@ -24,6 +24,9 @@ export const APPROVE_FAILED = "APPROVE_FAILED";
 export const CHANGE_STATUS_START = "CHANGE_STATUS_START";
 export const CHANGE_STATUS_SUCCESS = "CHANGE_STATUS_SUCCESS";
 export const CHANGE_STATUS_FAILED = "CHANGE_STATUS_FAILED";
+export const CURRENT_MONTH_SALE_START = "CURRENT_MONTH_SALE_START";
+export const CURRENT_MONTH_SALE_SUCCESS = "CURRENT_MONTH_SALE_SUCCESS";
+export const CURRENT_MONTH_SALE_FAILED = "CURRENT_MONTH_SALE_FAILED";
 
 export const createStart = () => {
   return {
@@ -371,5 +374,47 @@ export const changeStatus = (status, shipmentId) => {
       .then(() => {
         return dispatch(getShipment(shipmentId));
       });
+  }
+}
+
+export const currentMonthStart = () => {
+  return {
+    type: CURRENT_MONTH_SALE_START
+  }
+}
+
+export const currentMonthSuccess = (data) => {
+  return {
+    type: CURRENT_MONTH_SALE_SUCCESS,
+    data
+  }
+}
+
+export const currentMonthFailed = (error) => {
+  return {
+    type: CURRENT_MONTH_SALE_FAILED,
+    error
+  }
+}
+
+export const currentMonth = () => {
+  return dispatch => {
+    dispatch(currentMonthStart());
+    fetch(`/v1/quote`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ACCEPT: "application/json",
+        "x-auth-token": localAuth().token
+      }
+    })
+      .then(response => response.json())
+      .then(resp => {
+        if (resp.error) return dispatch(currentMonthFailed(resp.error));
+        dispatch(currentMonthSuccess(resp));
+      })
+      .catch(err => {
+        return dispatch(err.message);
+      })
   }
 }

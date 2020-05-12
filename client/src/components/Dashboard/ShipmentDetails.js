@@ -11,7 +11,6 @@ const ShipmentDetails = () => {
   const dispatch = useDispatch();
   const shipmentId = window.location.pathname.slice(21, 45);
 
-  console.log(shipmentId, " the id")
   useEffect(() => {
     dispatch(getShipment(shipmentId));
   }, [ dispatch, shipmentId ]);
@@ -30,7 +29,7 @@ const ShipmentDetails = () => {
     dispatch(approve(shipmentId));
   }
 
-  const shipmentDetails = shipment.shipment
+  const shipmentDetails = shipment.shipment;
   return (
     <div>
       <Row className="justify-content-center">
@@ -119,7 +118,6 @@ const ShipmentDetails = () => {
               <Table className="hovered" style={{ fontSize: 12 }}>
                 <thead>
                   <tr>
-                    <th>Shipment Status</th>
                     <th>Delayed</th>
                     <th>Approved</th>
                     <th>Instruction</th>
@@ -128,11 +126,12 @@ const ShipmentDetails = () => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{shipmentDetails.status}</td>
                     <td>{shipmentDetails.delayed}</td>
                     <td>{shipmentDetails.approve}</td>
                     <td>{shipmentDetails.specialInstruction}</td>
-                    <td>{shipmentDetails.delivered === false ? "Pending" : "Delivered"}</td>
+                    <td>
+                        {shipmentDetails.status === "delivered_to_driver" ? "Deliver to driver" : shipmentDetails.status === "delivered_to_receiver" ? "Delivered to receiver" : shipmentDetails.status === "returned" ? "Returned" : shipmentDetails.status && shipmentDetails.status.charAt(0).toUpperCase() + shipmentDetails.status.slice(1)}
+                      </td>
                   </tr>
                 </tbody>
               </Table>

@@ -80,7 +80,7 @@ const NewShipmentList = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {pageOfItems ? pageOfItems.map((data, i) => (
+                  {pageOfItems && pageOfItems.length > 0 ? pageOfItems.map((data, i) => (
                     <tr key={data._id}>
                       <th scope="row">{i + 1}</th>
                       <td style={{ fontSize: 10 }}>{data.companyName}</td>
@@ -93,7 +93,7 @@ const NewShipmentList = (props) => {
                         <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <Link to={`/dashboard/shipments/${data._id}`}>View</Link> 
                       </td>
                     </tr>
-                  )) : "No records found"}
+                  )) : <p className="text-center">No records found</p>}
                 </tbody>
               </Table>
               {dataSource && dataSource.length > 0 ? (
