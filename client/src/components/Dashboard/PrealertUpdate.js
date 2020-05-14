@@ -47,7 +47,6 @@ const PrealertUpdate = ({ id }) => {
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Tracking Number</th>
-                    <th>Delivered</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -58,13 +57,13 @@ const PrealertUpdate = ({ id }) => {
                     <td style={{ fontSize: 10 }}>{shipment.shipment && shipment.shipment.email}</td>
                     <td style={{ fontSize: 10 }}>{shipment.shipment && shipment.shipment.phone}</td>
                     <td style={{ fontSize: 10 }}>{shipment.shipment && shipment.shipment.trackingNumber}</td>
-                    <td style={{ fontSize: 10 }}>{shipment.shipment && shipment.shipment.delivered === false ? "Pending" : "Delivered"}</td>
+                    
                     <td style={{ fontSize: 10 }}>{shipment.shipment && shipment.shipment.status === "delivered_to_driver" ? "Deliver to driver" : shipment.shipment.status === "delivered_to_receiver" ? "Delivered to receiver" : shipment.shipment.status === "returned" ? "Returned" : shipment.shipment.status && shipment.shipment.status.charAt(0).toUpperCase() + shipment.shipment.status.slice(1)}</td>
                   </tr>
                 </tbody>
               </Table>
               
-              {role === "super_admin" ? (
+              {role === "admin" ? (
                 <Row className="justify-content-center mt-5">
                   <Col xs="10" xl="8">
                     <Row>

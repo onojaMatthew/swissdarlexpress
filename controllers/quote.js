@@ -163,7 +163,7 @@ exports.approve = (req, res) => {
   const { shipmentId, userId } = req.params;
   const { _id, role } = req.user;
   if (!_id || !role) return res.status(400).json({ error: "Unauthorized access. Please log in to continue" });
-  if (role !== "super_admin") return res.status(400).json({ error: "Only admin is authorized for this operation" });
+  if (role !== "admin") return res.status(400).json({ error: "Only admin is authorized for this operation" });
   if (!shipmentId || !userId) return res.status(400).json({ error: "Invalid parameter values" });
   if (userId !== _id) return res.status(400).json({ error: "Unknown user" });
   Quote.findByIdAndUpdate({ _id: shipmentId}, { $set: { approve: true }}, { new: true })
@@ -180,7 +180,7 @@ exports.changeStatus = (req, res) => {
   const { shipmentId, userId, status } = req.params;
   const { _id, role } = req.user;
   if (!_id || !role) return res.status(400).json({ error: "Unauthorized access. Please log in to continue" });
-  if (role !== "super_admin") return res.status(400).json({ error: "Only admin is authorized for this operation" });
+  if (role !== "admin") return res.status(400).json({ error: "Only admin is authorized for this operation" });
   if (!shipmentId || !userId, !status) return res.status(400).json({ error: "Invalid parameter values" });
   if (userId !== _id) return res.status(400).json({ error: "Unknown user" });
   Quote.findByIdAndUpdate({ _id: shipmentId}, { $set: { status }}, { new: true })

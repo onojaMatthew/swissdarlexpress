@@ -18,11 +18,12 @@ const DashboardHome = (props) => {
 
     const shipmentList = shipments.shipments && shipments.shipments.length;
     const allShipment = shipments.shipments;
-    const deliveredList = allShipment.filter(shipment => shipment.delivered === true);
+    const deliveredList = allShipment.filter(shipment => shipment.status === "delivered_to_receiver");
     const pendingView = allShipment.filter(shipment => shipment.isView === false);
     const unpaidDeliveryList = allShipment.filter(shipment => shipment.paid === false);
     const approvedList = allShipment.filter(shipment => shipment.approve === true);
     const pendingShipments = allShipment.filter(shipment => shipment.status === "pending");
+    const delayedShipments = allShipment.filter(shipment => shipment.status === "delayed");
     const pendingPaymentList = [];
     const currentMonth = new Date().getMonth();
     const toTwoDigits = currentMonth.length === 2 ? 1 + currentMonth : "0" + (1 + currentMonth) ;
@@ -155,7 +156,7 @@ const DashboardHome = (props) => {
                                         textDecoration: "none"
                                     }}
                                 >Delayed Shipments</Link></Col>
-                                <Col xs="3" xl="3">9</Col>
+                                <Col xs="3" xl="3">{delayedShipments && delayedShipments.length}</Col>
                             </Row>
                             <Row className="mb-4">
                                 <Col xs="9" xl="9"><PhoneOutlined style={{
