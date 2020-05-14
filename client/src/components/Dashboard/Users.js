@@ -45,7 +45,7 @@ const Users = () => {
   return (
     <div style={{ position: "relative"}}>
       <Row className="justify-content-center">
-        <Col xs="10" xl="11">
+        <Col xs="10" xl="12">
           {users.getLoading === true ? (
             <div className="text-center" style={{
               position: "absolute",
@@ -56,48 +56,48 @@ const Users = () => {
           ) : (
             <Card style={{ minHeight: 450 }}>
               <CardBody>
-                {users.getLoading === true ? <Spin tip="Loading..." /> : (
-                  <Table className="table-hovered">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Role</th>
-                      {userRole !== "super_admin" ? null: (
-                        <th>Action</th>
-                      )}
-                    </tr>
-                  </thead>
-                  <tbody>
-                  {userList && userList.length > 0 ? userList.map(user => (
-                    <tr key={user._id}>
-                      <td style={{ fontSize: 10 }}>{user.fullname}</td>
-                      <td style={{ fontSize: 10 }}>{user.email}</td>
-                      <td style={{ fontSize: 10 }}>{user.phone}</td>
-                      <td style={{ fontSize: 10 }}>{user.role}</td>
-                      {userRole !== "super_admin" ? null : (
-                        <td>
-                         {users.roleLoading === true ? <Spin /> :
-                            <EditOutlined onClick={() => onRoleChange(user._id)} title="Change role" />
-                          } 
-                          {users.deleteLoading === true ? <Spin /> : <DeleteOutlined onClick={() => onDelete(user._id)} style={{ marginLeft: 20, color: "#ff0000" }} title="Delete user" />}
-                        </td>
-                      )}
-                      
-                    </tr>
-                  )) : 
-                    <div className="text-center">
-                      <p style={{
-                        fontSize: 24
-                      }}>No records found</p>
-                    </div>
-                  }
-                  </tbody>
-                </Table>
-                
-                )}
-                
+                <Row className="justify-content-center">
+                  <Col xs="6" xl="6">
+                  {users.getLoading === true ? <Spin tip="Loading..." /> : (
+                    <Table className="table-hovered">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        {!userRole === "admin" ? null: (
+                          <th>Action</th>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {userList && userList.length > 0 ? userList.map(user => (
+                      <tr key={user._id}>
+                        <td style={{ fontSize: 10 }}>{user.fullname}</td>
+                        <td style={{ fontSize: 10 }}>{user.email}</td>
+                        <td style={{ fontSize: 10 }}>{user.phone}</td>
+                        {userRole !== "admin" ? null : (
+                          <td>
+                          {/* {users.roleLoading === true ? <Spin /> :
+                              <EditOutlined onClick={() => onRoleChange(user._id)} title="Change role" />
+                            }  */}
+                            {users.deleteLoading === true ? <Spin /> : <DeleteOutlined onClick={() => onDelete(user._id)} style={{ marginLeft: 20, color: "#ff0000" }} title="Delete user" />}
+                          </td>
+                        )}
+                        
+                      </tr>
+                    )) : 
+                      <div className="text-center">
+                        <p style={{
+                          fontSize: 24
+                        }}>No records found</p>
+                      </div>
+                    }
+                    </tbody>
+                  </Table>
+                  )}
+                  </Col>
+                </Row>
               </CardBody>
             </Card>
           )}

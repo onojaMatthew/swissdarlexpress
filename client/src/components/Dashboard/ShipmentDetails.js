@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getShipment, shipmentDelivered, view, approve } from "../../store/actions/action_shipment";
+import { getShipment, view, approve } from "../../store/actions/action_shipment";
 import { Row, Col, Card, CardBody, Table } from "reactstrap";
-import { Spin, Input, Divider, Button } from "antd"
-
-const { TextArea } = Input;
+import { Spin } from "antd"
 
 const ShipmentDetails = () => {
   const shipment = useSelector(state => state.shipment);
@@ -19,17 +17,8 @@ const ShipmentDetails = () => {
     dispatch(view(shipmentId));
   }, [ dispatch ]);
 
-  const completeDelivery = (e) => {
-    e.preventDefault();
-    dispatch(shipmentDelivered(shipmentId));
-  }
-
-  const approveRequest = (e) => {
-    e.preventDefault();
-    dispatch(approve(shipmentId));
-  }
-
   const shipmentDetails = shipment.shipment;
+  
   return (
     <div>
       <Row className="justify-content-center">
@@ -64,6 +53,7 @@ const ShipmentDetails = () => {
                     <th>Pick-up Address</th>
                     <th>Pick-up City</th>
                     <th>Pick-up State</th>
+                    <th>Destination Address</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -76,6 +66,7 @@ const ShipmentDetails = () => {
                     <td>{shipmentDetails.pickupAddress}</td>
                     <td>{shipmentDetails.pickupCity}</td>
                     <td>{shipmentDetails.pickupState}</td>
+                    <td>{shipmentDetails.destinationAddress}</td>
                   </tr>
                 </tbody>
               </Table>
@@ -86,7 +77,6 @@ const ShipmentDetails = () => {
               <Table className="hovered" style={{ fontSize: 12 }}>
                 <thead>
                   <tr>
-                    <th>Destination Address</th>
                     <th>Destination City</th>
                     <th>Destination State</th>
                     <th>Payment Type</th>
@@ -95,11 +85,11 @@ const ShipmentDetails = () => {
                     <th>Weight</th>
                     <th>Dimension</th>
                     <th>Shipping Cost</th>
+                    <th>Delivery Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{shipmentDetails.destinationAddress}</td>
                     <td>{shipmentDetails.destinationCity}</td>
                     <td>{shipmentDetails.destinationState}</td>
                     <td>{shipmentDetails.paid === false ? "Pay on delivery" : "Debit Card"}</td>
@@ -108,62 +98,12 @@ const ShipmentDetails = () => {
                     <td>{shipmentDetails.weight}</td>
                     <td>{shipmentDetails.dimension}</td>
                     <td>NGN{shipmentDetails.amount}</td>
-                  </tr>
-                </tbody>
-              </Table>
-            
-            </Row>
-            
-            <Row>
-              <Table className="hovered" style={{ fontSize: 12 }}>
-                <thead>
-                  <tr>
-                    <th>Delayed</th>
-                    <th>Approved</th>
-                    <th>Instruction</th>
-                    <th>Delivery Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{shipmentDetails.delayed}</td>
-                    <td>{shipmentDetails.approve}</td>
-                    <td>{shipmentDetails.specialInstruction}</td>
                     <td>
-                        {shipmentDetails.status === "delivered_to_driver" ? "Deliver to driver" : shipmentDetails.status === "delivered_to_receiver" ? "Delivered to receiver" : shipmentDetails.status === "returned" ? "Returned" : shipmentDetails.status && shipmentDetails.status.charAt(0).toUpperCase() + shipmentDetails.status.slice(1)}
-                      </td>
+                      {shipmentDetails.status === "delivered_to_driver" ? "Deliver to driver" : shipmentDetails.status === "delivered_to_receiver" ? "Delivered to receiver" : shipmentDetails.status === "returned" ? "Returned" : shipmentDetails.status === "delayed" ? "Delayed" : shipmentDetails.status && shipmentDetails.status.charAt(0).toUpperCase() + shipmentDetails.status.slice(1)}
+                    </td>
                   </tr>
                 </tbody>
               </Table>
-            
-            </Row>
-            <Row>
-              <Col xl="6">
-                {shipmentDetails.deliverLoading === true ? (
-                  <div className="text-center">
-                    <Spin tip="Processing..." />
-                  </div>
-                ) : (
-                  <Button 
-                    // type="primary" 
-                    style={{ color: "#fff", width: "100%", background: "rgb(9, 7, 36)" }}
-                    onClick={(e) => completeDelivery(e)}
-                  >Click to Complete Delivery</Button>
-                )}
-              </Col>
-              <Col xl="6">
-                {shipment.approveLoading === true ? (
-                  <div className="text-center">
-                    <Spin tip="Processing..." />
-                  </div>
-                ) : (
-                  <Button 
-                    type="primary" 
-                    style={{ color: "#fff", width: "100%", background: "rgb(9, 7, 36)" }}
-                    onClick={(e) => approveRequest(e)}
-                  >Approve</Button>
-                )}
-              </Col>
             </Row>
             </>
           )}

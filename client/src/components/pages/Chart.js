@@ -37,15 +37,6 @@ const Chart = ({ monthSaleArr, color, label }) => {
           }
         }
       ],
-      yAxes: [
-        {
-          ticks: {
-            suggestedMin: 0,
-            suggestedMax: 1000000
-          }
-        }
-      ]
-      
     }
   };
   
