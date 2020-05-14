@@ -95,7 +95,22 @@ const PrealertUpdate = ({ id }) => {
                           >Delivered to receiver</Button>
                         )}
                       </Col>
-                      <Col xs="3" xl="3">
+                      <Col xs="3" xl="2">
+                        {shipment.statusLoading === true ? (
+                          <div className="text-center">
+                            <Spin tip="Loading..." />
+                          </div>
+                        ) : (
+                          <Button style={{
+                            background: "blue",
+                            color: "#fff"
+                          }}
+                          onClick={() => handleStatus("returned")}
+                          >Returned</Button>
+                        )}
+                        
+                      </Col>
+                      <Col xs="3" xl="2">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                             <Spin tip="Loading..." />
@@ -105,12 +120,12 @@ const PrealertUpdate = ({ id }) => {
                             background: "orange",
                             color: "#fff"
                           }}
-                          onClick={() => handleStatus("returned")}
-                          >Returned</Button>
+                          onClick={() => handleStatus("delayed")}
+                          >Delayed</Button>
                         )}
                         
                       </Col>
-                      <Col xs="3" xl="3">
+                      <Col xs="3" xl="2">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                             <Spin tip="Loading..." />

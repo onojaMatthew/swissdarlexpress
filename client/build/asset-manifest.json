@@ -1,30 +1,31 @@
 {
   "files": {
-    "main.css": "/static/css/main.e9cdb2f9.chunk.css",
-    "main.js": "/static/js/main.51da1477.chunk.js",
-    "main.js.map": "/static/js/main.51da1477.chunk.js.map",
+    "main.css": "/static/css/main.f51809ec.chunk.css",
+    "main.js": "/static/js/main.b713b811.chunk.js",
+    "main.js.map": "/static/js/main.b713b811.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.34922f11.js",
     "runtime-main.js.map": "/static/js/runtime-main.34922f11.js.map",
-    "static/css/2.e4b96b8d.chunk.css": "/static/css/2.e4b96b8d.chunk.css",
-    "static/js/2.72cadd54.chunk.js": "/static/js/2.72cadd54.chunk.js",
-    "static/js/2.72cadd54.chunk.js.map": "/static/js/2.72cadd54.chunk.js.map",
+    "static/css/2.7a762d8d.chunk.css": "/static/css/2.7a762d8d.chunk.css",
+    "static/js/2.1e8a0c1d.chunk.js": "/static/js/2.1e8a0c1d.chunk.js",
+    "static/js/2.1e8a0c1d.chunk.js.map": "/static/js/2.1e8a0c1d.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.00078903b2095dfc58485703a0982750.js": "/precache-manifest.00078903b2095dfc58485703a0982750.js",
+    "precache-manifest.a751258e4b480b263bf1773b64a8b5d8.js": "/precache-manifest.a751258e4b480b263bf1773b64a8b5d8.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/2.e4b96b8d.chunk.css.map": "/static/css/2.e4b96b8d.chunk.css.map",
-    "static/css/main.e9cdb2f9.chunk.css.map": "/static/css/main.e9cdb2f9.chunk.css.map",
-    "static/js/2.72cadd54.chunk.js.LICENSE.txt": "/static/js/2.72cadd54.chunk.js.LICENSE.txt",
+    "static/css/2.7a762d8d.chunk.css.map": "/static/css/2.7a762d8d.chunk.css.map",
+    "static/css/main.f51809ec.chunk.css.map": "/static/css/main.f51809ec.chunk.css.map",
+    "static/js/2.1e8a0c1d.chunk.js.LICENSE.txt": "/static/js/2.1e8a0c1d.chunk.js.LICENSE.txt",
     "static/media/logo-dark.png": "/static/media/logo-dark.6394e716.png",
     "static/media/man-shipping-box.jpg": "/static/media/man-shipping-box.58458445.jpg",
+    "static/media/ngn-flag.jpg": "/static/media/ngn-flag.0f2f5744.jpg",
     "static/media/index.css": "/static/media/rider1.b54f4311.webp",
     "static/media/shipping-cost.jpg": "/static/media/shipping-cost.a1591f8e.jpg",
     "static/media/trolley.jpg": "/static/media/trolley.c75b80ee.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.34922f11.js",
-    "static/css/2.e4b96b8d.chunk.css",
-    "static/js/2.72cadd54.chunk.js",
-    "static/css/main.e9cdb2f9.chunk.css",
-    "static/js/main.51da1477.chunk.js"
+    "static/css/2.7a762d8d.chunk.css",
+    "static/js/2.1e8a0c1d.chunk.js",
+    "static/css/main.f51809ec.chunk.css",
+    "static/js/main.b713b811.chunk.js"
   ]
 }

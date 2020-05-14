@@ -12,6 +12,7 @@ import DelayedShipments from "./DelayedShipment";
 import PreAlertShipments from "./PreAlert";
 import DeliveredList from "./DeliveredList";
 import NewShipmentList from "./NewShipmentList";
+import Settings from "./Settings";
 const { Content, Footer } = Layout;
 
 export default class Dashboard extends Component{
@@ -49,7 +50,8 @@ export default class Dashboard extends Component{
                 <Route exact path={`${match.url}/shipments/new`} render={(props) => <NewShipmentList {...props} />} />
                 <Route exact path={`${match.url}/shipments/delivered`} render={(props) => 
                 <DeliveredList  {...props}/>} />
-                <Route  path={`${match.url}/shipments/:shipmentId`} render={(props) => <ShipmentDetails {...props} />} />
+                <Route exact path={`${match.url}/shipments/:shipmentId`} render={(props) => <ShipmentDetails {...props} />} />
+                <Route exact path={`${match.url}/settings`} render={(props) => < Settings {...props} />} />
               </Switch>
             </div>
           </Content>

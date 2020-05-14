@@ -1,14 +1,15 @@
 import React from 'react';
 import {Line} from 'react-chartjs-2';
 
-const Chart = ({ monthSaleArr }) => {
+const Chart = ({ monthSaleArr, color, label }) => {
   const data = {
     
     datasets: [
       {
+        label: label,
         data: monthSaleArr,
         fill: true,
-        borderColor: "rgba(75,192,192,1)"
+        borderColor: color //"rgba(75,192,192,1)"
       },
     ]
   };
@@ -27,7 +28,25 @@ const Chart = ({ monthSaleArr }) => {
       display: false,
       text: "Chart Title"
     },
-    
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            suggestedMin: 0,
+            suggestedMax: 30
+          }
+        }
+      ],
+      yAxes: [
+        {
+          ticks: {
+            suggestedMin: 0,
+            suggestedMax: 1000000
+          }
+        }
+      ]
+      
+    }
   };
   
 

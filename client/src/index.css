@@ -293,3 +293,21 @@ section p {
   color: #fff;
   border-radius: 10px;
 }
+
+.sy-side {
+  height: 55px;
+  width: 55px;
+  padding: 19px;
+  background-color: #1890ff;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.sy-header {
+  height: 30px;
+  width: 30px;
+  padding: 10px;
+  background-color: #1890ff;
+  color: #fff;
+  border-radius: 5px;
+}

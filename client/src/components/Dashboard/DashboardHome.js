@@ -4,7 +4,7 @@ import { Card, CardBody, Col, Row } from "reactstrap";
 import { Divider } from "antd";
 import { MailOutlined, UserOutlined, TableOutlined, PhoneOutlined, LikeOutlined, ExclamationCircleOutlined, SnippetsOutlined, CheckSquareOutlined, CheckCircleOutlined, CarOutlined, StockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { getShipments, currentMonth } from "../../store/actions/action_shipment";
+import { getShipments } from "../../store/actions/action_shipment";
 import { localAuth } from "../../helper/authentcate";
 import Chart from "../pages/Chart";
 
@@ -54,7 +54,7 @@ const DashboardHome = (props) => {
             <Card className="mb-3">
                 <CardBody>
                     <Row>
-                        <Col xs="12" xl="1">
+                        <Col xs="3" xl="1">
                             <div className="sy-background">SY</div>
                         </Col>
                         <Col xs="12" xl="9">
@@ -203,7 +203,7 @@ const DashboardHome = (props) => {
                                 <Col xs="12" xl="12">Pending Payment</Col>
                             </Row>
                         </CardBody>
-                        <Chart monthSaleArr={pendingPaymentList} />
+                        <Chart monthSaleArr={pendingPaymentList} color="#1890ff" label="Pending payment" />
                     </Card>
                 </Col>
                 <Col xs="12" xl="3">
@@ -216,7 +216,7 @@ const DashboardHome = (props) => {
                                 <Col xs="12" xl="12">Current Month Sales</Col>
                             </Row>
                         </CardBody>
-                        <Chart monthSaleArr={monthSaleArr} />
+                        <Chart monthSaleArr={monthSaleArr} color="orange" label="Current month sale" />
                     </Card>
                 </Col>
                 <Col xs="12" xl="3">
