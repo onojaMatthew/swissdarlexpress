@@ -142,8 +142,11 @@ const SignIn = () => {
                 </Col>
               </Row>
               <Row className="mb-2">
-                <Col xs="12" xl="12">
+                <Col xs="12" xl="6">
                   <p>Don't have account? <Link to="/accounts">Create account</Link></p>
+                </Col>
+                <Col xs="12" xl="6">
+                  <p><Link to="/reset_password">Forgot password</Link></p>
                 </Col>
               </Row>
             </CardBody>

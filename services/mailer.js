@@ -85,7 +85,7 @@ function doc(quote) {
 `;
 }
 
-function sendEmail(data, quote) {
+function sendEmail(data, quote="") {
   var options = {
     auth: {
       api_user: process.env.EMAIL_USER,
@@ -97,15 +97,15 @@ function sendEmail(data, quote) {
   
   var email = {
     from: `Swissdarl Freight and Logistics Ltd @ ${data.sender}`,
-    to: data.reciever,
+    to: data.receiver,
     subject: 'New Shipping Quote',
     text: 'Hello world',
-    html: doc(quote)
+    html: quote ? doc(quote) : data.message
   };
   
   client.sendMail(email, function(err, info){
       if (err ){
-        console.log(error);
+        console.log(err);
       }
       else {
         console.log('Message sent: ' + info);

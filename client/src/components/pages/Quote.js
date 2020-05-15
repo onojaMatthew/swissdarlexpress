@@ -17,12 +17,14 @@ import RequestSummary from "./Forms/RequestSummary";
 import { shipmentTotal } from "../../helper/calculator"
 import Ravepay from "./Ravepay";
 import { requestShipment } from "../../store/actions/action_shipment";
+import { getUnit } from "../../store/actions/action_units";
 import Footer from "./Footer";
 
 const { Step } = Steps;
 const Quote = () => {
   const dispatch = useDispatch();
   const shipment = useSelector((state) => state.shipment);
+  const mainUnit = useSelector(state => state.units);
   const [ amount, setAmount ] = useState(0);
   const [ count, setCount ] = useState(0);
   const [ companyName, setCompanyName ] = useState("");
@@ -48,13 +50,16 @@ const Quote = () => {
   const [ errorMsg, setErrorMsg ] = useState("");
   const [ modal, setModal] = useState(false);
   const [ modal1, setModal1 ] = useState(false);
+  const [ newAmount, setNewAmount ] = useState(0);
   const units = [ "Kg", "Ton" ];
+  const mainu = mainUnit.units && mainUnit.units;
 
   const toggle = () => {
     if (formValidation()) {
       setModal(true);
     }
   };
+
   const toggle1 = () => {
     if (formValidation()) {
       setModal1(!modal1);
@@ -82,6 +87,10 @@ const Quote = () => {
     }
   }, [ shipment ]);
 
+  useEffect(() => {
+    dispatch(getUnit());
+  }, [])
+
   const increaseCount = () => {
     setCount(count + 1);
   }
@@ -92,6 +101,15 @@ const Quote = () => {
     setDeliveryOption(false);
   }
 
+  useEffect(() => {
+    mainu.forEach(m => {
+      if (m.unit && m.unit.toLowerCase() === unit.toLowerCase()) {
+        setNewAmount(m.amount);
+      }
+    });
+  }, [ unit ]);
+
+  console.log(newAmount, " this is the new ampunt", amount);
   useEffect(() => {
     setErrorMsg("");
   }, [
@@ -115,8 +133,8 @@ const Quote = () => {
   ]);
 
   useEffect(() => {
-    setAmount(shipmentTotal(numOfPieces, weight, unit));
-  }, [numOfPieces, weight]);
+    setAmount(shipmentTotal(numOfPieces, weight, newAmount));
+  }, [ dimension, count ]);
 
   const formValidation = () => {
     let formValid = true;

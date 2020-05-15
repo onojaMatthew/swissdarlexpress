@@ -24,6 +24,7 @@ const Chart = ({ monthSaleArr, color, label }) => {
   };
   
   const options = {
+    responsive: true,
     title: {
       display: false,
       text: "Chart Title"
