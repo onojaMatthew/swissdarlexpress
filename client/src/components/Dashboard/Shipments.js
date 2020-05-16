@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getShipments, shipmentDelete } from "../../store/actions/action_shipment";
+import { getShipments, shipmentDelete, searchShipment } from "../../store/actions/action_shipment";
 import { Table, Row, Col, Card, CardBody, Badge } from 'reactstrap';
 import { message, Spin,  } from "antd";
 import { Link } from "react-router-dom";
 import Paginations from "../pages/Pagination";
 import { DeleteOutlined } from "@ant-design/icons";
 import { localAuth } from "../../helper/authentcate";
+import Search from "./Search";
 
 
 const Shipments = (props) => {
@@ -14,6 +15,7 @@ const Shipments = (props) => {
   const dispatch = useDispatch();
   const [ pageOfItems, setPageOfItems ] = useState([]);
   const [ data, setData ] = useState([]);
+  const [ searchTerm, setSearchTerm ] = useState("");
   // const [ message, setMessage ] = useState("")
   const userRole = localAuth().user && localAuth().user.role;
 
@@ -29,6 +31,13 @@ const Shipments = (props) => {
     setData(shipment.shipments);
   }, [shipment]);
 
+  useEffect(() => {
+    if (shipment.shipments && shipment.shipments.quote) {
+      setPageOfItems(shipment.shipments.quote)
+    }
+    
+  }, [ shipment ])
+
   const onChangePage = (pageOfItems) => {
     setPageOfItems(pageOfItems);
   }
@@ -43,9 +52,31 @@ const Shipments = (props) => {
     }
   }, [ shipment ]);
 
+  const handleSearch = async () => {
+    dispatch(searchShipment(searchTerm));
+    setSearchTerm("");
+  }
+
+  const handleKeyPress = ( e ) => {
+    if ( e.key === "Enter" ) {
+      dispatch(searchShipment( searchTerm ));
+      setSearchTerm("");
+    }
+  }
+
   const dataSource = shipment.shipments && shipment.shipments;
   return (
     <div>
+      <Row className="justify-content-center">
+        <Col xs="11" xl="11">
+          <Search 
+            handleKeyPress={handleKeyPress}
+            handleSearch={handleSearch}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+        </Col>
+      </Row>
       <Row className="justify-content-center">
         <Col xs="10" xl="11">
           <Card style={{ minHeight: 450 }}>
@@ -109,7 +140,7 @@ const Shipments = (props) => {
                         
                       </td>
                     </tr>
-                  )) : <p className="text-center">No records found</p>}
+                  )) : <p className="text-center" style={{ color: "#333" }}>No records found</p>}
                 </tbody>
               </Table>
               {dataSource && dataSource.length > 0 ? (

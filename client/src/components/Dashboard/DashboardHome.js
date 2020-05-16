@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { getShipments } from "../../store/actions/action_shipment";
 import { localAuth } from "../../helper/authentcate";
 import Chart from "../pages/Chart";
+import PercentageChart from "../pages/PercentageChart";
 
 const DashboardHome = (props) => {
     const shipments = useSelector(state => state.shipment);
@@ -50,6 +51,7 @@ const DashboardHome = (props) => {
     const userRole = localAuth().user && localAuth().user.role;
     const userEmail = localAuth().user && localAuth().user.email;
     const pendingPayment = pendingPaymentList.reduce((a, b) => a + b, 0);
+    const delayPercent = (delayedShipments.length/100) * allShipment.length;
     return (
         <div>
             <Card className="mb-3">
@@ -198,7 +200,9 @@ const DashboardHome = (props) => {
                     <Card style={{ minHeight: 400 }}>
                         <CardBody>
                             <Row>
-                                <Col xs="12" xl="12"><h5>NGN{pendingPayment && pendingPayment.toFixed(2)}</h5></Col>
+                                <Col xs="12" xl="12"><h5 style={{
+                                    color: "#1890ff"
+                                }}>NGN{pendingPayment && pendingPayment.toFixed(2)}</h5></Col>
                             </Row>
                             <Row>
                                 <Col xs="12" xl="12">Pending Payment</Col>
@@ -211,7 +215,9 @@ const DashboardHome = (props) => {
                     <Card style={{ minHeight: 400 }}>
                         <CardBody>
                             <Row>
-                            <Col xs="12" xl="12"><h5>NGN{currentMonthAmt && currentMonthAmt.toFixed(2)}</h5></Col>
+                            <Col xs="12" xl="12"><h5 style={{
+                                color: "orange"
+                            }}>NGN{currentMonthAmt && currentMonthAmt.toFixed(2)}</h5></Col>
                             </Row>
                             <Row>
                                 <Col xs="12" xl="12">Current Month Sales</Col>
@@ -224,12 +230,13 @@ const DashboardHome = (props) => {
                     <Card style={{ minHeight: 400 }}>
                         <CardBody>
                             <Row>
-                                <Col xs="12" xl="12"><h5 style={{ color: "red"}}>0%</h5></Col>
+                            <Col xs="12" xl="12"><h5 style={{ color: "red"}}>{delayPercent && delayPercent}%</h5></Col>
                             </Row>
                             <Row>
                                 <Col xs="12" xl="12">Delayed Shipping Percentagge</Col>
                             </Row>
                         </CardBody>
+                        <PercentageChart perce={delayPercent} color="red" label={"Delayed shipping %"} />
                     </Card>
                 </Col>
             </Row>

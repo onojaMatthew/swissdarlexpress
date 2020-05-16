@@ -1,5 +1,6 @@
 const { User } = require("../models/user");
 const { sendEmail } = require("../services/mailer");
+const bcrypt = require("bcrypt");
 
 // @desc Recover Password - Generates token and Sends password reset email
 // @access Public
@@ -64,18 +65,18 @@ exports.reset = (req, res) => {
 // @desc Reset Password
 // @access Public
 exports.resetPassword = (req, res) => {
-  console.log(req.body)
   User.findOne({ resetPasswordToken: req.body.token, resetPasswordExpires: {$gt: Date.now()} })
       .then((user) => {
           if (!user) return res.status(401).json({ error: 'Password reset token is invalid or has expired.'});
+        return bcrypt.hash(req.body.password, 12)
+          .then(hashPassword => {
+            //Set the new password
+            user.password = hashPassword;
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
 
-          //Set the new password
-          user.password = req.body.password;
-          user.resetPasswordToken = undefined;
-          user.resetPasswordExpires = undefined;
-
-          // Save
-          user.save((err) => {
+            // Save
+            user.save((err, doc) => {
               if (err) return res.status(500).json({ error: err.message});
 
               // send email
@@ -93,6 +94,10 @@ exports.resetPassword = (req, res) => {
               }
               sendEmail(data);
               res.status(200).json({ message: 'Your password has been updated.'});
-          });
+            });
+          })
+      })
+      .catch(err => {
+        return res.status(400).json({ error: err.message });
       });
 };

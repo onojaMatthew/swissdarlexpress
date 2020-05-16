@@ -93,7 +93,7 @@ const NewShipmentList = (props) => {
                         <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <Link to={`/dashboard/shipments/${data._id}`}>View</Link> 
                       </td>
                     </tr>
-                  )) : <p className="text-center">No records found</p>}
+                  )) : <p className="text-center" style={{ color: "#333"}}>No records found</p>}
                 </tbody>
               </Table>
               {dataSource && dataSource.length > 0 ? (

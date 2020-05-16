@@ -101,7 +101,7 @@ const PreAlertShipments = (props) => {
                         }} onClick={() => toggleview(data._id)}>View</span>
                       </td>
                     </tr>
-                  )) : <p className="text-center">No records found</p>}
+                  )) : <p className="text-center" style={{ color: "#333" }}>No records found</p>}
                 </tbody>
               </Table>
               {dataSource && dataSource.length > 0 ? (

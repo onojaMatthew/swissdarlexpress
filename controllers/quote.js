@@ -107,6 +107,18 @@ exports.getQuote = (req, res) => {
     });
 }
 
+exports.searchShipments = ( req, res, next ) => {
+  const q = req.query.q;
+  if ( !q ) return res.status( 400 ).json( { error: "Search text is required" } );
+  Quote.find( { trackingNumber: { $regex: new RegExp( q ) } } )
+    .then( quote => {
+      res.json( { quote } );
+    } )
+    .catch( err => {
+      res.status( 400 ).json( { error: err.message } );
+    } );
+}
+
 exports.hasView = (req, res) => {
   const { shippingId } = req.params;
 

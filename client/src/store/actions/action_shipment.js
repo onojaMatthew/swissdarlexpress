@@ -27,6 +27,9 @@ export const CHANGE_STATUS_FAILED = "CHANGE_STATUS_FAILED";
 export const CURRENT_MONTH_SALE_START = "CURRENT_MONTH_SALE_START";
 export const CURRENT_MONTH_SALE_SUCCESS = "CURRENT_MONTH_SALE_SUCCESS";
 export const CURRENT_MONTH_SALE_FAILED = "CURRENT_MONTH_SALE_FAILED";
+export const SEARCH_START = "SEARCH_START";
+export const SEARCH_SUCCESS = "SEARCH_SUCCESS";
+export const SEARCH_FAILED = "SEARCH_FAILED";
 
 export const createStart = () => {
   return {
@@ -416,5 +419,47 @@ export const currentMonth = () => {
       .catch(err => {
         return dispatch(err.message);
       })
+  }
+}
+
+export const searchStart = () => {
+  return {
+    type: SEARCH_START
+  }
+}
+
+export const searchSuccess = ( data ) => {
+  return {
+    type: SEARCH_SUCCESS,
+    data
+  }
+}
+
+export const searchFailed = ( error ) => {
+  return {
+    type: SEARCH_FAILED,
+    error
+  }
+}
+
+export const searchShipment = ( searchTerm ) => {
+  return dispatch => {
+    dispatch( searchStart() );
+    fetch( `/v1/quote/search?q=${ searchTerm }`, {
+      method: "GET",
+      headers: {
+        ACCEPT: "application/json",
+        "Content-Type": "application/json",
+        "x-auth-token": localAuth().token
+      }
+    } )
+      .then( response => response.json() )
+      .then( resp => {
+        if (resp.error) return dispatch(searchFailed(resp.error));
+        dispatch( searchSuccess( resp ) );
+      } )
+      .catch( err => {
+        dispatch( searchFailed(err.message) );
+      } );
   }
 }

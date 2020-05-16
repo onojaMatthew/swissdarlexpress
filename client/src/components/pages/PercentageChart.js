@@ -1,15 +1,16 @@
 import React from 'react';
 import {Line} from 'react-chartjs-2';
+import "chartjs-plugin-labels";
 
-const Chart = ({ monthSaleArr, color, label }) => {
+const PercentageChart = ({ perce, color, label }) => {
   const data = {
-    labels: [ 0, 1500, 2000, 2500, 3000 ],
+    labels: [0, 1500, 2000, 2500, 3000],
     datasets: [
       {
         label: label,
-        data: monthSaleArr,
+        data: [0, 25, 50, 75, 100],
         fill: true,
-        borderColor: color //"rgba(75,192,192,1)"
+        borderColor: color
       },
     ]
   };
@@ -24,7 +25,17 @@ const Chart = ({ monthSaleArr, color, label }) => {
   };
   
   const options = {
-    responsive: true,
+    plugins: {
+      labels: {
+        // render 'label', 'value', 'percentage', 'image' or custom function, default is 'percentage'
+        render: 'percentage',
+        precision: 2,
+        // show the real calculated percentages from the values and don't apply the additional logic to fit the percentages to 100 in total, default is false
+        showActualPercentages: true,
+
+       
+      }
+    },
     title: {
       display: false,
       text: "Chart Title"
@@ -41,8 +52,8 @@ const Chart = ({ monthSaleArr, color, label }) => {
       yAxes: [
         {
           ticks: {
-            suggestedMin: 1500,
-            suggestedMax: 300000
+            suggestedMin: "0%",
+            suggestedMax: "100%"
           }
         }
       ],
@@ -59,4 +70,4 @@ const Chart = ({ monthSaleArr, color, label }) => {
   
 }
 
-export default Chart;
+export default PercentageChart;

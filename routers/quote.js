@@ -9,6 +9,7 @@ const {
   hasView,
   approve,
   changeStatus,
+  searchShipments
 } = require("../controllers/quote");
 
 const router = express.Router();
@@ -19,6 +20,7 @@ router.get("/single/:quoteId", requireLogin, getQuote);
 router.put("/quote/:quoteId", requireLogin, updateQuote);
 router.put("/quote/approve/:shipmentId/:userId", requireLogin, approve);
 router.put("/quote/status/:shipmentId/:userId/:status", requireLogin, changeStatus);
+router.get( "/quote/search", requireLogin, searchShipments );
 router.put("/quote/view/:shippingId", requireLogin, hasView);
 router.delete("/quote/:quoteId", requireLogin, deleteQuote);
 

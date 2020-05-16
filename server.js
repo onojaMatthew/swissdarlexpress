@@ -110,3 +110,5 @@ server.listen(port, hostname, () => {
 });
 
 // https://github.com/pramodramdas/heroku_multi_dockers for travis ci/cd deployment using nginx and docker
+
+// https://emn178.github.io/chartjs-plugin-labels/

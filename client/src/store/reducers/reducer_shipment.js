@@ -25,7 +25,10 @@ import {
   CHANGE_STATUS_FAILED,
   CURRENT_MONTH_SALE_START,
   CURRENT_MONTH_SALE_SUCCESS,
-  CURRENT_MONTH_SALE_FAILED
+  CURRENT_MONTH_SALE_FAILED,
+  SEARCH_START,
+  SEARCH_SUCCESS,
+  SEARCH_FAILED,
 } from "../actions/action_shipment";
 
 const initialState = {
@@ -101,6 +104,25 @@ export const shipment = (state=initialState, action) => {
         shipments: action.data
       }
     case GET_SHIPMENTS_FAILED:
+      return {
+        ...state,
+        getLoading: false,
+        getSuccess: false,
+        error: action.error
+      }
+    case SEARCH_START:
+      return {
+        ...state,
+        getLoading: true
+      }
+    case SEARCH_SUCCESS:
+      return {
+        ...state,
+        getLoading: false,
+        getSuccess: true,
+        shipments: action.data,
+      }
+    case SEARCH_FAILED:
       return {
         ...state,
         getLoading: false,
