@@ -22,7 +22,7 @@ const ShipmentDetails = () => {
   return (
     <div>
       <Row className="justify-content-center">
-        <Col xs="11" xl="11">
+        <Col xs="11" xl="12">
         <Card style={{ minHeight: 450 }}>
         <h5 style={{
               color: "#1890ff",
@@ -42,7 +42,7 @@ const ShipmentDetails = () => {
           ) : (
             <>
             <Row>
-              <Table className="hovered" style={{ fontSize: 12 }}>
+              <Table bordered style={{ fontSize: 12 }}>
                 <thead>
                   <tr>
                     <th>Company Name</th>
@@ -74,7 +74,7 @@ const ShipmentDetails = () => {
             </Row>
             
             <Row>
-              <Table className="hovered" style={{ fontSize: 12 }}>
+              <Table bordered style={{ fontSize: 12 }}>
                 <thead>
                   <tr>
                     <th>Destination City</th>

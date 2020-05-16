@@ -2,14 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from 'antd';
 import {
-  UserOutlined,
-  CarOutlined,
   DashboardOutlined,
   SettingOutlined,
-  PieChartOutlined,
   UsergroupAddOutlined,
-  TransactionOutlined,
-  EditOutlined,
+  DollarOutlined,
+  CarOutlined,
 } from '@ant-design/icons';
 import { Col, Row } from "reactstrap";
 
@@ -41,17 +38,17 @@ const SideBar =({ collapsed, onCollapse }) => {
         <span><Link to="/dashboard" style={{ color: "#fff"}}>Dashboard</Link></span>
       </Menu.Item>
       <Menu.Item key="2">
-        <TransactionOutlined />
+        <CarOutlined />
         <span><Link style={{ color: "#fff" }} to="/dashboard/shipments">Shipment List</Link></span>
       </Menu.Item>
       <Menu.Item key="3">
         <UsergroupAddOutlined />
         <span><Link style={{ color: "#fff" }} to="/dashboard/users">Employee List</Link></span>
       </Menu.Item>
-      {/* <Menu.Item key="4">
-        <EditOutlined />
-        <span><Link style={{ color: "#fff" }} to="/dashboard/reports">Reports</Link></span>
-      </Menu.Item> */}
+      <Menu.Item key="4">
+        <DollarOutlined />
+        <span><Link style={{ color: "#fff" }} to="/dashboard/transactions">Transactions</Link></span>
+      </Menu.Item>
       <Menu.Item key="5">
         <SettingOutlined />
         <span><Link style={{ color: "#fff" }} to="/dashboard/settings">Settings</Link></span>
