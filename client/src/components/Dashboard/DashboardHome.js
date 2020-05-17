@@ -70,7 +70,7 @@ const DashboardHome = (props) => {
                                 }} />{userEmail && userEmail}</Col>
                                 <Col xs="6" xl="3"><UserOutlined style={{
                                     marginRight: "3px"
-                                }}/>{userRole && userRole.charAt(0).toUpperCase() + userRole.slice(1)}</Col>
+                                }}/>{"General Manager"}</Col>
                             </Row>
                         </Col>
                     </Row>

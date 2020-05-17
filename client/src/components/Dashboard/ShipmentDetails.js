@@ -46,27 +46,27 @@ const ShipmentDetails = () => {
                 <thead>
                   <tr>
                     <th>Company Name</th>
-                    <th>Contact first name</th>
-                    <th>Contact last name</th>
+                    <th>Contact name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Pick-up Address</th>
                     <th>Pick-up City</th>
                     <th>Pick-up State</th>
                     <th>Destination Address</th>
+                    <th>Paid</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>{shipmentDetails.companyName}</td>
-                    <td>{shipmentDetails.contactFName}</td>
-                    <td>{shipmentDetails.contactLName}</td>
+                    <td>{shipmentDetails.contactFName} {shipmentDetails.contactLName}</td>
                     <td>{shipmentDetails.email}</td>
                     <td>{shipmentDetails.phone}</td>
                     <td>{shipmentDetails.pickupAddress}</td>
                     <td>{shipmentDetails.pickupCity}</td>
                     <td>{shipmentDetails.pickupState}</td>
                     <td>{shipmentDetails.destinationAddress}</td>
+                    <td>{shipmentDetails.paid === false ? "True" : "False"}</td>
                   </tr>
                 </tbody>
               </Table>
