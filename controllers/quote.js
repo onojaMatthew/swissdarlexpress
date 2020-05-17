@@ -195,7 +195,7 @@ exports.changeStatus = (req, res) => {
   if (role !== "admin") return res.status(400).json({ error: "Only admin is authorized for this operation" });
   if (!shipmentId || !userId, !status) return res.status(400).json({ error: "Invalid parameter values" });
   if (userId !== _id) return res.status(400).json({ error: "Unknown user" });
-  Quote.findByIdAndUpdate({ _id: shipmentId}, { $set: { status }}, { new: true })
+  Quote.findByIdAndUpdate({ _id: shipmentId}, { $set: { status, delivered: status === "delivered_to_receiver" ? true : false, paid: status === "delivered_to_receiver" ? true : false  }}, { new: true })
     .then(result => {
       if (!result) return res.status(400).json({ error: "Operation failed. Entity not found" });
       return res.json(result);
