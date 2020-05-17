@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getShipment, view, approve } from "../../store/actions/action_shipment";
 import { Row, Col, Card, CardBody, Table } from "reactstrap";
-import { Spin } from "antd"
+import { Spin } from "antd";
+import moment from "moment";
 
 const ShipmentDetails = () => {
   const shipment = useSelector(state => state.shipment);
@@ -18,7 +19,6 @@ const ShipmentDetails = () => {
   }, [ dispatch ]);
 
   const shipmentDetails = shipment.shipment;
-  
   return (
     <div>
       <Row className="justify-content-center">
