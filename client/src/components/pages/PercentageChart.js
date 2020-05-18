@@ -4,7 +4,7 @@ import "chartjs-plugin-labels";
 
 const PercentageChart = ({ delayedShipments, perce, color, label }) => {
   const data = {
-    labels: [delayedShipments.length - 1, delayedShipments.length, delayedShipments.length + 1, delayedShipments.length + 2 ],
+    labels: [0, delayedShipments.length, delayedShipments.length + 1, delayedShipments.length + 2 ],
     datasets: [
       {
         label: label,
