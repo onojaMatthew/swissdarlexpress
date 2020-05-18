@@ -14,8 +14,7 @@ const DelayedShipments = (props) => {
   const dispatch = useDispatch();
   const [ pageOfItems, setPageOfItems ] = useState([]);
   const [ data, setData ] = useState([]);
-  const userRole = localAuth().user && localAuth().user.role;
-
+  const delayedShipments = shipment.shipments && shipment.shipments.filter(ship => ship.status === "delayed")
   const error = (msg) => {
     message.error(msg);
   };
@@ -25,7 +24,7 @@ const DelayedShipments = (props) => {
   }, [ dispatch ]);
 
   useEffect(() => {
-    setData(shipment.shipments);
+    setData(delayedShipments);
   }, [shipment]);
 
   const onChangePage = (pageOfItems) => {
@@ -42,7 +41,7 @@ const DelayedShipments = (props) => {
     }
   }, [ shipment ]);
 
-  const dataSource = shipment.shipments && shipment.shipments;
+  const dataSource = delayedShipments;
   
   return (
     <div>
@@ -88,9 +87,9 @@ const DelayedShipments = (props) => {
                       <td style={{ fontSize: 10 }}>{data.email}</td>
                       <td style={{ fontSize: 10 }}>{data.phone}</td>
                       <td style={{ fontSize: 10 }}>{data.trackingNumber}</td>
-                      <td style={{ fontSize: 10 }}>{data.delivered === false ? "Pending" : "Delivered"}</td>
+                      <td style={{ fontSize: 10 }}>{data.status}</td>
                       <td style={{ fontSize: 10 }}>
-                        <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <Link to={`${props.match.url}/${data._id}`}>View</Link> 
+                        <span>{data.isView === false ? <Badge color="success">New</Badge> : null}</span> <Link to={`/dashboard/shipments/${data._id}`}>View</Link> 
                       </td>
                     </tr>
                   )) : <p className="text-center" style={{ color: "#333" }}>No records found</p>}

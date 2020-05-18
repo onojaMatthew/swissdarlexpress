@@ -22,7 +22,7 @@ const DashboardHome = (props) => {
     const deliveredList = allShipment.filter(shipment => shipment.status === "delivered_to_receiver");
     const pendingView = allShipment.filter(shipment => shipment.isView === false);
     const unpaidDeliveryList = allShipment.filter(shipment => shipment.paid === false);
-    const approvedList = allShipment.filter(shipment => shipment.approve === true);
+    const approvedList = allShipment.filter(shipment => shipment.status !== "pending");
     const pendingShipments = allShipment.filter(shipment => shipment.status === "pending");
     const delayedShipments = allShipment.filter(shipment => shipment.status === "delayed");
     const pendingPaymentList = [];
