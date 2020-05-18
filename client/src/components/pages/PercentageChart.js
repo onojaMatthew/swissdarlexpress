@@ -2,13 +2,13 @@ import React from 'react';
 import {Line} from 'react-chartjs-2';
 import "chartjs-plugin-labels";
 
-const PercentageChart = ({ perce, color, label }) => {
+const PercentageChart = ({ delayedShipments, perce, color, label }) => {
   const data = {
-    labels: [0, 1500, 2000, 2500, 3000],
+    labels: [delayedShipments.length - 1, delayedShipments.length, delayedShipments.length + 1, delayedShipments.length + 2 ],
     datasets: [
       {
         label: label,
-        data: [0, 25, 50, 75, 100],
+        data: [ 0, perce ],
         fill: true,
         borderColor: color
       },
@@ -52,8 +52,8 @@ const PercentageChart = ({ perce, color, label }) => {
       yAxes: [
         {
           ticks: {
-            suggestedMin: "0%",
-            suggestedMax: "100%"
+            suggestedMin: "0",
+            suggestedMax: "100"
           }
         }
       ],

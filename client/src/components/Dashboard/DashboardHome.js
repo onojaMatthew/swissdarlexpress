@@ -48,10 +48,10 @@ const DashboardHome = (props) => {
 
     const amt = monthSaleArr.map(amount => amount.amount)
     const currentMonthAmt = monthSaleArr.reduce((a, b) => a + b, 0);
-    const userRole = localAuth().user && localAuth().user.role;
     const userEmail = localAuth().user && localAuth().user.email;
     const pendingPayment = pendingPaymentList.reduce((a, b) => a + b, 0);
-    const delayPercent = (delayedShipments.length/100) * allShipment.length;
+    console.log(delayedShipments && delayedShipments.length * 100);
+    const delayPercent = (delayedShipments.length * 100) / allShipment.length;
     return (
         <div>
             <Card className="mb-3">
@@ -230,13 +230,13 @@ const DashboardHome = (props) => {
                     <Card style={{ minHeight: 400 }}>
                         <CardBody>
                             <Row>
-                            <Col xs="12" xl="12"><h5 style={{ color: "red"}}>{delayPercent && delayPercent}%</h5></Col>
+                            <Col xs="12" xl="12"><h5 style={{ color: "red"}}>{delayPercent ? delayPercent : 0}%</h5></Col>
                             </Row>
                             <Row>
                                 <Col xs="12" xl="12">Delayed Shipping Percentagge</Col>
                             </Row>
                         </CardBody>
-                        <PercentageChart perce={delayPercent} color="red" label={"Delayed shipping %"} />
+                        <PercentageChart delayedShipments={delayedShipments} perce={delayPercent} color="red" label={"Delayed shipping %"} />
                     </Card>
                 </Col>
             </Row>
