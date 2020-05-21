@@ -1,4 +1,5 @@
 const { Quote } = require("../models/quote");
+const { postCustomer } = require("./customer")
 const { sendEmail } = require("../services/mailer");
 
 exports.create = (req, res, next) => {
@@ -73,7 +74,7 @@ exports.create = (req, res, next) => {
 
 
   newQuote.save()
-    .then(quote => {
+    .then(async (quote) => {
       if (!quote) return res.status(400).json({ error: "Failed to process request" });
       const sender = "no-reply@swissdarl.com";
       const reciever = "ecommerce@swissdarl.com";
@@ -84,12 +85,13 @@ exports.create = (req, res, next) => {
         reciever
       }
       
-      sendEmail(data, quote);
-      return res.json(quote);
+      await sendEmail(data, quote);
+      
+      res.json(quote);
+      return postCustomer(quote);
       
     })
     .catch(err => {
-      console.log(err)
       res.status(400).json({ error: err.message });
     });
 }

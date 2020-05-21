@@ -14,6 +14,9 @@ import DeliveredList from "./DeliveredList";
 import NewShipmentList from "./NewShipmentList";
 import Settings from "./Settings";
 import Transactions from "./Transactions";
+import Customer from "./Customers";
+import {Report} from "./Report";
+import ReportList from "./ReportList";
 const { Content, Footer } = Layout;
 
 export default class Dashboard extends Component{
@@ -42,6 +45,7 @@ export default class Dashboard extends Component{
             <div className="site-layout-background" style={{ padding: 4, minHeight: 360 }}>
               <Switch>
                 <Route exact path={`${match.url}`} render={(props) => <DashboardHome {...props} />} />
+                <Route exact path={`${match.url}/customers`} render={(props) => <Customer {...props} />} />
                 <Route exact path={`${match.url}/shipments`} render={(props) => <Shipments {...props} />} />
                 <Route exact path={`${match.url}/users`} render={(props) => <Users {...props} />} />
                 <Route path={`${match.url}/shipments/prealert`} render={(props) => 
@@ -53,6 +57,8 @@ export default class Dashboard extends Component{
                 <DeliveredList  {...props}/>} />
                 <Route exact path={`${match.url}/shipments/:shipmentId`} render={(props) => <ShipmentDetails {...props} />} />
                 <Route exact path={`${match.url}/transactions`} render={(props) => < Transactions {...props} />} />
+                <Route exact path={`${match.url}/reports/new`} render={(props) => < Report {...props}/>} />
+                <Route exact path={`${match.url}/reports`} render={(props) => < ReportList {...props}/>} />
                 <Route exact path={`${match.url}/settings`} render={(props) => < Settings {...props} />} />
               </Switch>
             </div>

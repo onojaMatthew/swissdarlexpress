@@ -230,7 +230,7 @@ const DashboardHome = (props) => {
                     <Card style={{ minHeight: 400 }}>
                         <CardBody>
                             <Row>
-                            <Col xs="12" xl="12"><h5 style={{ color: "red"}}>{delayPercent ? delayPercent : 0}%</h5></Col>
+                            <Col xs="12" xl="12"><h5 style={{ color: "red"}}>{delayPercent ? delayPercent.toFixed(2) : 0}%</h5></Col>
                             </Row>
                             <Row>
                                 <Col xs="12" xl="12">Delayed Shipping Percentagge</Col>

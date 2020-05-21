@@ -3,12 +3,13 @@ import {Line} from 'react-chartjs-2';
 import "chartjs-plugin-labels";
 
 const PercentageChart = ({ delayedShipments, perce, color, label }) => {
+  const value = perce.toFixed(2);
   const data = {
     labels: [0, delayedShipments.length, delayedShipments.length + 1, delayedShipments.length + 2 ],
     datasets: [
       {
         label: label,
-        data: [ 0, perce ],
+        data: [ 0, value ],
         fill: true,
         borderColor: color
       },
