@@ -83,7 +83,7 @@ exports.resetPassword = (req, res) => {
               const receiver = user.email;
               const sender = "ecommerce@swissdarl.com";
               const subject = "Password change request";
-              const message = `Hi ${user.username} \n 
+              const message = `Hi ${user.fullname} \n 
               This is a confirmation that the password for your account ${user.email} has just been changed.\n`;
 
               const data = {

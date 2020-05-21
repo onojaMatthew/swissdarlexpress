@@ -76,13 +76,13 @@ exports.create = (req, res, next) => {
   newQuote.save()
     .then(async (quote) => {
       if (!quote) return res.status(400).json({ error: "Failed to process request" });
-      const sender = "no-reply@swissdarl.com";
-      const reciever = "ecommerce@swissdarl.com";
+      const sender = "no-reply@mail.com";
+      const receiver = "ecommerce@swissdarl.com";
       const subject = "New Shipping Quote";
       const data = {
         sender,
         subject,
-        reciever
+        receiver
       }
       
       await sendEmail(data, quote);

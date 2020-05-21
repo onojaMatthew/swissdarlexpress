@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import {useDispatch, useSelector } from "react-redux";
 import { Card, CardBody, Row, Col, Input } from "reactstrap";
 import { Spin, Button, message } from "antd";
-import { sendReport, deleteReport, getReport } from "../../store/actions/action_report";
-import { Link } from "react-router-dom";
+import { sendReport } from "../../store/actions/action_report";
+import ReportList from "./ReportList";
 
 export const Report = () => {
   const reports = useSelector(state => state.report);
   const [ title, setTitle ] = useState("");
   const [ report, setReport ] = useState("");
   const [ errors, setErrors ] = useState("");
+  const [ toggle, setToggle ] = useState(false);
   const dispatch = useDispatch();
 
   const handleChange = (e, name) => {
@@ -47,55 +48,71 @@ export const Report = () => {
 
   return (
     <div>
-      <Row className="justify-content-center">
-        <Col xl="12">
-          <Card>
-            <CardBody style={{ minHeight: 400 }}>
-              <Row className="justify-content-center">
-                <Col xl="6" className="mt-5">
-                  <h6>Send Report</h6>
-                  <Row className="mb-3">
-                    <Col xl="12">
-                      <Input 
-                        type="text" 
-                        placeholder="Title"
-                        value={title}
-                        onChange={(e) => handleChange(e, "title")}
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col xl="12">
-                      <Input 
-                        type="textarea" 
-                        placeholder="What's on your mind..."
-                        value={report}
-                        onChange={(e) => handleChange(e, "report")}
-                      />
-                    </Col>
-                  </Row>
-                  {reports.loading === true ? (
-                    <div className="text-center">
-                      <Spin tip="Processing..." />
-                    </div>
-                  ) : (
-                    <Button style={{
-                        width: "100%",
-                        marginTop: 15
-                      }} type="primary"
-                      onClick={() => handleSubmit()}
-                    >Send Report</Button>
-                  )}
-                </Col>
+      {toggle === true ? <ReportList setToggle={setToggle} /> : (
+        <Row className="justify-content-center">
+          <Col xl="12">
+            <Card>
+              <CardBody style={{ minHeight: 400 }}>
+                <Row className="justify-content-center">
+                  <Col xl="6" className="mt-5">
+                    <h6>Send Report</h6>
+                    <Row className="mb-3">
+                      <Col xl="12">
+                        <Input 
+                          type="text" 
+                          placeholder="Title"
+                          value={title}
+                          onChange={(e) => handleChange(e, "title")}
+                        />
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xl="12">
+                        <Input 
+                          type="textarea" 
+                          placeholder="What's on your mind..."
+                          value={report}
+                          onChange={(e) => handleChange(e, "report")}
+                        />
+                      </Col>
+                    </Row>
+                    {reports.loading === true ? (
+                      <div className="text-center">
+                        <Spin tip="Processing..." />
+                      </div>
+                    ) : (
+                      <Button style={{
+                          width: "100%",
+                          marginTop: 15
+                        }} type="primary"
+                        onClick={() => handleSubmit()}
+                      >Send Report</Button>
+                    )}
+                  </Col>
+                </Row>
+                <Row className="mt-2">
+                  <Col sm="9">
+                  <span onClick={() => setToggle(true)} style={{
+                      color: "#1890ff",
+                      float: "right"
+                    }}
+                  >
+                    View Report List
+                  </span>
+                  </Col>
+                  <Col sm="2">
+                  
+                  </Col>
+                </Row>
+              </CardBody>
+              <Row>
+                <Col xl="10"></Col>
+                <Col xl="2"></Col>
               </Row>
-            </CardBody>
-            <Row>
-              <Col xl="10"></Col>
-              <Col xl="2"><Link to="/dashboard/reports">View Report List</Link></Col>
-            </Row>
-          </Card>
-        </Col>
-      </Row>
+            </Card>
+          </Col>
+        </Row>
+      )}
     </div>
   )
 }

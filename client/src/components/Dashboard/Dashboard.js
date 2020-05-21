@@ -57,8 +57,7 @@ export default class Dashboard extends Component{
                 <DeliveredList  {...props}/>} />
                 <Route exact path={`${match.url}/shipments/:shipmentId`} render={(props) => <ShipmentDetails {...props} />} />
                 <Route exact path={`${match.url}/transactions`} render={(props) => < Transactions {...props} />} />
-                <Route exact path={`${match.url}/reports/new`} render={(props) => < Report {...props}/>} />
-                <Route exact path={`${match.url}/reports`} render={(props) => < ReportList {...props}/>} />
+                <Route exact path={`${match.url}/reports`} render={(props) => < Report {...props}/>} />
                 <Route exact path={`${match.url}/settings`} render={(props) => < Settings {...props} />} />
               </Switch>
             </div>
