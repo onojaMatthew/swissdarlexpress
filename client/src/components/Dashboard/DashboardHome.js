@@ -50,7 +50,6 @@ const DashboardHome = (props) => {
     const currentMonthAmt = monthSaleArr.reduce((a, b) => a + b, 0);
     const userEmail = localAuth().user && localAuth().user.email;
     const pendingPayment = pendingPaymentList.reduce((a, b) => a + b, 0);
-    console.log(delayedShipments && delayedShipments.length * 100);
     const delayPercent = (delayedShipments.length * 100) / allShipment.length;
     return (
         <div>
@@ -78,45 +77,33 @@ const DashboardHome = (props) => {
                     <Row>
                         <Col xs="12" xl="3">
                             <Row>
-                                <Col xs="3" xl="2"><CheckSquareOutlined style={{
-                                    fontSize: 40
-                                }} /></Col>
-                                <Col xs="3" xl="9">
-                                    <span style={{ fontSize: 12, color: "#333" }}>{approvedList && approvedList.length} Shippment</span><br />
-                                    <span style={{ fontSize: 12, color: "#333" }}>Approved List</span>
+                                <Col xs="1" xl="2"><CheckSquareOutlined className="icon"/></Col>
+                                <Col xs="10" xl="9">
+                                    <span style={{ fontSize: 12, color: "#333" }}>{approvedList && approvedList.length} Shippments Approved</span>
                                 </Col>
                             </Row>
                         </Col>
                         <Col xs="12" xl="3">
                             <Row>
-                                <Col xs="3" xl="2"><StockOutlined style={{
-                                    fontSize: 40
-                                }} /></Col>
-                                <Col xs="3" xl="9">
-                                    <span style={{ fontSize: 12, color: "#333" }}>{pendingView && pendingView.length} Shippment</span><br />
-                                    <span style={{ fontSize: 12, color: "#333" }}>In Stock List</span>
+                                <Col xs="1" xl="2"><StockOutlined className="icon" /></Col>
+                                <Col xs="10" xl="9">
+                                    <span style={{ fontSize: 12, color: "#333" }}>{pendingView && pendingView.length} Shippments In Stock</span>
                                 </Col>
                             </Row>
                         </Col>
                         <Col xs="12" xl="3">
                             <Row>
-                                <Col xs="3" xl="2"><CheckCircleOutlined style={{
-                                    fontSize: 40
-                                }} /></Col>
-                                <Col xs="3" xl="9">
-                                    <span style={{ fontSize: 12, color: "#333" }}>{deliveredList && deliveredList.length} Shippment</span><br />
-                                    <span style={{ fontSize: 12, color: "#333" }}>Delivered List</span>
+                                <Col xs="1" xl="2"><CheckCircleOutlined className="icon" /></Col>
+                                <Col xs="10" xl="9">
+                                    <span style={{ fontSize: 12, color: "#333" }}>{deliveredList && deliveredList.length} Shippment Delivered List</span>
                                 </Col>
                             </Row>
                         </Col>
                         <Col xs="12" xl="3">
                             <Row>
-                                <Col xs="3" xl="2"><SnippetsOutlined style={{
-                                    fontSize: 40
-                                }} /></Col>
-                                <Col xs="3" xl="9">
-                                    <span style={{ fontSize: 12, color: "#333" }}>{pendingView && pendingView.length} New Shipping Requests</span><br />
-                                    <span style={{ fontSize: 12, color: "#333" }}><Link to="/dashboard/shipments/new">View</Link></span>
+                                <Col xs="1" xl="2"><SnippetsOutlined className="icon" /></Col>
+                                <Col xs="10" xl="9">
+                                    <span style={{ fontSize: 12, color: "#333" }}>{pendingView && pendingView.length} New Shipping Requests <Link to="/dashboard/shipments/new">View</Link></span>
                                 </Col>
                             </Row>
                         </Col>

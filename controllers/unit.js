@@ -31,9 +31,11 @@ exports.getUnit = (req, res) => {
 
 exports.updateUnit = (req, res) => {
   const { role, unitId } = req.params;
+  const { amount, unit } = req.body;
 
   const userRoles = [ "super_admin", "admin" ];
   
+  if (!amount && !unit) return res.status(400).json({ error: "No input data sent" });
   if (!role) return res.status(400).json({ error: "Invalid user role" });
   if (!userRoles.includes(role)) return res.status(400).json({ error: "Only admin can perform this operation" });
 

@@ -7,6 +7,7 @@ import {
   UsergroupAddOutlined,
   DollarOutlined,
   CarOutlined,
+  FormOutlined,
 } from '@ant-design/icons';
 import { Col, Row } from "reactstrap";
 
@@ -54,7 +55,7 @@ const SideBar =({ collapsed, onCollapse }) => {
         <span><Link style={{ color: "#fff" }} to="/dashboard/transactions">Transactions</Link></span>
       </Menu.Item>
       <Menu.Item key="6">
-        <DollarOutlined />
+        <FormOutlined />
         <span><Link style={{ color: "#fff" }} to="/dashboard/reports">Report</Link></span>
       </Menu.Item>
       <Menu.Item key="7">

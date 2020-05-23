@@ -47,7 +47,7 @@ const ShipmentDetails = () => {
               ) : (
                 <>
                 <Row>
-                  <Table bordered style={{ fontSize: 12 }}>
+                  <Table responsive bordered style={{ fontSize: 12 }}>
                     <thead>
                       <tr>
                         <th>Company Name</th>
@@ -79,7 +79,7 @@ const ShipmentDetails = () => {
                 </Row>
                 
                 <Row>
-                  <Table bordered style={{ fontSize: 12 }}>
+                  <Table responsive bordered style={{ fontSize: 12 }}>
                     <thead>
                       <tr>
                         <th>Destination City</th>

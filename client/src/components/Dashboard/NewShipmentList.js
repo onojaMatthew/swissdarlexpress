@@ -47,7 +47,7 @@ const NewShipmentList = (props) => {
   return (
     <div>
       <Row className="justify-content-center">
-        <Col xs="10" xl="12">
+        <Col xs="12" xl="12">
           <Card style={{ minHeight: 450 }}>
             <h5 style={{
               color: "#1890ff",
@@ -66,7 +66,7 @@ const NewShipmentList = (props) => {
               </div>
             ) : (
               <>
-              <Table hover>
+              <Table responsive hover>
                 <thead>
                   <tr>
                     <th>S/N</th>

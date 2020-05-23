@@ -87,7 +87,7 @@ const Transactions = () => {
   return (
     <div>
       <Row className="justify-content-center">
-        <Col xl="10">
+        <Col xs="12" xl="10">
           <Nav tabs>
             <NavItem>
               <NavLink
@@ -129,7 +129,7 @@ const Transactions = () => {
                   <Card>
                     <CardBody>
                       {allSales === true ? (
-                        <Table hovered style={{ fontSize: 13}}>
+                        <Table responsive hovered style={{ fontSize: 13}}>
                           <thead>
                             <tr>
                               <th>Company name</th>
@@ -154,7 +154,7 @@ const Transactions = () => {
                         </tbody>
                       </Table>
                       ) : (
-                        <Table hovered style={{ fontSize: 12}}>
+                        <Table responsive hovered style={{ fontSize: 12}}>
                           <thead>
                             <tr>
                               <th>Company name</th>
@@ -205,7 +205,7 @@ const Transactions = () => {
                   <Card>
                     <CardBody>
                       {allToday === true ? (
-                        <Table hovered style={{ fontSize: 13}}>
+                        <Table responsive hovered style={{ fontSize: 13}}>
                           <thead>
                             <tr>
                               <th>Company name</th>
@@ -230,7 +230,7 @@ const Transactions = () => {
                           </tbody>
                         </Table>
                       ) : (
-                        <Table hovered style={{ fontSize: 13}}>
+                        <Table responsive hovered style={{ fontSize: 13}}>
                           <thead>
                             <tr>
                               <th>Company name</th>
@@ -282,7 +282,7 @@ const Transactions = () => {
                   <Card>
                     <CardBody>
                       {allMonth === true ? (
-                        <Table hovered style={{ fontSize: 13}}>
+                        <Table responsive hovered style={{ fontSize: 13}}>
                           <thead>
                             <tr>
                               <th>Company name</th>
@@ -307,7 +307,7 @@ const Transactions = () => {
                           </tbody>
                         </Table>
                       ) : (
-                        <Table hovered style={{ fontSize: 13}}>
+                        <Table responsive hovered style={{ fontSize: 13}}>
                           <thead>
                             <tr>
                               <th>Company name</th>
@@ -359,7 +359,7 @@ const Transactions = () => {
                   <Card>
                     <CardBody>
                       {allPending === true ? (
-                        <Table hovered style={{ fontSize: 13}}>
+                        <Table responsive hovered style={{ fontSize: 13}}>
                           <thead>
                             <tr>
                               <th>Company name</th>
@@ -385,7 +385,7 @@ const Transactions = () => {
                           </tbody>
                         </Table>
                       ) : (
-                        <Table hovered style={{ fontSize: 13}}>
+                        <Table responsive hovered style={{ fontSize: 13}}>
                           <thead>
                             <tr>
                               <th>Company name</th>

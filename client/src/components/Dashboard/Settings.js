@@ -4,7 +4,6 @@ import { Card, CardBody, Col, Row, Input, Table } from "reactstrap";
 import { Spin, Button } from "antd";
 import { DeleteOutlined, EditOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { createUnit, getUnit, updateUnit, deleteUnit } from "../../store/actions/action_units";
-import { message } from 'antd';
 
 const Settings = () => {
   const units = useSelector(state => state.units);
@@ -13,6 +12,7 @@ const Settings = () => {
   const [ errors, setErrors ] = useState("");
   const [ unit, setUnit ] = useState("");
   const [ edit, setEdit ] = useState(false);
+  const [ message, setMessage ] = useState("");
   const [ id, setId ] = useState("");
 
   const handleChange = (e, name) => {
@@ -32,25 +32,17 @@ const Settings = () => {
     setUnit("");
   }
 
-  const info = (msg) => {
-    message.success(msg);
-  };
-
-  const error = (err) => {
-    message.error(err)
-  }
-
   useEffect(() => {
     dispatch(getUnit())
   }, [ dispatch ]);
 
   useEffect(() => {
     if (units.error) {
-      error(units.error);
+      setErrors(units.error);
     } else if (units.updateSuccess === true) {
-      info("Updated successfully")
+      setMessage("Updated successfully")
     } else if (units.deleteSuccess === true) {
-      info("Deleted successfully")
+      setMessage("Deleted successfully")
     }
   }, [ units ]);
 
@@ -73,7 +65,6 @@ const Settings = () => {
     <div>
       <Row>
         <Col xs="12" xl="6">
-          
           <Card className="mb-5">
             <CardBody>
               <Row>
@@ -132,6 +123,8 @@ const Settings = () => {
         <Col xs="12" xl="6">
           <Card>
             <CardBody>
+              {message.length > 0 ? <p style={{ color: "green" }}>{message}</p> : null}
+              {errors.length > 0 ? <p style={{ color: "red" }}>{errors}</p> : null}
               {edit === true ? (
                 <>
                   <Row>
@@ -188,7 +181,7 @@ const Settings = () => {
                   </Row>
                 </>
               ) : (
-                <Table className="hovered">
+                <Table responsive hover>
                 <thead>
                   <tr>
                     <th>Unit</th>

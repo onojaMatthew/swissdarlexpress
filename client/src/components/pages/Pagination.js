@@ -101,15 +101,11 @@ class Paginations extends React.Component {
     var pager = this.state.pager;
 
     if ( !pager.pages || pager.pages.length <= 1 ) {
-      // don't display pager if there is only 1 page
       return null;
     }
 
     return (
       <Pagination aria-label="Page navigation example">
-        <PaginationItem className={pager.currentPage === 1 ? 'disabled' : ''}>
-          <PaginationLink first href="#" onClick={() => this.setPage( 1 )}>First</PaginationLink>
-        </PaginationItem>
         <PaginationItem className={pager.currentPage === 1 ? 'disabled' : ''}>
           <PaginationLink previous onClick={() => this.setPage( pager.currentPage - 1 )}>Previous</PaginationLink>
         </PaginationItem>
@@ -122,9 +118,6 @@ class Paginations extends React.Component {
         )}
         <PaginationItem className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
           <PaginationLink next onClick={() => this.setPage( pager.currentPage + 1 )}>Next</PaginationLink>
-        </PaginationItem>
-        <PaginationItem className={pager.currentPage === pager.totalPages ? 'disabled' : ''}>
-          <PaginationLink last onClick={() => this.setPage( pager.totalPages )}>Last</PaginationLink>
         </PaginationItem>
       </Pagination>
     );

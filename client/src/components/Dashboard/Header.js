@@ -48,7 +48,7 @@ const DashboardHeader = () => {
               color: "#fff"
             }}
           >
-            <span style={{ marginRight: 25}}>
+            <span style={{ marginRight: 25}} className="color-badge">
               {newShipments && newShipments.length > 0 ? (
                 <a href="/dashboard/shipments/new">
                   <Badge style={{
@@ -73,13 +73,14 @@ const DashboardHeader = () => {
                 width: 23, height: 20,
                 marginRight: 17
               }} 
+              className="flag"
             />
             <span>Hi, {username}</span> <LogoutOutlined style={{ marginLeft: "15px", marginRight: 10 }} onClick={() => onLogout()} /><span className="sy-header">SY</span>
           </div>
         </Col>
       </Row>
     </Header>
-    <Header className="site-layout-background" style={{ background: "#fff" }}>
+    <Header className="site-layout-background second" style={{ background: "#fff" }}>
       <Row>
         <Col xs="12" xl="6">
           <span style={{ color: "#333" }}><strong>Dashboard</strong> <span style={{

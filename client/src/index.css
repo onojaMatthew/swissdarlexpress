@@ -180,6 +180,26 @@ section p {
     top: 50%;
     left: 45%;
   }
+
+  .site-layout-background.second {
+    display: none;
+  }
+
+  .sy-header, .flag {
+    display: none;
+  }
+
+  .icon {
+    font-size: 20px !important;
+  }
+
+  .color-badge {
+    display: none;
+  }
+}
+
+.icon {
+  font-size: 40px;
 }
 
 .btn-cont {

@@ -41,45 +41,45 @@ const ReportList = ({ setToggle }) => {
     <div>
       <Row>
         <Col xs="10" xl="12">
-            {reports.getLoading === true ? (
-              <div className="text-center"
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "43%"
-                }}
-              >
-                <Spin tip="Loading..." />
-              </div>
-            ) : (
-              reportList && reportList.length > 0 ? reportList.map(report => (
-                <Card>
-                  <CardBody>
-                    <Row key={report._id}>
-                      <Col xl="12">
-                        <div className="mb-3">
-                          <span style={{ fontSize: 18}}>{report.reporter && report.reporter.fullname} | {moment(report.createdAt).format("hh:mm:ss a")}</span>
-                        </div>
-                        <span style={{
-                          color: "#333",
-                          fontSize: 16,
-                          marginTop: 10,
-                          marginBottom: 10
-                        }}><strong>{report.title}</strong></span>
-                        <div>{report.report}</div>
-                        {reports.deleteLoading === true ? <Spin tip="Processing..." /> : (
-                          <Button style={{
-                            float: "right"
-                          }} type="danger" onClick={() => onDelete(report._id)}>Delete</Button>
-                        )}
-                      </Col>
-                    </Row>
-                  </CardBody>
-                </Card>
-              )) : (
-                <p className="text-left" style={{ color: "#333" }}>No records found</p>
-              )
-            )}
+          {reports.getLoading === true ? (
+            <div className="text-center"
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "43%"
+              }}
+            >
+              <Spin tip="Loading..." />
+            </div>
+          ) : (
+            reportList && reportList.length > 0 ? reportList.map(report => (
+              <Card>
+                <CardBody>
+                  <Row key={report._id}>
+                    <Col xl="12">
+                      <div className="mb-3">
+                        <span style={{ fontSize: 18}}>{report.reporter && report.reporter.fullname} | {moment(report.createdAt).format("hh:mm:ss a")}</span>
+                      </div>
+                      <span style={{
+                        color: "#333",
+                        fontSize: 16,
+                        marginTop: 10,
+                        marginBottom: 10
+                      }}><strong>{report.title}</strong></span>
+                      <div>{report.report}</div>
+                      {reports.deleteLoading === true ? <Spin tip="Processing..." /> : (
+                        <Button style={{
+                          float: "right"
+                        }} type="danger" onClick={() => onDelete(report._id)}>Delete</Button>
+                      )}
+                    </Col>
+                  </Row>
+                </CardBody>
+              </Card>
+            )) : (
+              <p className="text-left" style={{ color: "#333" }}>No records found</p>
+            )
+          )}
         </Col>
       </Row>
       <Row className="mt-2">
