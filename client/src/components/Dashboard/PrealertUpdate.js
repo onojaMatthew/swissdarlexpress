@@ -21,7 +21,7 @@ const PrealertUpdate = ({ id }) => {
     <div>
       <Row className="justify-content-center">
         <Col xs="12" xl="12">
-          <Card style={{ minHeight: 450 }}>
+          <Card style={{ minHeight: 450 }} responsive>
             <h5 style={{
               color: "#1890ff",
               padding: "10px"
@@ -39,7 +39,7 @@ const PrealertUpdate = ({ id }) => {
             </div>
           ) : (
             <>
-              <Table hover>
+              <Table responsive hover>
                 <thead>
                   <tr>
                     <th>Company Name</th>
@@ -65,9 +65,9 @@ const PrealertUpdate = ({ id }) => {
               
               {role === "admin" ? (
                 <Row className="justify-content-center mt-5">
-                  <Col xs="10" xl="8">
+                  <Col xs="12" xl="8">
                     <Row>
-                      <Col xs="3" xl="3">
+                      <Col xs="12" xl="3" className="mb-1">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                           <Spin tip="Loading..." />
@@ -82,7 +82,7 @@ const PrealertUpdate = ({ id }) => {
                         )}
                         
                       </Col>
-                      <Col xs="3" xl="3">
+                      <Col xs="12" xl="3" className="mb-1">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                           <Spin tip="Loading..." />
@@ -94,7 +94,7 @@ const PrealertUpdate = ({ id }) => {
                           >Delivered to receiver</Button>
                         )}
                       </Col>
-                      <Col xs="3" xl="2">
+                      <Col xs="12" xl="2" className="mb-1">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                             <Spin tip="Loading..." />
@@ -109,7 +109,7 @@ const PrealertUpdate = ({ id }) => {
                         )}
                         
                       </Col>
-                      <Col xs="3" xl="2">
+                      <Col xs="12" className="mb-1" xl="2">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                             <Spin tip="Loading..." />
@@ -124,7 +124,7 @@ const PrealertUpdate = ({ id }) => {
                         )}
                         
                       </Col>
-                      <Col xs="3" xl="2">
+                      <Col xs="12" xl="2" className="mb-1">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                             <Spin tip="Loading..." />
@@ -134,6 +134,7 @@ const PrealertUpdate = ({ id }) => {
                         )}
                       </Col>
                     </Row>
+                    
                   </Col>
                 </Row>
               ) : null}

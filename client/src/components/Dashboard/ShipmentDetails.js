@@ -27,7 +27,7 @@ const ShipmentDetails = () => {
   return (
     <div>
       <Row className="justify-content-center">
-        <Col xs="11" xl="12">
+        <Col xs="12" xl="12">
           <Card style={{ minHeight: 450 }}>
             <h5 style={{
                   color: "#1890ff",
@@ -116,7 +116,7 @@ const ShipmentDetails = () => {
                 <Row className="justify-content-center mt-5">
                   <Col xs="10" xl="8">
                     <Row>
-                      <Col xs="3" xl="3">
+                      <Col xs="12" xl="3" className="mb-1">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                           <Spin tip="Loading..." />
@@ -131,7 +131,7 @@ const ShipmentDetails = () => {
                         )}
                         
                       </Col>
-                      <Col xs="3" xl="3">
+                      <Col xs="12" xl="3" className="mb-1">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                           <Spin tip="Loading..." />
@@ -143,7 +143,7 @@ const ShipmentDetails = () => {
                           >Delivered to receiver</Button>
                         )}
                       </Col>
-                      <Col xs="3" xl="2">
+                      <Col xs="12" xl="2" className="mb-1">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                             <Spin tip="Loading..." />
@@ -173,7 +173,7 @@ const ShipmentDetails = () => {
                         )}
                         
                       </Col> */}
-                      <Col xs="3" xl="2">
+                      <Col xs="12" xl="2" className="mb-1">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
                             <Spin tip="Loading..." />
