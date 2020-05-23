@@ -50,7 +50,7 @@ const PreAlertShipments = (props) => {
     <div>
       {view === true ? <PrealertUpdate id={id} /> : (
         <Row className="justify-content-center">
-        <Col xs="10" xl="12">
+        <Col xs="12" xl="12">
           <Card style={{ minHeight: 450 }}>
             <h5 style={{
               color: "#1890ff",
