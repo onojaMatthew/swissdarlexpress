@@ -65,7 +65,7 @@ const DelayedShipments = (props) => {
               </div>
             ) : (
               <>
-              <Table hover>
+              <Table responsive hover>
                 <thead>
                   <tr>
                     <th>S/N</th>
