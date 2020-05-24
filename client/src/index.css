@@ -196,6 +196,14 @@ section p {
   .color-badge {
     display: none;
   }
+  
+  .download {
+    display: block;
+  }
+}
+
+.download {
+  display: none;
 }
 
 .icon {

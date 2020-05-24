@@ -13,7 +13,6 @@ const NewShipmentList = (props) => {
   const dispatch = useDispatch();
   const [ pageOfItems, setPageOfItems ] = useState([]);
   const [ data, setData ] = useState([]);
-  const userRole = localAuth().user && localAuth().user.role;
 
   const error = (msg) => {
     message.error(msg);

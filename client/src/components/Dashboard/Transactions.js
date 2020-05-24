@@ -110,7 +110,7 @@ const Transactions = () => {
                 className={classnames({ active: activeTab === '3' })}
                 onClick={() => { toggle('3'); }}
               >
-                Current Transactions
+                Current Month Transactions
               </NavLink>
             </NavItem>
             <NavItem>

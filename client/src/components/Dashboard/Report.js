@@ -9,7 +9,7 @@ export const Report = () => {
   const reports = useSelector(state => state.report);
   const [ title, setTitle ] = useState("");
   const [ report, setReport ] = useState("");
-  const [ errors, setErrors ] = useState("");
+  const [ setErrors ] = useState("");
   const [ toggle, setToggle ] = useState(false);
   const dispatch = useDispatch();
 

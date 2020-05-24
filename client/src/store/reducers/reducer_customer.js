@@ -20,20 +20,20 @@ export const customer = (state=initialState, action) => {
     case DELETE_START:
       return {
         ...state,
-        loading: true
+        deleteLoading: true
       }
     case DELETE_SUCCESS:
       return {
         ...state,
-        loading: false,
-        success: true,
+        deleteLoading: false,
+        deleteSuccess: true,
         customer: action.data
       }
     case DELETE_FAILED:
       return {
         ...state,
-        loading: false,
-        success: false,
+        deleteLoading: false,
+        deleteSuccess: false,
         error: action.error
       }
     case GET_START:

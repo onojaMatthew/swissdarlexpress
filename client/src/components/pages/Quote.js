@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { PDFViewer } from "@react-pdf/renderer";
 import { 
   Col, 
   Row, 
@@ -19,6 +20,8 @@ import Ravepay from "./Ravepay";
 import { requestShipment } from "../../store/actions/action_shipment";
 import { getUnit } from "../../store/actions/action_units";
 import Footer from "./Footer";
+import PrintTemplate from "react-print";
+import DownloadButton from "./DownloadBtn";
 
 const { Step } = Steps;
 const Quote = () => {
@@ -78,10 +81,6 @@ const Quote = () => {
     if (shipment.createSuccess === true) {
       setErrorMsg("");
       onClearFields();
-      
-      setTimeout(() => {
-        window.location.href = "/request";
-      }, 120000);
     } else if (shipment.error && shipment.error.length > 0) {
       setErrorMsg(shipment.error);
     }
@@ -89,7 +88,7 @@ const Quote = () => {
 
   useEffect(() => {
     dispatch(getUnit());
-  }, [])
+  }, []);
 
   const increaseCount = () => {
     setCount(count + 1);
@@ -109,7 +108,6 @@ const Quote = () => {
     });
   }, [ unit ]);
 
-  console.log(newAmount, " this is the new ampunt", amount);
   useEffect(() => {
     setErrorMsg("");
   }, [
@@ -266,6 +264,7 @@ const Quote = () => {
     setDimension();
   }
 
+  const receiptData = shipment.shipments && shipment.shipments[0];
   return (
     <div className="quote">
       <Header />
@@ -281,221 +280,229 @@ const Quote = () => {
           </svg>
         </section>
       </div>
-      <Row className="justify-content-center mb-2">
-        <Col xs="11" xl="8">
-          <h3 className="text-center">REQUEST A QUOTE HERE</h3>
-          <p className="text-center mb-3">Enjoy affordable shipping rates on all your deliveries when you choose Swissdarl Express Logistics. We offer exceptional service at unbeatable prices. To request a quote, please fill out the form below and a team member will contact you. Please note that quotes requested after 5:00 p.m. GMT will be responded to the next business day. If you need immediate assistance please call +234-906-2011-107 (8:00 am - 5:00 pm) and we’ll be happy to help you.</p>
-          <p className="text-center">Our services cover the following states: Lagos, Port Harcourt, Abuja, Kano, Delta, Enugu and Jos </p>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Col xs="10" xl="9" className="steps">
-          <Steps current={count} size="small">
-            <Step title={count === 0 ? "In Progess" : "Finished"} description="Company Information" />
-            <Step title={count < 1 ? "Waiting" : count === 1 ? "In Progress" : "Finished"}  description="Pick-up and Delivery Information." />
-            <Step title={count < 2 ? "Waiting" : count === 2 ? "In Progress" : "Finished"} description="Package Information" />
-            <Step title={count < 3 ? "Waiting" : count === 3 ? "In Progress" : "Finished"} description="Quote Summary" />
-            <Step title={count < 4 ? "Waiting" : count === 4 ? "In Progress" : "Finished"} description="Payment Options" />
-          </Steps>
-        </Col>
-      </Row>
-      
-      <Row className="justify-content-center mt-4">
-        <Col xs="9" xl="8">
-          {count === 0 ? 
-            <CompanyInfo
-              companyName={companyName} 
-              setCompanyName={setCompanyName}
-              contactFName={contactFName}
-              setContactFName={setContactFName}
-              contactLName={contactLName}
-              setContactLName={setContactLName}
-              email={email}
-              setEmail={setEmail}
-              phone={phone}
-              setPhone={setPhone}
-              errors={errors}
-            /> : 
-            count === 1 ? 
-            <PickupInformation 
-              pickupAddress={pickupAddress}
-              pickupCity={pickupCity}
-              pickupState={pickupState}
-              destinationAddress={destinationAddress}
-              destinationCity={destinationCity}
-              destinationState={destinationState}
-              setPickupAddress={setPickupAddress}
-              setPickupCity={setPickupCity}
-              setPickupState={setPickupState}
-              setDestination={setDestination}
-              setDestinationCity={setDestinationCity}
-              setDestinationState={setDestinationState}
-              errors={errors}
-            /> : 
-            count === 2 ? 
-            <PackageInfo
-              packageInfo={packageInfo}
-              weight={weight}
-              dimension={dimension}
-              specialInstruction={specialInstruction}
-              numOfPieces={numOfPieces}
-              setPackageInfo={setPackageInfo}
-              setWeight={setWeight}
-              setUnit={setUnit}
-              units={units}
-              unit={unit}
-              setNumOfPieces={setNumOfPieces}
-              setDimension={setDimension}
-              setSpecialInstruction={setSpecialInstruction}
-              errors={errors}
-            /> : 
-            count === 3 ?
-            <RequestSummary
-              companyName={companyName}
-              contactFName={contactFName}
-              contactLName={contactLName}
-              email={email}
-              phone={phone}
-              pickupAddress={pickupAddress}
-              pickupCity={pickupCity}
-              pickupState={pickupState}
-              destinationAddress={destinationAddress}
-              destinationCity={destinationCity}
-              destinationState={destinationState}
-              packageInfo={packageInfo}
-              weight={weight}
-              dimension={dimension}
-              specialInstruction={specialInstruction}
-              numOfPieces={numOfPieces}
-            /> : cardOption === true ? (
-            <Row className="justify-content-center">
-              <Col xs="3" xl="3">
-                
+        {shipment.createSuccess === true ? (<DownloadButton data={receiptData} />) : (
+          <>
+            <Row className="justify-content-center mb-2">
+              <Col xs="11" xl="8">
+                <h3 className="text-center">REQUEST A QUOTE HERE</h3>
+                <p className="text-center mb-3">Enjoy affordable shipping rates on all your deliveries when you choose Swissdarl Express Logistics. We offer exceptional service at unbeatable prices. To request a quote, please fill out the form below and a team member will contact you. Please note that quotes requested after 5:00 p.m. GMT will be responded to the next business day. If you need immediate assistance please call +234-906-2011-107 (8:00 am - 5:00 pm) and we’ll be happy to help you.</p>
+                <p className="text-center">Our services cover the following states: Lagos, Port Harcourt, Abuja, Kano, Delta, Enugu and Jos </p>
               </Col>
             </Row>
-          ) : deliveryOption === true ? (
-            <>
-              <Row className="justify-content-center">
-                <Col xs="3" xl="3">
-                <Button 
-                  type="primary"
-                  onClick={() => handleSubmit()}
-                >Submit</Button>
-                </Col>
-              </Row>
-            </>
-          ) : (
             <Row className="justify-content-center">
-              <Col xs="10" xl="5">
-                {errorMsg.length ? <h4 style={{ color: "#ff0000"}}>{errorMsg}</h4> : null}
-                <h3>Select a Payment Option</h3>
-                <p>Your total shipping cost is: <span style={{ 
-                    color: "#ff0000",
-                    fontSize: "14px"
-                  }}>&#8358;{amount}</span></p>
+              <Col xs="10" xl="9" className="steps">
+                <Steps current={count} size="small">
+                  <Step title={count === 0 ? "In Progess" : "Finished"} description="Company Information" />
+                  <Step title={count < 1 ? "Waiting" : count === 1 ? "In Progress" : "Finished"}  description="Pick-up and Delivery Information." />
+                  <Step title={count < 2 ? "Waiting" : count === 2 ? "In Progress" : "Finished"} description="Package Information" />
+                  <Step title={count < 3 ? "Waiting" : count === 3 ? "In Progress" : "Finished"} description="Quote Summary" />
+                  <Step title={count < 4 ? "Waiting" : count === 4 ? "In Progress" : "Finished"} description="Payment Options" />
+                </Steps>
+              </Col>
+            </Row>
+            
+            <Row className="justify-content-center mt-4">
+              <Col xs="9" xl="8">
+                {count === 0 ? 
+                  <CompanyInfo
+                    companyName={companyName} 
+                    setCompanyName={setCompanyName}
+                    contactFName={contactFName}
+                    setContactFName={setContactFName}
+                    contactLName={contactLName}
+                    setContactLName={setContactLName}
+                    email={email}
+                    setEmail={setEmail}
+                    phone={phone}
+                    setPhone={setPhone}
+                    errors={errors}
+                  /> : 
+                  count === 1 ? 
+                  <PickupInformation 
+                    pickupAddress={pickupAddress}
+                    pickupCity={pickupCity}
+                    pickupState={pickupState}
+                    destinationAddress={destinationAddress}
+                    destinationCity={destinationCity}
+                    destinationState={destinationState}
+                    setPickupAddress={setPickupAddress}
+                    setPickupCity={setPickupCity}
+                    setPickupState={setPickupState}
+                    setDestination={setDestination}
+                    setDestinationCity={setDestinationCity}
+                    setDestinationState={setDestinationState}
+                    errors={errors}
+                  /> : 
+                  count === 2 ? 
+                  <PackageInfo
+                    packageInfo={packageInfo}
+                    weight={weight}
+                    dimension={dimension}
+                    specialInstruction={specialInstruction}
+                    numOfPieces={numOfPieces}
+                    setPackageInfo={setPackageInfo}
+                    setWeight={setWeight}
+                    setUnit={setUnit}
+                    units={units}
+                    unit={unit}
+                    setNumOfPieces={setNumOfPieces}
+                    setDimension={setDimension}
+                    setSpecialInstruction={setSpecialInstruction}
+                    errors={errors}
+                  /> : 
+                  count === 3 ?
+                  <RequestSummary
+                    companyName={companyName}
+                    contactFName={contactFName}
+                    contactLName={contactLName}
+                    email={email}
+                    phone={phone}
+                    pickupAddress={pickupAddress}
+                    pickupCity={pickupCity}
+                    pickupState={pickupState}
+                    destinationAddress={destinationAddress}
+                    destinationCity={destinationCity}
+                    destinationState={destinationState}
+                    packageInfo={packageInfo}
+                    weight={weight}
+                    dimension={dimension}
+                    specialInstruction={specialInstruction}
+                    numOfPieces={numOfPieces}
+                  /> : cardOption === true ? (
+                  <Row className="justify-content-center">
+                    <Col xs="3" xl="3">
+                      
+                    </Col>
+                  </Row>
+                ) : deliveryOption === true ? (
+                  <>
+                    <Row className="justify-content-center">
+                      <Col xs="3" xl="3">
+                      <Button 
+                        type="primary"
+                        onClick={() => handleSubmit()}
+                      >Submit</Button>
+                      </Col>
+                    </Row>
+                  </>
+                ) : (
+                  <Row className="justify-content-center">
+                    <Col xs="10" xl="5">
+                      {errorMsg.length ? <h4 style={{ color: "#ff0000"}}>{errorMsg}</h4> : null}
+                      <h3>Select a Payment Option</h3>
+                      <p>Your total shipping cost is: <span style={{ 
+                          color: "#ff0000",
+                          fontSize: "14px"
+                        }}>&#8358;{amount}</span></p>
+                      <Row>
+                        <Col xs="6" xl="6">
+                          <Button color="danger" onClick={toggle1}>Pay with card</Button>
+                          <Modal isOpen={modal1} toggle1={toggle1}>
+                            <ModalHeader toggle={closeModal1}>Modal title</ModalHeader>
+                            <ModalBody>
+                              {errorMsg.length ? <p style={{
+                                marginTop: 20,
+                                color: "#ff0000"
+                              }}>{errorMsg}</p> : shipment.createSuccess === true ? 
+                            ( 
+                              <PrintTemplate>
+                                <p style={{
+                                  marginTop: 20,
+                                  color: "#00ff00"
+                                }}>Request success!! Your shipping tracking number is: <span style={{
+                                  fontWeight: "bolder",
+                                  color: "#ff0000"
+                                }}>{shipment.shipments[0].trackingNumber}</span>. Please keep it safe. Thank you for choosing Swissdarl Frieght and Logistics Ltd.</p>
+                              </PrintTemplate>
+                              ) :
+                              <p style={{
+                                marginTop: 20
+                              }}>Your credit card will be charged <span style={{
+                                fontWeight: "bold",
+                                color: "#ff0000"
+                              }}>NGN{amount}</span> for shipping cost. To continue click CONTINUE else click CANCEL</p> }
+                              
+                            </ModalBody>
+                            <ModalFooter>
+                              <Ravepay 
+                                amount={amount} 
+                                disabled={errorMsg.length > 0}
+                                email={email} 
+                                name={companyName}
+                                handleSubmit={handleSubmit}
+                                phone={phone}
+                              />
+                              <Button color="secondary" onClick={closeModal1}>Cancel</Button>
+                            </ModalFooter>
+                          </Modal>
+                        </Col>
+                        <Col xs="6" xl="6">
+                          <Button color="danger" onClick={toggle}>Pay on Delivery</Button>
+                          <Modal isOpen={modal} toggle={toggle}>
+                            <ModalHeader toggle={closeModal}>Modal title</ModalHeader>
+                            <ModalBody>
+                            {errorMsg.length ? <p style={{
+                                marginTop: 20,
+                                color: "#ff0000"
+                              }}>{errorMsg}</p> : shipment.createSuccess === true ?  <p style={{
+                                marginTop: 20,
+                              }}>Request success!! Your shipping tracking number is: <span style={{
+                                fontWeight: "bolder",
+                                color: "#ff0000"
+                              }}>{shipment.shipments[0].trackingNumber}</span>. Please keep it safe. Thank you for choosing Swissdarl Frieght and Logistics Ltd.</p> : <p style={{
+                                marginTop: 20
+                              }}>You will be charged <span style={{ 
+                                color: "#ff0000",
+                                fontWeight: "bold"
+                              }}>NGN{amount}</span> at the point of delivery as shipping cost. Click CONTINUE to proceed or CANCEL to abort request.</p>}
+                              
+                            </ModalBody>
+                            <ModalFooter>
+                              {shipment.createLoading === true ? 
+                                <Spin tip="Processing..." /> : (
+                                <Button 
+                                  color="primary" 
+                                  disabled={errorMsg.length > 0}
+                                  onClick={() => handleSubmit(false)}>
+                                    Continue
+                                </Button>
+                                )
+                              }
+                              <Button color="secondary" onClick={closeModal}>Cancel</Button>
+                            </ModalFooter>
+                          </Modal>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                )}
+              </Col>
+            </Row>
+            <Row className="justify-content-center mb-5 mt-5">
+              <Col xs="9" xl="6">
                 <Row>
                   <Col xs="6" xl="6">
-                    <Button color="danger" onClick={toggle1}>Pay with card</Button>
-                    <Modal isOpen={modal1} toggle1={toggle1}>
-                      <ModalHeader toggle={closeModal1}>Modal title</ModalHeader>
-                      <ModalBody>
-                        {errorMsg.length ? <p style={{
-                          marginTop: 20,
-                          color: "#ff0000"
-                        }}>{errorMsg}</p> : shipment.createSuccess === true ? 
-                        <p style={{
-                          marginTop: 20,
-                          color: "#00ff00"
-                        }}>Request success!! Your shipping tracking number is: <span style={{
-                          fontWeight: "bolder",
-                          color: "#ff0000"
-                        }}>{shipment.shipments[0].trackingNumber}</span>. Please keep it safe. Thank you for choosing Swissdarl Frieght and Logistics Ltd.</p> :
-                        <p style={{
-                          marginTop: 20
-                        }}>Your credit card will be charged <span style={{
-                          fontWeight: "bold",
-                          color: "#ff0000"
-                        }}>NGN{amount}</span> for shipping cost. To continue click CONTINUE else click CANCEL</p> }
-                        
-                      </ModalBody>
-                      <ModalFooter>
-                        <Ravepay 
-                          amount={amount} 
-                          disabled={errorMsg.length > 0}
-                          email={email} 
-                          name={companyName}
-                          handleSubmit={handleSubmit}
-                          phone={phone}
-                        />
-                        <Button color="secondary" onClick={closeModal1}>Cancel</Button>
-                      </ModalFooter>
-                    </Modal>
+                    <Button 
+                      type="primary"
+                      disabled={count === 0}
+                      onClick={() => decreaseCount()}
+                    >Previous</Button>
                   </Col>
                   <Col xs="6" xl="6">
-                    <Button color="danger" onClick={toggle}>Pay on Delivery</Button>
-                    <Modal isOpen={modal} toggle={toggle}>
-                      <ModalHeader toggle={closeModal}>Modal title</ModalHeader>
-                      <ModalBody>
-                      {errorMsg.length ? <p style={{
-                          marginTop: 20,
-                          color: "#ff0000"
-                        }}>{errorMsg}</p> : shipment.createSuccess === true ?  <p style={{
-                          marginTop: 20,
-                        }}>Request success!! Your shipping tracking number is: <span style={{
-                          fontWeight: "bolder",
-                          color: "#ff0000"
-                        }}>{shipment.shipments[0].trackingNumber}</span>. Please keep it safe. Thank you for choosing Swissdarl Frieght and Logistics Ltd.</p> : <p style={{
-                          marginTop: 20
-                        }}>You will be charged <span style={{ 
-                          color: "#ff0000",
-                          fontWeight: "bold"
-                        }}>NGN{amount}</span> at the point of delivery as shipping cost. Click CONTINUE to proceed or CANCEL to abort request.</p>}
-                        
-                      </ModalBody>
-                      <ModalFooter>
-                        {shipment.createLoading === true ? 
-                          <Spin tip="Processing..." /> : (
-                          <Button 
-                            color="primary" 
-                            disabled={errorMsg.length > 0}
-                            onClick={() => handleSubmit(false)}>
-                              Continue
-                          </Button>
-                          )
-                        }
-                        <Button color="secondary" onClick={closeModal}>Cancel</Button>
-                      </ModalFooter>
-                    </Modal>
+                    <Button 
+                      type="primary"
+                      disabled={count === 4}
+                      onClick={() => increaseCount()}
+                      style={{
+                        float: "right"
+                      }}
+                    >Next</Button>
                   </Col>
                 </Row>
               </Col>
             </Row>
-          )}
-        </Col>
-      </Row>
-      <Row className="justify-content-center mb-5 mt-5">
-        <Col xs="9" xl="6">
-          <Row>
-            <Col xs="6" xl="6">
-              <Button 
-                type="primary"
-                disabled={count === 0}
-                onClick={() => decreaseCount()}
-              >Previous</Button>
-            </Col>
-            <Col xs="6" xl="6">
-              <Button 
-                type="primary"
-                disabled={count === 4}
-                onClick={() => increaseCount()}
-                style={{
-                  float: "right"
-                }}
-              >Next</Button>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+          </>
+        )}
       <Footer />
     </div>
   )

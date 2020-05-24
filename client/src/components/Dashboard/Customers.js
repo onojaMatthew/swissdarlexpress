@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCustomer, getCustomer } from "../../store/actions/action_customer";
-import { Table, Row, Col, Card, CardBody, Badge } from 'reactstrap';
+import { Table, Row, Col, Card } from 'reactstrap';
 import { Spin,  } from "antd";
 import Paginations from "../pages/Pagination";
 import { DeleteOutlined } from "@ant-design/icons";
@@ -28,11 +28,16 @@ const Customers = () => {
 
   const onDelete = (id) => {
     dispatch(deleteCustomer(id));
+    setTimeout(() => {
+      window.location.href = "/dashboard/customers"
+    }, 100)
   }
 
   useEffect(() => {
     if (customers.error) {
       setErrors(customers.error);
+    } else if (customers.deleteSuccess === true) {
+      setData(customers.customers)
     }
   }, [ customers ]);
 

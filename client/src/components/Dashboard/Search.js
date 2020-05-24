@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
 import { SearchOutlined } from "@ant-design/icons";
 

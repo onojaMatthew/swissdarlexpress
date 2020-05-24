@@ -16,7 +16,6 @@ import Settings from "./Settings";
 import Transactions from "./Transactions";
 import Customer from "./Customers";
 import {Report} from "./Report";
-import ReportList from "./ReportList";
 const { Content, Footer } = Layout;
 
 export default class Dashboard extends Component{

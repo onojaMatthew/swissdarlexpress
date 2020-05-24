@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Row, Table, Card, CardBody } from "reactstrap";
 import { Button, Spin } from "antd";
@@ -11,12 +11,11 @@ const PrealertUpdate = ({ id }) => {
   const role = localAuth().user && localAuth().user.role;
   useEffect(() => {
     dispatch(getShipment(id));
-  }, [ id ]);
+  }, [ id, dispatch ]);
   const handleStatus = (status) => {
     dispatch(changeStatus(status, id));
   }
 
-  console.log(id, "this is the id");
   return (
     <div>
       <Row className="justify-content-center">

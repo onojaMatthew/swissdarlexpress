@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Button, Spin } from "antd";
 import { Row, Col, Card,  CardBody } from "reactstrap";
@@ -14,10 +14,10 @@ const ChangePassword = () => {
   const [ password, setPassword ] = useState("");
   const [ confirmPassword, setConfirmPassword ] = useState("");
   const [ errors, setErrors ] = useState({});
-  const [ message, setMessage ] = useState("");
+  const [ message ] = useState("");
 
   const token = window.location.pathname.slice(17, 58);
-  console.log(token)
+
   const handlePasswordChange = (e) => {
     e.preventDefault();
     if (formValidation()) {
