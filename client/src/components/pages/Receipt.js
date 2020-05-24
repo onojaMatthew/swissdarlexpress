@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
   },
   salutation: {
     fontWeight: "extrabold",
+    paddingLeft: 20
+  },
+  paymentMsg: {
+    fontWeight: "extrabold",
     paddingTop: 30,
     paddingLeft: 20
   }
@@ -55,7 +59,7 @@ const Receipt = ({ data }) => {
           <Text style={styles.text}>Shipping Cost: NGN{data && data.amount}</Text>
           <Text style={styles.text}>Shipping tracking Number: {data && data.trackingNumber}</Text>
           <Text style={styles.text}>Instruction to our dispatch rider: {data && data.specialInstruction}</Text>
-          {data && data.paid === true ? null : <Text>You will be charged NGN{data.amount} at the point of delivery</Text>}
+          {data && data.paid === true ? null : <Text style={styles.paymentMsg}>You will be charged NGN{data.amount} at the point of delivery</Text>}
         </View>
         <View style={styles.salutation}>
           <Text>Thank your for choosing Swissdarl Freight and Logistics.</Text>

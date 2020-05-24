@@ -30,7 +30,7 @@ const DownloadButton = ({ data }) => {
         <Card>
           <CardBody>
             <h5 style={styles.h5}>Your shipping request has been received</h5>
-            <p>Use the download button at the top of the file when your mouse come across it to download your invoice. Ensure to keep it safe for reference purposes</p>
+            <p>Use the download button at the top of the pdf file below when your mouse come across it to download your invoice. Ensure to keep it safe for reference purposes.</p>
             <PDFViewer style={styles.viewer}>
               <Receipt data={data} />
             </PDFViewer>
