@@ -158,21 +158,7 @@ const ShipmentDetails = () => {
                         )}
                         
                       </Col>
-                      {/* <Col xs="3" xl="2">
-                        {shipment.statusLoading === true ? (
-                          <div className="text-center">
-                            <Spin tip="Loading..." />
-                          </div>
-                        ) : (
-                          <Button style={{
-                            background: "orange",
-                            color: "#fff"
-                          }}
-                          onClick={() => handleStatus("delayed")}
-                          >Delayed</Button>
-                        )}
-                        
-                      </Col> */}
+
                       <Col xs="12" xl="2" className="mb-1">
                         {shipment.statusLoading === true ? (
                           <div className="text-center">
