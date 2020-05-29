@@ -4,6 +4,7 @@ import { Card, CardBody, Row, Col, Input } from "reactstrap";
 import { Spin, Button, message } from "antd";
 import { sendReport } from "../../store/actions/action_report";
 import ReportList from "./ReportList";
+import { localAuth } from "../../helper/authentcate";
 
 export const Report = () => {
   const reports = useSelector(state => state.report);
@@ -45,6 +46,8 @@ export const Report = () => {
       error(reports.error);
     }
   }, [ dispatch, reports ]);
+
+  const userRole = localAuth().user && localAuth().user.role;
 
   return (
     <div>
@@ -97,7 +100,7 @@ export const Report = () => {
                       float: "right"
                     }}
                   >
-                    View Report List
+                    {userRole === "super_admin" ? "View Report List" : null}
                   </span>
                   </Col>
                   <Col sm="2">

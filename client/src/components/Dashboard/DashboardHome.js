@@ -42,15 +42,15 @@ const DashboardHome = (props) => {
     }
 
     for (let i = 0; i < currentMonthSale.length; i++) {
-        // monthSaleArr.push({amount: currentMonthSale[i].amount, name: "Current month sale"});
         monthSaleArr.push(currentMonthSale[i].amount);
     }
 
-    const amt = monthSaleArr.map(amount => amount.amount)
+    const amt = monthSaleArr.map(amount => amount.amount);
     const currentMonthAmt = monthSaleArr.reduce((a, b) => a + b, 0);
     const userEmail = localAuth().user && localAuth().user.email;
     const pendingPayment = pendingPaymentList.reduce((a, b) => a + b, 0);
     const delayPercent = (delayedShipments.length * 100) / allShipment.length;
+    const role = localAuth().user && localAuth().user.role;
     return (
         <div>
             <Card className="mb-3">
@@ -69,7 +69,7 @@ const DashboardHome = (props) => {
                                 }} />{userEmail && userEmail}</Col>
                                 <Col xs="6" xl="3"><UserOutlined style={{
                                     marginRight: "3px"
-                                }}/>{"General Manager"}</Col>
+                                }}/>{role === "super_admin" ? "General Manager": "System administrator"}</Col>
                             </Row>
                         </Col>
                     </Row>

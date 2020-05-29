@@ -51,6 +51,7 @@ const PackageInfo = ({
             <label htmlFor="weight">Weight</label><br/>
             <Input
               value={weight}
+              type="number"
               id="weight"
               placeholder="example 30"
               min={1}
@@ -81,7 +82,7 @@ const PackageInfo = ({
             <Input
               id="dim"
               type="text"
-              placeholder="Dimension"
+              placeholder="E.g Length, width, height"
               value={dimension}
               onChange={(e) => setDimension(e.target.value)}
             />
@@ -92,7 +93,7 @@ const PackageInfo = ({
         <div className="mb-3">
         <label htmlFor="special">Special Instruction</label>
         <Input 
-          placeholder="Special Instruction"
+          placeholder="e.g fragile"
           value={specialInstruction}
           id="special"
           onChange={(e) => setSpecialInstruction(e.target.value)}

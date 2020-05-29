@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   heading: {
     textAlign: "center",
     color: "#ff0000",
-    fontWeight: "bold",
+    fontWeight: "extrabold",
     marginTop: 30,
     marginBottom: "20px"
   },
@@ -40,7 +40,7 @@ const Receipt = ({ data }) => {
     <Document style={styles.document}>
       <Page size="A4" style={styles.page}>
         <View>
-          <Text style={styles.heading}>Swissdarl Freight and Logistics Shipping Receipt.</Text>
+          <Text style={styles.heading}>Swissdarl Freight and Logistics Shipping Invoice.</Text>
           <Text style={styles.text}>Date: {data && moment(data.createAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
           <Text style={styles.text}>Company name: {data && data.companyName}</Text>
           <Text style={styles.text}>Contact name: {data && data.contactFName} {data && data.contactLName} </Text>
@@ -55,8 +55,9 @@ const Receipt = ({ data }) => {
           <Text style={styles.text}>Package Information: {data && data.packageInfo}</Text>
           <Text style={styles.text}>No. of package: {data && data.numOfPieces}</Text>
           <Text style={styles.text}>Package weight: {data && data.weight}{data && data.unit}</Text>
-          <Text style={styles.text}>Dimension: {data && data.dimension}</Text>
+          <Text style={styles.text}>Dimension: {data && data.dimension ? data.dimension : "_______________"}</Text>
           <Text style={styles.text}>Shipping Cost: NGN{data && data.amount}</Text>
+          <Text style={styles.text}>Payment type: { data.paid === false ? "Pay on delivery" : "Instant payment"}</Text>
           <Text style={styles.text}>Shipping tracking Number: {data && data.trackingNumber}</Text>
           <Text style={styles.text}>Instruction to our dispatch rider: {data && data.specialInstruction}</Text>
           {data && data.paid === true ? null : <Text style={styles.paymentMsg}>You will be charged NGN{data.amount} at the point of delivery</Text>}

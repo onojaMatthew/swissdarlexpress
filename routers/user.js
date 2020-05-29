@@ -1,6 +1,5 @@
 const express = require("express");
 const requireLogin = require("../config/auth");
-const { userValidationRules } = require("../middlware/validator");
 const {
   createAccount,
   accountLogin,
@@ -16,7 +15,7 @@ const { upload } = require("../middlware/fileupload");
 
 const router = express.Router();
 
-router.post("/user", createAccount);
+router.post("/user/:accountType", createAccount);
 router.get("/users", requireLogin, getAllUsers);
 router.post("/login", accountLogin);
 router.get("/user/:userId", requireLogin, getUser);

@@ -62,7 +62,7 @@ const Signup = () => {
         phone
       }
 
-      dispatch(register(data));
+      dispatch(register(data, "user"));
     }
   }
 

@@ -96,10 +96,10 @@ export const registrationFailed = ( error ) => {
  * Action creator for agent registration
  * @param {data} data of the person registering
  */
-export const register = ( data ) => {
+export const register = ( data, accountType ) => {
   return dispatch => {
     dispatch( registrationStart() );
-    fetch( `/v1/user`, {
+    fetch( `/v1/user/${accountType}`, {
       method: "POST",
       headers: {
         ACCEPT: "application/json",

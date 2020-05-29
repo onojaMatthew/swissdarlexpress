@@ -4,6 +4,7 @@ const Resize = require("../middlware/Resize");
 
 exports.createAccount = (req, res) => {
   const { email, password, fullname, phone } = req.body;
+
   if (!email) return res.status(400).json({ error: "Email field is required" });
   if (!password) return res.status(400).json({ error: "Password field is required" });
   if (!phone) return res.status(400).json({ error: "Your phone number is required" });
@@ -15,11 +16,13 @@ exports.createAccount = (req, res) => {
       return bcrypt.hash(password, 12)
         .then(hashedPassword => {
           if (!hashedPassword) return res.status(400).json({ error: "Server error. Try again"});
+          const accountType = req.params.accountType;
           let newAccount = new User({
             email: req.body.email,
             password: hashedPassword,
             fullname: req.body.fullname,
             phone: req.body.phone,
+            role: accountType === "admin" ? "super_admin" : "admin"
           });
 
           newAccount.save();

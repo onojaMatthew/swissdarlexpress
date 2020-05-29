@@ -4,6 +4,7 @@ import { Card, CardBody, Col, Row, Input, Table } from "reactstrap";
 import { Spin, Button } from "antd";
 import { DeleteOutlined, EditOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { createUnit, getUnit, updateUnit, deleteUnit } from "../../store/actions/action_units";
+import { localAuth } from "../../helper/authentcate";
 
 const Settings = () => {
   const units = useSelector(state => state.units);
@@ -61,6 +62,8 @@ const Settings = () => {
     setEdit(false)
   }
 
+  const role = localAuth().user && localAuth().user.role;
+
   return (
     <div>
       <Row>
@@ -111,6 +114,7 @@ const Settings = () => {
                     style={{ width: "100%",
                     background: "#1890ff"
                     }}
+                    disabled={role !== "super_admin"}
                     onClick={(e) => onPost(e)}
                   >Send</Button>
                   )}
@@ -173,6 +177,7 @@ const Settings = () => {
                         style={{ width: "100%",
                         background: "#1890ff"
                         }}
+                        disabled={role !== "super_admin"}
                         onClick={(e) => handleUpdate(e)}
                       >Edit</Button>
                       )}
@@ -187,7 +192,7 @@ const Settings = () => {
                     <th>Unit</th>
                     <th>Amount</th>
                     <th>Edit</th>
-                    <th>Delete</th>
+                    {role === "super_admin" ? (<th>Delete</th>) : null}
                   </tr>
                 </thead>
                 <tbody>
@@ -200,9 +205,11 @@ const Settings = () => {
                           <EditOutlined onClick={() => toggleEdit(unit._id)} style={{ color: "#1890ff" }} />
                         )}
                       </td>
-                      <td>
-                        {units.deleteLoading === true ? <Spin tip="Processing..." /> : <DeleteOutlined onClick={() => handleDelete(unit._id)} style={{ color: "#ff0000", cursor: "pointer" }} />}
-                      </td>
+                      {role === "super_admin" ? (
+                        <td>
+                          {units.deleteLoading === true ? <Spin tip="Processing..." /> : <DeleteOutlined onClick={() => handleDelete(unit._id)} style={{ color: "#ff0000", cursor: "pointer" }} />}
+                        </td>
+                      ) : null}
                     </tr>
                   )): <p style={{ color: "#333"}}>No records</p>}
                 </tbody>

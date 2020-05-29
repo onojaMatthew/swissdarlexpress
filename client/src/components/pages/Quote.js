@@ -132,7 +132,7 @@ const Quote = () => {
 
   useEffect(() => {
     setAmount(shipmentTotal(numOfPieces, weight, newAmount));
-  }, [ dimension, count ]);
+  }, [ specialInstruction, count ]);
 
   const formValidation = () => {
     let formValid = true;
@@ -198,10 +198,6 @@ const Quote = () => {
       formValid = false;
       errors["weight"] = "The weight of the shipment in kg or tons is required";
       setErrorMsg("The weight of the shipment in kg or tons is required");
-    } else if (!dimension) {
-      formValid = false;
-      errors["dimension"] = "The shipment dimension is required";
-      setErrorMsg("The shipment dimension is required");
     } else if (!specialInstruction) {
       formValid = false;
       errors["specialInstruction"] = "Leave a special instruction for the shipment";
@@ -393,7 +389,7 @@ const Quote = () => {
                       <p>Your total shipping cost is: <span style={{ 
                           color: "#ff0000",
                           fontSize: "14px"
-                        }}>&#8358;{amount}</span></p>
+                        }}>&#8358;{amount.toFixed(2)}</span></p>
                       <Row>
                         <Col xs="6" xl="6">
                           <Button color="danger" onClick={toggle1}>Pay with card</Button>
@@ -505,7 +501,7 @@ const Quote = () => {
         )}
       <Footer />
     </div>
-  )
+  );
 }
 
 export default Quote;

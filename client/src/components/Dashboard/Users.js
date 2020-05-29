@@ -4,7 +4,7 @@ import { Card, CardBody, Col, Row, Table } from "reactstrap";
 import { getUsers, role, deleteUser } from "../../store/actions/action_user";
 import { Spin, message } from "antd";
 import { localAuth } from "../../helper/authentcate";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 
 const Users = () => {
   const users = useSelector(state => state.users);
@@ -42,6 +42,7 @@ const Users = () => {
   }
 
   const userList = users.users && users.users;
+
   return (
     <div style={{ position: "relative"}}>
       <Row className="justify-content-center">
@@ -63,9 +64,7 @@ const Users = () => {
                       <th>Name</th>
                       <th>Email</th>
                       <th>Phone</th>
-                      {!userRole === "admin" ? null: (
-                        <th>Action</th>
-                      )}
+                      {userRole === "super_admin" ? (<th>Action</th>): null}
                     </tr>
                   </thead>
                   <tbody>
@@ -74,7 +73,7 @@ const Users = () => {
                       <td style={{ fontSize: 10 }}>{user.fullname}</td>
                       <td style={{ fontSize: 10 }}>{user.email}</td>
                       <td style={{ fontSize: 10 }}>{user.phone}</td>
-                      {userRole !== "admin" ? null : (
+                      {userRole !== "super_admin" ? null : (
                         <td>
                           {users.deleteLoading === true ? <Spin /> : <DeleteOutlined onClick={() => onDelete(user._id)} style={{ marginLeft: 20, color: "#ff0000" }} title="Delete user" />}
                         </td>

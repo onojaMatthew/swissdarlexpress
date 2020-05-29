@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
 });
 
 const DownloadButton = ({ data }) => {
-  const [ show, setShow ] = useState(false);
-  useEffect(() => {
-    setShow(true);
-  }, []); 
+  // const [ show, setShow ] = useState(false);
+  // useEffect(() => {
+  //   setShow(true);
+  // }, []); 
 
   return (
     <Row className="justify-content-center">

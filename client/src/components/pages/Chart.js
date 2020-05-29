@@ -3,7 +3,7 @@ import {Line} from 'react-chartjs-2';
 
 const Chart = ({ monthSaleArr, color, label }) => {
   const data = {
-    labels: [ 1500, 2000, 2500, 3000 ],
+    labels: [ 0, 500, 1000, 1500, 2000, 2500, 3000 ],
     datasets: [
       {
         label: label,
@@ -30,14 +30,6 @@ const Chart = ({ monthSaleArr, color, label }) => {
       text: "Chart Title"
     },
     scales: {
-      // xAxes: [
-      //   {
-      //     ticks: {
-      //       suggestedMin: 0,
-      //       suggestedMax: 30
-      //     }
-      //   }
-      // ],
       yAxes: [
         {
           ticks: {

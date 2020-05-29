@@ -18,7 +18,7 @@ const quoteSchema = new Schema({
   packageInfo: { type: String, required: true },
   weight: { type: String, required: true },
   isView: { type: Boolean, default: false },
-  dimension: { type: String, required: true },
+  dimension: { type: String },
   specialInstruction: { type: String, required: true },
   status: { type: String, enum: ["pending", "refused", "delivered_to_driver", "delivered_to_receiver", "returned", "delayed" ], default: "pending" },
   numOfPieces: { type: String, required: true },

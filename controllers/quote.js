@@ -25,10 +25,6 @@ exports.create = (req, res, next) => {
     unit
   } = req.body;
 
-  // call the create api from the front-end then after saving to database, call the method
-  // that sends realtime message to the client and pass to it the returned values from the 
-  // database. Emit the message from the server while the client listen to the emit call
-  // from the server.
   let shipmentTrackingNumber;
   const randomNum = Math.floor(10000000 + Math.random() * 90000000);
   if (pickupState === "Lagos") {
@@ -46,7 +42,8 @@ exports.create = (req, res, next) => {
   } else if (pickupState === "Plateau") {
     shipmentTrackingNumber = "7" + randomNum + pickupState.slice(0,3).toUpperCase();
   } else {
-    return res.status(400).json({ error: `We don't have a branch in ${pickupState} state`});
+    shipmentTrackingNumber = randomNum + pickupState.slice(0,3).toUpperCase();
+    // return res.status(400).json({ error: `We don't have a branch in ${pickupState} state`});
   }
   
   let newQuote = new Quote({
@@ -177,7 +174,7 @@ exports.approve = (req, res) => {
   const { shipmentId, userId } = req.params;
   const { _id, role } = req.user;
   if (!_id || !role) return res.status(400).json({ error: "Unauthorized access. Please log in to continue" });
-  if (role !== "admin") return res.status(400).json({ error: "Only admin is authorized for this operation" });
+  if (role !== "super_admin") return res.status(400).json({ error: "Only admin is authorized for this operation" });
   if (!shipmentId || !userId) return res.status(400).json({ error: "Invalid parameter values" });
   if (userId !== _id) return res.status(400).json({ error: "Unknown user" });
   Quote.findByIdAndUpdate({ _id: shipmentId}, { $set: { approve: true }}, { new: true })
@@ -194,7 +191,7 @@ exports.changeStatus = (req, res) => {
   const { shipmentId, userId, status } = req.params;
   const { _id, role } = req.user;
   if (!_id || !role) return res.status(400).json({ error: "Unauthorized access. Please log in to continue" });
-  if (role !== "admin") return res.status(400).json({ error: "Only admin is authorized for this operation" });
+  if (role !== "super_admin") return res.status(400).json({ error: "Only admin is authorized for this operation" });
   if (!shipmentId || !userId, !status) return res.status(400).json({ error: "Invalid parameter values" });
   if (userId !== _id) return res.status(400).json({ error: "Unknown user" });
   Quote.findByIdAndUpdate({ _id: shipmentId}, { $set: { status, delivered: status === "delivered_to_receiver" ? true : false, paid: status === "delivered_to_receiver" ? true : false  }}, { new: true })

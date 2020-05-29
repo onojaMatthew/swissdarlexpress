@@ -9,6 +9,7 @@ import Auth from "./helper/Auth";
 import { Spin } from 'antd';
 import PasswordReset from './components/pages/Forms/PasswordReset';
 import ChangePassword from './components/pages/Forms/ChangePassword';
+import AdminAccount from './components/Dashboard/AdminAccount';
 
 const styles = {
   ntf: {
@@ -57,6 +58,7 @@ class App extends Component{
           <Route path="/request" render={(props) => <Quote {...props} />} />
           <Route path="/accounts" render={(props) => <Signup {...props} />} />
           <Route path="/accountl" render={(props) => <SignIn {...props} />} />
+          <Route path="/admin_account" render={(props) => <AdminAccount {...props} />} />
           <Route path="/reset_password" render={(props) => <PasswordReset {...props} />} />
           <Route path="/change_password/:token" render={(props) => <ChangePassword {...props} />} />
           {Auth.isUserAuthenticated() ? (

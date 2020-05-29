@@ -112,7 +112,7 @@ const ShipmentDetails = () => {
                 </Row>
                 </>
               )}
-              {role === "admin" && shipmentDetails.status !== "delivered_to_receiver" ? (
+              {role === "super_admin" && shipmentDetails.status !== "delivered_to_receiver" ? (
                 <Row className="justify-content-center mt-5">
                   <Col xs="10" xl="8">
                     <Row>

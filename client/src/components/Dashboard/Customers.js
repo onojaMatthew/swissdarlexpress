@@ -5,6 +5,7 @@ import { Table, Row, Col, Card } from 'reactstrap';
 import { Spin,  } from "antd";
 import Paginations from "../pages/Pagination";
 import { DeleteOutlined } from "@ant-design/icons";
+import { localAuth } from "../../helper/authentcate";
 
 
 const Customers = () => {
@@ -42,7 +43,7 @@ const Customers = () => {
   }, [ customers ]);
 
   const dataSource = customers.customers && customers.customers;
-  
+  const role = localAuth().user && localAuth().user.role;
   return (
     <div>
       <Row className="justify-content-center">
@@ -74,7 +75,7 @@ const Customers = () => {
                     <th style={{ fontSize: 12 }}>Last name</th>
                     <th style={{ fontSize: 12 }}>Email</th>
                     <th style={{ fontSize: 12 }}>Phone</th>
-                    <th style={{ fontSize: 12 }}>Action</th>
+                    {role === "super_admin" ? (<th style={{ fontSize: 12 }}>Action</th>) : null}
                   </tr>
                 </thead>
                 <tbody>
@@ -86,13 +87,16 @@ const Customers = () => {
                       <td style={{ fontSize: 12 }}>{data.lastName}</td>
                       <td style={{ fontSize: 12 }}>{data.email}</td>
                       <td style={{ fontSize: 12 }}>{data.phone}</td>
-                      <td style={{ fontSize: 12 }}>
-                        {customers.loading === true ? (
-                          <Spin tip="Processing..." />
-                        ) : (
-                          <DeleteOutlined size="large" style={{ color: "red"}} onClick={() => onDelete(data._id)}/>
-                        )}
-                      </td>
+                      {role === "super_admin" ? (
+                        <td style={{ fontSize: 12 }}>
+                         {customers.loading === true ? (
+                           <Spin tip="Processing..." />
+                         ) : (
+                           <DeleteOutlined size="large" style={{ color: "red"}} onClick={() => onDelete(data._id)}/>
+                         )}
+                        </td>
+                      ) : null}
+                     
                     </tr>
                   )) : <p className="text-center" style={{ color: "#333" }}>No records found</p>}
                 </tbody>

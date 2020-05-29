@@ -62,7 +62,7 @@ const PrealertUpdate = ({ id }) => {
                 </tbody>
               </Table>
               
-              {role === "admin" ? (
+              {role === "super_admin" ? (
                 <Row className="justify-content-center mt-5">
                   <Col xs="12" xl="8">
                     <Row>
@@ -133,7 +133,6 @@ const PrealertUpdate = ({ id }) => {
                         )}
                       </Col>
                     </Row>
-                    
                   </Col>
                 </Row>
               ) : null}
