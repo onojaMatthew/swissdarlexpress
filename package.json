@@ -31,7 +31,7 @@
     "nodemon": "^2.0.3",
     "sendgrid": "^5.2.3",
     "sharp": "^0.25.2",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "uuid": "^7.0.3",
     "winston": "^2.4.0",
     "winston-mongodb": "^3.0.0"
