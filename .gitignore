@@ -1,4 +1,5 @@
 /node_modules
 
-.env
+# .env
 .mongo.env
+yarn.lock

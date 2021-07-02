@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const { User } = require("../models/user");
 const Resize = require("../middlware/Resize");
 
-exports.createAccount = (req, res) => {
+exports.createAccount = async (req, res) => {
   const { email, password, fullname, phone } = req.body;
 
   if (!email) return res.status(400).json({ error: "Email field is required" });
@@ -10,8 +10,17 @@ exports.createAccount = (req, res) => {
   if (!phone) return res.status(400).json({ error: "Your phone number is required" });
   if (!fullname) return res.status(400).json({ error: "Your full name is required" });
 
+  // try {
+  //   const isUser = await User.findOne({ email: req.body.email })
+  //   if (isUser) return res.status(400).json({ error: "User already exist"})
+
+
+  // } catch (error) {
+    
+  // }
   User.findOne({ email })
     .then(user => {
+      console.log(user, " this is the user")
       if (user) return res.status(400).json({ error: "User already exists"});
       return bcrypt.hash(password, 12)
         .then(hashedPassword => {

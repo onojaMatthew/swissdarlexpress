@@ -5,9 +5,9 @@ require( "dotenv" );
 let db_url;
 const env = process.env.NODE_ENV || 'development';
 if ( env === "development" ) {
-  db_url = process.env.DBURL;
+  db_url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_USER}?retryWrites=true&w=majority`;
 } else {
-  db_url = process.env.PROD_DB;
+  db_url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_USER}?retryWrites=true&w=majority`;
 }
 
 module.exports = function () {
