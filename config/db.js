@@ -11,7 +11,7 @@ if ( env === "development" ) {
 }
 
 module.exports = () => {
-  mongoose.Promise = global.Promise;
+  mongoose.Promise = global.Promise
   mongoose.connect( db_url, {
     useNewUrlParser: true,
     useCreateIndex: true,
