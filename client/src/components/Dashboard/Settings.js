@@ -78,7 +78,7 @@ const Settings = () => {
               <Row>
                 <Col xs="12" xl="6">
                   <div className="mb-3">
-                    <label htmlFor="unit">Password</label>
+                    <label htmlFor="unit">Unit</label>
                     <Input 
                       placeholder="Unit"
                       type="text"
