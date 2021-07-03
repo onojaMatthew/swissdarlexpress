@@ -58,13 +58,13 @@ class App extends Component{
           <Route path="/request" render={(props) => <Quote {...props} />} />
           <Route path="/accounts" render={(props) => <Signup {...props} />} />
           <Route path="/accountl" render={(props) => <SignIn {...props} />} />
-          
+          <Route path="/admin_account" render={(props) => <AdminAccount {...props} />} />
           <Route path="/reset_password" render={(props) => <PasswordReset {...props} />} />
           <Route path="/change_password/:token" render={(props) => <ChangePassword {...props} />} />
           {Auth.isUserAuthenticated() ? (
             <>
               <Route path="/dashboard" render={(props) => <Dashboard {...props} />} />
-              <Route path="/admin_account" render={(props) => <AdminAccount {...props} />} />
+              
             </>
           ) : <Redirect to="/accountl" />}
           <Route path="/*" render={() => <div style={styles.ntf}>404 Page Not Found!!</div>} />
