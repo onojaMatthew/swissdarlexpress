@@ -1,5 +1,7 @@
-const nodemailer = require('nodemailer');
-var sgTransport = require('nodemailer-sendgrid-transport');
+// const nodemailer = require('nodemailer');
+// var sgTransport = require('nodemailer-sendgrid-transport');
+const sgMail = require('@sendgrid/mail');
+
 require("dotenv").config();
 
 function doc(quote) {
@@ -85,32 +87,55 @@ function doc(quote) {
 `;
 }
 
-function sendEmail(data, quote="") {
-  var options = {
-    auth: {
-      api_user: process.env.EMAIL_USER,
-      api_key: process.env.EMAIL_PASS
-    }
-  }
+// function sendEmail(data, quote="") {
+//   var options = {
+//     auth: {
+//       api_user: process.env.EMAIL_USER,
+//       api_key: process.env.EMAIL_PASS
+//     }
+//   }
   
-  var client = nodemailer.createTransport(sgTransport(options));
+//   var client = nodemailer.createTransport(sgTransport(options));
   
-  var email = {
-    from: `Swissdarl Freight and Logistics Ltd @ ${data.sender}`,
+//   var email = {
+//     from: `Swissdarl Freight and Logistics Ltd @ ${data.sender}`,
+//     to: data.receiver,
+//     subject: 'New Shipping Quote',
+//     text: 'Hello world',
+//     html: quote ? doc(quote) : data.message
+//   };
+  
+//   client.sendMail(email, function(err, info){
+//       if (err ){
+//         console.log(err);
+//       }
+//       else {
+//         console.log('Message sent: ' + info);
+//       }
+//   });
+// }
+
+exports.sendEmail = (data, quote="") => {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+  var msg = {
+    from: `${data.sender}`,
     to: data.receiver,
-    subject: 'New Shipping Quote',
+    subject: quote ? 'New Shipping Quote' : "Password Reset Request",
     text: 'Hello world',
     html: quote ? doc(quote) : data.message
   };
   
-  client.sendMail(email, function(err, info){
-      if (err ){
-        console.log(err);
+  //ES6
+  sgMail
+    .send(msg)
+    .then(() => { 
+      console.log({ message: "Email sent" });
+    })
+    .catch( error => {
+      console.error(error);
+      if (error.response) {
+        console.error(error.response.body)
       }
-      else {
-        console.log('Message sent: ' + info);
-      }
-  });
+    });
 }
-
-exports.sendEmail = sendEmail;

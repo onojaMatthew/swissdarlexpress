@@ -130,6 +130,8 @@ const Quote = () => {
     deliveryOption
   ]);
 
+  console.log(mainUnit, amount)
+
   useEffect(() => {
     setAmount(shipmentTotal(numOfPieces, weight, newAmount));
   }, [ specialInstruction, count ]);
